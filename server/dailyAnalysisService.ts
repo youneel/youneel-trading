@@ -49,7 +49,9 @@ interface StoreData {
   jobLogs: SchedulerJobLog[];
 }
 
-const DATA_DIR = path.resolve(process.cwd(), 'data');
+const IS_SERVERLESS = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NETLIFY);
+const BUNDLED_STORE_PATH = path.resolve(process.cwd(), 'data', 'daily_analyses.json');
+const DATA_DIR = IS_SERVERLESS ? '/tmp/youneel-data' : path.resolve(process.cwd(), 'data');
 const STORE_PATH = path.join(DATA_DIR, 'daily_analyses.json');
 
 const inFlightSnapshots = new Map<string, Promise<DailyAnalysisSnapshot>>();
@@ -61,8 +63,13 @@ function loadStore(): StoreData {
     if (!fs.existsSync(DATA_DIR)) {
       fs.mkdirSync(DATA_DIR, { recursive: true });
     }
-    if (fs.existsSync(STORE_PATH)) {
-      const raw = fs.readFileSync(STORE_PATH, 'utf8');
+    const readPath = fs.existsSync(STORE_PATH)
+      ? STORE_PATH
+      : IS_SERVERLESS && fs.existsSync(BUNDLED_STORE_PATH)
+      ? BUNDLED_STORE_PATH
+      : null;
+    if (readPath) {
+      const raw = fs.readFileSync(readPath, 'utf8');
       const parsed = JSON.parse(raw);
       return {
         snapshots: parsed.snapshots || {},

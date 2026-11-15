@@ -3109,6 +3109,48 @@ app.post('/api/owner/fundamental/sync', async (req: Request, res: Response) => {
 });
 
 // ============================================================================
+// SERVERLESS / VERCEL CRON SYNC ENDPOINT
+// ============================================================================
+app.get('/api/cron/sync', async (req: Request, res: Response) => {
+  const cronSecret = process.env.CRON_SECRET?.trim();
+  const authHeader = String(req.headers.authorization || '');
+  const isCronHeader = Boolean(req.headers['x-vercel-cron']);
+
+  if (cronSecret) {
+    if (authHeader !== `Bearer ${cronSecret}`) {
+      res.status(401).json({ error: 'Unauthorized cron invocation' });
+      return;
+    }
+  } else if (!isCronHeader) {
+    const owner = await requireVerifiedOwner(req, res);
+    if (!owner) return;
+  }
+
+  const results: Record<string, any> = { executedAt: new Date().toISOString() };
+
+  try {
+    results.fundamental = await syncFundamentalEvents(false);
+  } catch (err: any) {
+    results.fundamentalError = err?.message || 'Fundamental sync failed';
+  }
+
+  try {
+    results.competitions = await runDiscoverySync({ trigger: 'scheduled' });
+  } catch (err: any) {
+    results.competitionsError = err?.message || 'Competition sync failed';
+  }
+
+  try {
+    await Promise.allSettled(SUPPORTED_SYMBOLS.slice(0, 4).map((sym) => ensureDailySnapshot(sym)));
+    results.dailySnapshotsWarmed = true;
+  } catch (err: any) {
+    results.dailyError = err?.message || 'Daily snapshot warmup failed';
+  }
+
+  res.json({ ok: true, ...results });
+});
+
+// ============================================================================
 // VITE / STATIC SPA ENTRYPOINT
 // ============================================================================
 async function startServer() {
@@ -3199,6 +3241,16 @@ async function startServer() {
   });
 }
 
-startServer().catch((err) => {
-  console.error('Server failed to start:', err);
-});
+const isServerlessRuntime = Boolean(
+  process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NETLIFY
+);
+
+if (!isServerlessRuntime) {
+  startServer().catch((err) => {
+    console.error('Server failed to start:', err);
+  });
+}
+
+export { app };
+export default app;
+
