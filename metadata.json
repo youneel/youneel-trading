@@ -1,0 +1,6 @@
+{
+  "name": "YOUNEEL TRADING",
+  "description": "Professional institutional-grade trading platform, real-time multi-asset technical analysis, MT5-style trade journal with live P&L, economic news intelligence, and broker integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
