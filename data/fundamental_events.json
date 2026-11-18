@@ -277,7 +277,7 @@
       },
       "afterRelease": {
         "stage": "AFTER_RELEASE",
-        "generatedAt": "2026-11-15T09:00:58.673Z",
+        "generatedAt": "2026-11-18T23:10:23.603Z",
         "headlineAssessment": "Core CPI (+0.3% MoM, N/A% YoY) signals persistent underlying inflation pressure.",
         "policyImplication": "Supports higher-for-longer Federal Funds rate expectations and dampens near-term rate-cut pricing.",
         "signalClassification": "HAWKISH",
@@ -319,8 +319,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 3884.26,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 60% alignment)."
+              "referencePrice": 3726.47,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 88% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -348,9 +348,9 @@
             ],
             "technicalAlignment": {
               "status": "ALIGNED",
-              "technicalBias": "Bearish",
-              "referencePrice": 27943.74,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Bearish at 36% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 27116.26,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 63% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -379,8 +379,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 63945.14,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 79% alignment)."
+              "referencePrice": 62485.97,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 78% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -409,8 +409,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.1028,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 97% alignment)."
+              "referencePrice": 1.0978,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 89% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -439,8 +439,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.3212,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 71% alignment)."
+              "referencePrice": 1.3151,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 69% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -468,9 +468,9 @@
             ],
             "technicalAlignment": {
               "status": "ALIGNED",
-              "technicalBias": "Strong Bullish",
-              "referencePrice": 159.686,
-              "note": "Fundamental macro lean (BULLISH) aligns with daily technical structure (Strong Bullish at 68% alignment)."
+              "technicalBias": "Bullish",
+              "referencePrice": 159.271,
+              "note": "Fundamental macro lean (BULLISH) aligns with daily technical structure (Bullish at 44% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -497,10 +497,10 @@
               "Growth slowdown outweighing rate-cut relief"
             ],
             "technicalAlignment": {
-              "status": "CONFLICT",
-              "technicalBias": "Bullish",
-              "referencePrice": 52347.55,
-              "note": "SIGNAL CONFLICT: Fundamental macro lean (BEARISH) opposes daily technical structure (Bullish). Wait for technical structure confirmation rather than forcing a trade."
+              "status": "ALIGNED",
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 50198.17,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 65% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -526,10 +526,10 @@
               "EIA crude inventory draw/build or geopolitical supply disruption dominating macro print"
             ],
             "technicalAlignment": {
-              "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Neutral",
-              "referencePrice": 88.56,
-              "note": "Fundamental assessment is BEARISH while daily technical structure is Neutral (6% alignment)."
+              "status": "ALIGNED",
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 81.89,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 65% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -571,7 +571,7 @@
           "summary": "In October 2026, headline CPI (BLS series CUSR0000SA0) rose 0.35% MoM, while core CPI ex-food and energy (BLS series CUSR0000SA0L1E) increased 0.3% MoM. Both monthly figures matched the prior reference comparison of +0.35% MoM for headline and +0.3% MoM for core. Year-over-year readings for October 2026 headline and core CPI are N/A%, relative to the prior reference headline rate of 4.08% YoY."
         }
       },
-      "lastSyncedAt": "2026-11-15T09:00:58.673Z"
+      "lastSyncedAt": "2026-11-18T23:10:23.603Z"
     },
     "CPI_2026-11": {
       "id": "CPI_2026-11",
@@ -840,7 +840,7 @@
         }
       },
       "afterRelease": null,
-      "lastSyncedAt": "2026-11-15T09:00:58.916Z"
+      "lastSyncedAt": "2026-11-18T23:10:23.877Z"
     },
     "CPI_2026-12": {
       "id": "CPI_2026-12",
@@ -1109,7 +1109,7 @@
         }
       },
       "afterRelease": null,
-      "lastSyncedAt": "2026-11-15T09:00:59.009Z"
+      "lastSyncedAt": "2026-11-18T23:10:24.073Z"
     },
     "PPI_2026-10": {
       "id": "PPI_2026-10",
@@ -1380,7 +1380,7 @@
       },
       "afterRelease": {
         "stage": "AFTER_RELEASE",
-        "generatedAt": "2026-11-15T09:01:05.981Z",
+        "generatedAt": "2026-11-18T23:10:24.293Z",
         "headlineAssessment": "Producer price pipeline firming (Core PPI +0.49% MoM) suggests sticky upstream cost pressures.",
         "policyImplication": "Modest hawkish lean; however PPI pass-through to consumer CPI depends on retail margins and PCE-linked healthcare/airfare weights (same-month Core CPI: 0.3% MoM).",
         "signalClassification": "HAWKISH",
@@ -1418,8 +1418,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 3884.26,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 60% alignment)."
+              "referencePrice": 3726.47,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 88% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -1447,9 +1447,9 @@
             ],
             "technicalAlignment": {
               "status": "ALIGNED",
-              "technicalBias": "Bearish",
-              "referencePrice": 27943.74,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Bearish at 36% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 27116.26,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 63% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -1478,8 +1478,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 63945.14,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 79% alignment)."
+              "referencePrice": 62485.97,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 78% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -1508,8 +1508,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.1028,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 97% alignment)."
+              "referencePrice": 1.0978,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 89% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -1538,8 +1538,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.3212,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 71% alignment)."
+              "referencePrice": 1.3151,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 69% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -1567,9 +1567,9 @@
             ],
             "technicalAlignment": {
               "status": "ALIGNED",
-              "technicalBias": "Strong Bullish",
-              "referencePrice": 159.686,
-              "note": "Fundamental macro lean (BULLISH) aligns with daily technical structure (Strong Bullish at 68% alignment)."
+              "technicalBias": "Bullish",
+              "referencePrice": 159.271,
+              "note": "Fundamental macro lean (BULLISH) aligns with daily technical structure (Bullish at 44% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -1596,10 +1596,10 @@
               "Growth slowdown outweighing rate-cut relief"
             ],
             "technicalAlignment": {
-              "status": "CONFLICT",
-              "technicalBias": "Bullish",
-              "referencePrice": 52347.55,
-              "note": "SIGNAL CONFLICT: Fundamental macro lean (BEARISH) opposes daily technical structure (Bullish). Wait for technical structure confirmation rather than forcing a trade."
+              "status": "ALIGNED",
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 50198.17,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 65% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -1625,10 +1625,10 @@
               "EIA crude inventory draw/build or geopolitical supply disruption dominating macro print"
             ],
             "technicalAlignment": {
-              "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Neutral",
-              "referencePrice": 88.56,
-              "note": "Fundamental assessment is BEARISH while daily technical structure is Neutral (6% alignment)."
+              "status": "ALIGNED",
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 81.89,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 65% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -1670,7 +1670,7 @@
           "summary": "Headline Final Demand PPI for October 2026 increased 0.35% MoM and 6.52% YoY (BLS WPSFD4). Core Final Demand PPI rose 0.49% MoM and 4.86% YoY (BLS WPSFD49116), posting a higher monthly gain than the headline figure while remaining lower on an annual basis. Analytical interpretation remains bounded by the fact that producer prices do not pass through 1-for-1 to CPI, as margins and volatile energy/food swings frequently create divergence."
         }
       },
-      "lastSyncedAt": "2026-11-15T09:01:05.981Z"
+      "lastSyncedAt": "2026-11-18T23:10:24.293Z"
     },
     "PPI_2026-11": {
       "id": "PPI_2026-11",
@@ -1931,7 +1931,7 @@
         }
       },
       "afterRelease": null,
-      "lastSyncedAt": "2026-11-15T09:01:06.236Z"
+      "lastSyncedAt": "2026-11-18T23:10:24.577Z"
     },
     "PPI_2026-12": {
       "id": "PPI_2026-12",
@@ -2192,7 +2192,7 @@
         }
       },
       "afterRelease": null,
-      "lastSyncedAt": "2026-11-15T09:01:06.362Z"
+      "lastSyncedAt": "2026-11-18T23:10:24.733Z"
     },
     "NFP_2026-10": {
       "id": "NFP_2026-10",
@@ -2467,7 +2467,7 @@
       },
       "afterRelease": {
         "stage": "AFTER_RELEASE",
-        "generatedAt": "2026-11-15T09:01:11.987Z",
+        "generatedAt": "2026-11-18T23:10:24.889Z",
         "headlineAssessment": "Tight labor market across headline payrolls (+165K), low unemployment (4.1%), and firm hourly earnings (0.37% MoM).",
         "policyImplication": "Reduces urgency for Fed rate cuts because robust job creation paired with firm wage inflation can sustain services inflation.",
         "signalClassification": "HAWKISH",
@@ -2507,16 +2507,16 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 3884.26,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 60% alignment)."
+              "referencePrice": 3726.47,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 88% alignment)."
             },
             "postReleaseReaction": {
-              "available": true,
-              "referencePriceBefore": 4045.66,
-              "observedPriceAfter": 4055.02,
-              "pctMove": 0.231,
-              "directionConfirmed": "CONTRADICTED",
-              "timestamp": "2026-11-06T15:00:00.000Z"
+              "available": false,
+              "referencePriceBefore": null,
+              "observedPriceAfter": null,
+              "pctMove": null,
+              "directionConfirmed": "UNAVAILABLE",
+              "timestamp": null
             }
           },
           "NASDAQ": {
@@ -2536,9 +2536,9 @@
             ],
             "technicalAlignment": {
               "status": "ALIGNED",
-              "technicalBias": "Bearish",
-              "referencePrice": 27943.74,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Bearish at 36% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 27116.26,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 63% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -2567,16 +2567,16 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 63945.14,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 79% alignment)."
+              "referencePrice": 62485.97,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 78% alignment)."
             },
             "postReleaseReaction": {
-              "available": true,
-              "referencePriceBefore": 75798.2,
-              "observedPriceAfter": 75753.56,
-              "pctMove": -0.059,
-              "directionConfirmed": "CONFIRMED",
-              "timestamp": "2026-11-06T15:00:00.000Z"
+              "available": false,
+              "referencePriceBefore": null,
+              "observedPriceAfter": null,
+              "pctMove": null,
+              "directionConfirmed": "UNAVAILABLE",
+              "timestamp": null
             }
           },
           "EURUSD": {
@@ -2597,8 +2597,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.1028,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 97% alignment)."
+              "referencePrice": 1.0978,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 89% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -2627,8 +2627,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.3212,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 71% alignment)."
+              "referencePrice": 1.3151,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 69% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -2656,9 +2656,9 @@
             ],
             "technicalAlignment": {
               "status": "ALIGNED",
-              "technicalBias": "Strong Bullish",
-              "referencePrice": 159.686,
-              "note": "Fundamental macro lean (BULLISH) aligns with daily technical structure (Strong Bullish at 68% alignment)."
+              "technicalBias": "Bullish",
+              "referencePrice": 159.271,
+              "note": "Fundamental macro lean (BULLISH) aligns with daily technical structure (Bullish at 44% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -2686,9 +2686,9 @@
             ],
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Bullish",
-              "referencePrice": 52347.55,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Bullish (30% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 50198.17,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (65% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -2715,9 +2715,9 @@
             ],
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Neutral",
-              "referencePrice": 88.56,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Neutral (6% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 81.89,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (65% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -2759,7 +2759,7 @@
           "summary": "Nonfarm payrolls increased by 165K in October 2026 per BLS CES0000000001 data. The unemployment rate declined to 4.1% from the prior 4.2%, alongside a participation rate of 61.9%. Average hourly earnings stood at $38.00, up 0.37% month-over-month and 3.12% year-over-year, with weekly hours at 34.4h."
         }
       },
-      "lastSyncedAt": "2026-11-15T09:01:11.987Z"
+      "lastSyncedAt": "2026-11-18T23:10:24.889Z"
     },
     "NFP_2026-11": {
       "id": "NFP_2026-11",
@@ -3012,7 +3012,7 @@
         }
       },
       "afterRelease": null,
-      "lastSyncedAt": "2026-11-15T09:01:12.234Z"
+      "lastSyncedAt": "2026-11-18T23:10:25.169Z"
     },
     "NFP_2026-12": {
       "id": "NFP_2026-12",
@@ -3265,7 +3265,7 @@
         }
       },
       "afterRelease": null,
-      "lastSyncedAt": "2026-11-15T09:01:12.396Z"
+      "lastSyncedAt": "2026-11-18T23:10:25.368Z"
     },
     "FOMC_2026-07-29": {
       "id": "FOMC_2026-07-29",
@@ -3522,7 +3522,7 @@
       },
       "afterRelease": {
         "stage": "AFTER_RELEASE",
-        "generatedAt": "2026-11-15T09:01:19.465Z",
+        "generatedAt": "2026-11-18T23:10:25.507Z",
         "headlineAssessment": "FOMC set target range at 3.50%–3.75% (unchanged) with NEUTRAL communication balance.",
         "policyImplication": "Review official FOMC statement & Chair Powell press conference transcript via the Federal Reserve source links.",
         "signalClassification": "NEUTRAL",
@@ -3555,8 +3555,8 @@
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 3884.26,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (60% alignment)."
+              "referencePrice": 3726.47,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (88% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -3582,9 +3582,9 @@
             ],
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Bearish",
-              "referencePrice": 27943.74,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Bearish (36% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 27116.26,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (63% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -3611,8 +3611,8 @@
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 63945.14,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (79% alignment)."
+              "referencePrice": 62485.97,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (78% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -3639,8 +3639,8 @@
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.1028,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (97% alignment)."
+              "referencePrice": 1.0978,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (89% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -3667,8 +3667,8 @@
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.3212,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (71% alignment)."
+              "referencePrice": 1.3151,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (69% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -3694,9 +3694,9 @@
             ],
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Strong Bullish",
-              "referencePrice": 159.686,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bullish (68% alignment)."
+              "technicalBias": "Bullish",
+              "referencePrice": 159.271,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Bullish (44% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -3722,9 +3722,9 @@
             ],
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Bullish",
-              "referencePrice": 52347.55,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Bullish (30% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 50198.17,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (65% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -3750,9 +3750,9 @@
             ],
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Neutral",
-              "referencePrice": 88.56,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Neutral (6% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 81.89,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (65% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -3798,7 +3798,7 @@
           "summary": "Following the July 2026 FOMC release, the Federal Funds Target Range was maintained at 3.50%–3.75%, representing a 0 bps change from the prior target range of 3.50%–3.75%. This decision reflects a policy hold that leaves the benchmark interest rate corridor completely unchanged relative to the preceding setting. With no adjustment implemented at the meeting, the prevailing monetary policy rate parameters remain intact."
         }
       },
-      "lastSyncedAt": "2026-11-15T09:01:19.465Z"
+      "lastSyncedAt": "2026-11-18T23:10:25.507Z"
     },
     "FOMC_2026-09-16": {
       "id": "FOMC_2026-09-16",
@@ -4082,7 +4082,7 @@
       },
       "afterRelease": {
         "stage": "AFTER_RELEASE",
-        "generatedAt": "2026-11-15T09:01:27.346Z",
+        "generatedAt": "2026-11-18T23:10:25.663Z",
         "headlineAssessment": "FOMC set target range at 3.75%–4.00% (+25 bps) with HAWKISH communication balance.",
         "policyImplication": "Review official FOMC statement & Chair Powell press conference transcript via the Federal Reserve source links.",
         "signalClassification": "HAWKISH",
@@ -4118,8 +4118,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 3884.26,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 60% alignment)."
+              "referencePrice": 3726.47,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 88% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4148,9 +4148,9 @@
             ],
             "technicalAlignment": {
               "status": "ALIGNED",
-              "technicalBias": "Bearish",
-              "referencePrice": 27943.74,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Bearish at 36% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 27116.26,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 63% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4180,8 +4180,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 63945.14,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 79% alignment)."
+              "referencePrice": 62485.97,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 78% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4211,8 +4211,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.1028,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 97% alignment)."
+              "referencePrice": 1.0978,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 89% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4242,8 +4242,8 @@
             "technicalAlignment": {
               "status": "ALIGNED",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.3212,
-              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 71% alignment)."
+              "referencePrice": 1.3151,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 69% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4272,9 +4272,9 @@
             ],
             "technicalAlignment": {
               "status": "ALIGNED",
-              "technicalBias": "Strong Bullish",
-              "referencePrice": 159.686,
-              "note": "Fundamental macro lean (BULLISH) aligns with daily technical structure (Strong Bullish at 68% alignment)."
+              "technicalBias": "Bullish",
+              "referencePrice": 159.271,
+              "note": "Fundamental macro lean (BULLISH) aligns with daily technical structure (Bullish at 44% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4302,10 +4302,10 @@
               "Growth slowdown outweighing rate-cut relief"
             ],
             "technicalAlignment": {
-              "status": "CONFLICT",
-              "technicalBias": "Bullish",
-              "referencePrice": 52347.55,
-              "note": "SIGNAL CONFLICT: Fundamental macro lean (BEARISH) opposes daily technical structure (Bullish). Wait for technical structure confirmation rather than forcing a trade."
+              "status": "ALIGNED",
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 50198.17,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 65% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4332,10 +4332,10 @@
               "EIA crude inventory draw/build or geopolitical supply disruption dominating macro print"
             ],
             "technicalAlignment": {
-              "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Neutral",
-              "referencePrice": 88.56,
-              "note": "Fundamental assessment is BEARISH while daily technical structure is Neutral (6% alignment)."
+              "status": "ALIGNED",
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 81.89,
+              "note": "Fundamental macro lean (BEARISH) aligns with daily technical structure (Strong Bearish at 65% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4384,7 +4384,7 @@
           "summary": "At its September 2026 meeting, the FOMC raised the federal funds target range by 25 bps to 3.75%–4.00% from 3.50%–3.75% in support of its dual mandate, while continuing its policy of maintaining ample reserves in the banking system. The Committee assessed that economic activity is expanding at a solid pace, underpinned by resilient domestic spending, strong productivity growth, robust capital investment, job gains that have kept pace with the workforce, and an unemployment rate that has changed little. Alongside these conditions, the statement noted that uncertainty remains elevated owing in part to geopolitical developments, and the meeting included the Summary of Economic Projections (SEP / Dot Plot)."
         }
       },
-      "lastSyncedAt": "2026-11-15T09:01:27.346Z"
+      "lastSyncedAt": "2026-11-18T23:10:25.663Z"
     },
     "FOMC_2026-10-28": {
       "id": "FOMC_2026-10-28",
@@ -4659,7 +4659,7 @@
       },
       "afterRelease": {
         "stage": "AFTER_RELEASE",
-        "generatedAt": "2026-11-15T09:01:35.129Z",
+        "generatedAt": "2026-11-18T23:10:25.817Z",
         "headlineAssessment": "FOMC set target range at 3.75%–4.00% (unchanged) with NEUTRAL communication balance.",
         "policyImplication": "Statement wording changed across 5 paragraph(s) compared with the prior FOMC meeting.",
         "signalClassification": "NEUTRAL",
@@ -4701,8 +4701,8 @@
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 3884.26,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (60% alignment)."
+              "referencePrice": 3726.47,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (88% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4730,9 +4730,9 @@
             ],
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Bearish",
-              "referencePrice": 27943.74,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Bearish (36% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 27116.26,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (63% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -4761,8 +4761,8 @@
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 63945.14,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (79% alignment)."
+              "referencePrice": 62485.97,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (78% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4791,8 +4791,8 @@
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.1028,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (97% alignment)."
+              "referencePrice": 1.0978,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (89% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4821,8 +4821,8 @@
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
               "technicalBias": "Strong Bearish",
-              "referencePrice": 1.3212,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (71% alignment)."
+              "referencePrice": 1.3151,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (69% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4850,9 +4850,9 @@
             ],
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Strong Bullish",
-              "referencePrice": 159.686,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bullish (68% alignment)."
+              "technicalBias": "Bullish",
+              "referencePrice": 159.271,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Bullish (44% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4880,9 +4880,9 @@
             ],
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Bullish",
-              "referencePrice": 52347.55,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Bullish (30% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 50198.17,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (65% alignment)."
             },
             "postReleaseReaction": {
               "available": true,
@@ -4910,9 +4910,9 @@
             ],
             "technicalAlignment": {
               "status": "INSUFFICIENT_EVIDENCE",
-              "technicalBias": "Neutral",
-              "referencePrice": 88.56,
-              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Neutral (6% alignment)."
+              "technicalBias": "Strong Bearish",
+              "referencePrice": 81.89,
+              "note": "Fundamental assessment is NEUTRAL while daily technical structure is Strong Bearish (65% alignment)."
             },
             "postReleaseReaction": {
               "available": false,
@@ -4960,7 +4960,7 @@
           "summary": "The FOMC maintained the federal funds target range at 3.75%–4.00% (0 bps change from the prior 3.75%–4.00% range) in October 2026 in support of its dual mandate, while continuing its policy of maintaining ample reserves in the banking system. The Committee observed that economic activity is expanding at a strong pace, supported by resilient domestic spending, strong productivity growth, and robust capital investment despite elevated uncertainty linked in part to geopolitical developments. On the labor market, the statement noted that job gains have kept pace with the workforce and the unemployment rate has changed little."
         }
       },
-      "lastSyncedAt": "2026-11-15T09:01:35.129Z"
+      "lastSyncedAt": "2026-11-18T23:10:25.817Z"
     },
     "FOMC_2026-12-09": {
       "id": "FOMC_2026-12-09",
@@ -5192,7 +5192,7 @@
         }
       },
       "afterRelease": null,
-      "lastSyncedAt": "2026-11-15T09:01:35.328Z"
+      "lastSyncedAt": "2026-11-18T23:10:25.969Z"
     }
   },
   "blsSnapshotHistory": {
@@ -5541,6 +5541,86 @@
   },
   "syncLogs": [
     {
+      "id": "fsync_1795043425506_6qawv",
+      "sourceName": "Federal Reserve FOMC",
+      "eventType": "FOMC",
+      "status": "success",
+      "errorMessage": null,
+      "executedAt": "2026-11-18T23:10:25.506Z"
+    },
+    {
+      "id": "fsync_1795043424882_mr11k",
+      "sourceName": "BLS NFP Schedule",
+      "eventType": "NFP",
+      "status": "success",
+      "errorMessage": null,
+      "executedAt": "2026-11-18T23:10:24.882Z"
+    },
+    {
+      "id": "fsync_1795043424273_zgdx3",
+      "sourceName": "BLS PPI Schedule",
+      "eventType": "PPI",
+      "status": "success",
+      "errorMessage": null,
+      "executedAt": "2026-11-18T23:10:24.274Z"
+    },
+    {
+      "id": "fsync_1795043423480_ptl1z",
+      "sourceName": "BLS CPI Schedule",
+      "eventType": "CPI",
+      "status": "success",
+      "errorMessage": null,
+      "executedAt": "2026-11-18T23:10:23.480Z"
+    },
+    {
+      "id": "fsync_1795043423477_oga0y",
+      "sourceName": "BLS Public API v2",
+      "eventType": "ALL",
+      "status": "success",
+      "errorMessage": null,
+      "executedAt": "2026-11-18T23:10:23.477Z"
+    },
+    {
+      "id": "fsync_1795043281506_bo0xe",
+      "sourceName": "Federal Reserve FOMC",
+      "eventType": "FOMC",
+      "status": "success",
+      "errorMessage": null,
+      "executedAt": "2026-11-18T23:08:01.506Z"
+    },
+    {
+      "id": "fsync_1795043281207_ydnf1",
+      "sourceName": "BLS NFP Schedule",
+      "eventType": "NFP",
+      "status": "success",
+      "errorMessage": null,
+      "executedAt": "2026-11-18T23:08:01.207Z"
+    },
+    {
+      "id": "fsync_1795043280785_w6os7",
+      "sourceName": "BLS PPI Schedule",
+      "eventType": "PPI",
+      "status": "success",
+      "errorMessage": null,
+      "executedAt": "2026-11-18T23:08:00.785Z"
+    },
+    {
+      "id": "fsync_1795043277005_oupef",
+      "sourceName": "BLS CPI Schedule",
+      "eventType": "CPI",
+      "status": "success",
+      "errorMessage": null,
+      "executedAt": "2026-11-18T23:07:57.005Z"
+    },
+    {
+      "id": "fsync_1795043277002_rzclm",
+      "sourceName": "BLS Public API v2",
+      "eventType": "ALL",
+      "status": "success",
+      "errorMessage": null,
+      "executedAt": "2026-11-18T23:07:57.002Z"
+    },
+    {
       "id": "fsync_1794733272489_ocay5",
       "sourceName": "Federal Reserve FOMC",
       "eventType": "FOMC",
@@ -5581,5 +5661,5 @@
       "executedAt": "2026-11-15T09:00:51.587Z"
     }
   ],
-  "lastFullSyncAt": "2026-11-15T09:01:35.445Z"
+  "lastFullSyncAt": "2026-11-18T23:10:26.170Z"
 }

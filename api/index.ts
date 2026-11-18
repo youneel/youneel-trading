@@ -1,3 +1,4 @@
+import '../server/env.js';
 import type { IncomingMessage, ServerResponse } from 'http';
 import app from '../server.js';
 

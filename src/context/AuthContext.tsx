@@ -22,6 +22,16 @@ export interface OwnerAuthDiagnostics {
   authorizationResult: string;
   serviceRoleConfigured: boolean;
   ownerSessionSecretConfigured: boolean;
+  signingSecretConfigured?: boolean;
+  envPresence?: {
+    runtime: string;
+    vercelEnv: string | null;
+    hasOwnerSessionSecret: boolean;
+    ownerSessionSecretValidLength: boolean;
+    hasServiceRoleKey: boolean;
+    hasServiceRoleAlias: boolean;
+    hasSupabaseUrl: boolean;
+  };
 }
 
 interface AuthContextType {

@@ -1,18 +1,48 @@
 import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
+import { readCleanEnv } from './env.js';
 
-export const SUPABASE_URL = process.env.SUPABASE_URL || 'https://xhqvlqygqvyniuiqjjzx.supabase.co';
-export const SUPABASE_PUBLISHABLE_KEY =
-  process.env.SUPABASE_ANON_KEY || 'sb_publishable_8sLROvIDtB-WfqqSNkWsfw_2dAmTJLS';
+const DEFAULT_SUPABASE_URL = 'https://xhqvlqygqvyniuiqjjzx.supabase.co';
+const DEFAULT_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_8sLROvIDtB-WfqqSNkWsfw_2dAmTJLS';
 
-const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() || '';
+export function getSupabaseUrl(): string {
+  const { value } = readCleanEnv(
+    'SUPABASE_URL',
+    'NEXT_PUBLIC_SUPABASE_URL',
+    'VITE_SUPABASE_URL'
+  );
+  if (value && /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(value.replace(/\/+$/, ''))) {
+    return value.replace(/\/+$/, '');
+  }
+  return DEFAULT_SUPABASE_URL;
+}
+
+export function getSupabasePublishableKey(): string {
+  const { value } = readCleanEnv(
+    'SUPABASE_ANON_KEY',
+    'NEXT_PUBLIC_SUPABASE_ANON_KEY',
+    'VITE_SUPABASE_ANON_KEY'
+  );
+  return value || DEFAULT_SUPABASE_PUBLISHABLE_KEY;
+}
+
+export function getServiceRoleKey(): string {
+  const { value } = readCleanEnv(
+    'SUPABASE_SERVICE_ROLE_KEY',
+    'SUPABASE_SERVICE_ROLE',
+    'SUPABASE_SECRET_KEY',
+    'SUPABASE_SERVICE_KEY'
+  );
+  return value;
+}
 
 export function isServiceRoleConfigured(): boolean {
-  return SERVICE_ROLE_KEY.length > 20;
+  return getServiceRoleKey().length > 20;
 }
 
 export function getAdminClient(): SupabaseClient | null {
-  if (!isServiceRoleConfigured()) return null;
-  return createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
+  const key = getServiceRoleKey();
+  if (key.length <= 20) return null;
+  return createClient(getSupabaseUrl(), key, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
@@ -21,7 +51,7 @@ export function getAdminClient(): SupabaseClient | null {
 }
 
 export function getUserScopedClient(accessToken: string): SupabaseClient {
-  return createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+  return createClient(getSupabaseUrl(), getSupabasePublishableKey(), {
     global: {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -91,7 +121,8 @@ export async function isAuthorizedAdmin(user: User, db: SupabaseClient): Promise
 }
 
 export function getOwnerEmail(): string {
-  return (process.env.OWNER_EMAIL || 'younesselidrissi64@gmail.com').trim().toLowerCase();
+  const { value } = readCleanEnv('OWNER_EMAIL');
+  return (value || 'younesselidrissi64@gmail.com').toLowerCase();
 }
 
 export interface OwnerVerificationDetails {

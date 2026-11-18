@@ -188,9 +188,15 @@ function OwnerDiagnosticsPanel({
             diagnostics.sessionExpiresAt
               ? new Date(diagnostics.sessionExpiresAt).toLocaleTimeString()
               : '4h'
-          }${diagnostics.ownerSessionSecretConfigured ? '' : ' (Ephemeral server key)'}`
+          }${diagnostics.signingSecretConfigured ?? diagnostics.ownerSessionSecretConfigured ? '' : ' (Ephemeral server key)'}`
         : diagnostics.sessionReason || 'Awaiting 2FA Verification',
       ok: diagnostics.sessionValid,
+    },
+    {
+      label: 'Server Secret Config',
+      value: `OWNER_SESSION_SECRET=${Boolean(diagnostics.envPresence?.hasOwnerSessionSecret ?? diagnostics.ownerSessionSecretConfigured)} • SUPABASE_SERVICE_ROLE_KEY=${Boolean(diagnostics.envPresence?.hasServiceRoleKey ?? diagnostics.serviceRoleConfigured)}${diagnostics.envPresence?.vercelEnv ? ` • Vercel Env: ${diagnostics.envPresence.vercelEnv}` : ''}`,
+      ok: Boolean(diagnostics.signingSecretConfigured ?? (diagnostics.ownerSessionSecretConfigured || diagnostics.serviceRoleConfigured)),
+      mono: true,
     },
     {
       label: t.diagAuthResult,

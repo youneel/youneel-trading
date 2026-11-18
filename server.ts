@@ -1,11 +1,12 @@
+import './server/env.js';
 import express, { Request, Response } from 'express';
 import http from 'http';
 import crypto from 'crypto';
 import { WebSocketServer, WebSocket as WsClient } from 'ws';
-import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI, Type } from '@google/genai';
+import { getSafeEnvPresence, logSafeEnvDiagnostics } from './server/env.js';
 import {
   getVerifiedMarketData,
   getVerifiedQuote,
@@ -78,10 +79,10 @@ import {
   calculateRequiredMarginSafe,
 } from './src/lib/tradingMath.js';
 
-dotenv.config();
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+logSafeEnvDiagnostics('server-init');
 
 const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
@@ -117,6 +118,7 @@ function normalizeSymbolParam(raw: unknown): string {
 app.get('/api/health', (_req: Request, res: Response) => {
   const marketKey = (process.env.TWELVE_DATA_API_KEY || process.env.MARKET_DATA_API_KEY)?.trim();
   const newsKey = (process.env.FINNHUB_API_KEY || process.env.NEWS_API_KEY)?.trim();
+  const envPresence = getSafeEnvPresence();
   res.json({
     status: 'ok',
     name: 'YOUNEEL TRADING API',
@@ -131,6 +133,7 @@ app.get('/api/health', (_req: Request, res: Response) => {
       ownerSessionSecretConfigured: isOwnerSessionSecretConfigured(),
       signingSecretConfigured: isSigningSecretStable(),
     },
+    envPresence,
   });
 });
 
@@ -1318,8 +1321,8 @@ app.get('/api/giveaways', async (req: Request, res: Response) => {
   const auth = await authenticateRequest(req.headers.authorization);
 
   const { createClient } = await import('@supabase/supabase-js');
-  const { SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, getAdminClient } = await import('./server/supabaseAdmin.js');
-  const db = getAdminClient() || auth?.db || createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, { auth: { persistSession: false } });
+  const { getSupabaseUrl, getSupabasePublishableKey, getAdminClient } = await import('./server/supabaseAdmin.js');
+  const db = getAdminClient() || auth?.db || createClient(getSupabaseUrl(), getSupabasePublishableKey(), { auth: { persistSession: false } });
 
   let { data: giveaways, error } = await db
     .from('giveaways')
@@ -2062,6 +2065,8 @@ app.get('/api/owner/auth/status', async (req: Request, res: Response) => {
       authorizationResult,
       serviceRoleConfigured: isServiceRoleConfigured(),
       ownerSessionSecretConfigured: isOwnerSessionSecretConfigured(),
+      signingSecretConfigured: isSigningSecretStable(),
+      envPresence: getSafeEnvPresence(),
     },
   });
 });
@@ -2087,6 +2092,7 @@ app.post('/api/owner/auth/request-code', async (req: Request, res: Response) => 
     res.status(result.status).json({
       error: result.error,
       retryAfterSeconds: result.retryAfterSeconds,
+      envDiagnostics: result.envDiagnostics,
     });
     return;
   }
@@ -2117,7 +2123,10 @@ app.post('/api/owner/auth/verify-code', async (req: Request, res: Response) => {
   });
 
   if (!result.ok || !result.sessionToken) {
-    res.status(result.status).json({ error: result.error });
+    res.status(result.status).json({
+      error: result.error,
+      envDiagnostics: result.envDiagnostics,
+    });
     return;
   }
 
@@ -2168,6 +2177,8 @@ app.get('/api/owner/security', async (req: Request, res: Response) => {
       authorizationResult: 'Authorized (Full 2FA Owner Access)',
       serviceRoleConfigured: isServiceRoleConfigured(),
       ownerSessionSecretConfigured: isOwnerSessionSecretConfigured(),
+      signingSecretConfigured: isSigningSecretStable(),
+      envPresence: getSafeEnvPresence(),
     },
   });
 });

@@ -1,7 +1,13 @@
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import { SupabaseClient, User } from '@supabase/supabase-js';
-import { getAdminClient, getOwnerEmail } from './supabaseAdmin.js';
+import { getAdminClient, getOwnerEmail, getServiceRoleKey } from './supabaseAdmin.js';
+import {
+  isServerlessRuntime,
+  logSafeEnvDiagnostics,
+  readCleanEnv,
+  SafeEnvPresenceReport,
+} from './env.js';
 
 export const OTP_TTL_MS = 5 * 60 * 1000; // 5 minutes
 export const OWNER_SESSION_TTL_MS = 4 * 60 * 60 * 1000; // 4 hours
@@ -58,22 +64,20 @@ export type EmailSenderFn = (params: {
 const EPHEMERAL_FALLBACK_SECRET = crypto.randomBytes(32).toString('hex');
 
 function isServerlessEnv(): boolean {
-  return Boolean(
-    process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NETLIFY
-  );
+  return isServerlessRuntime();
 }
 
 function getSigningSecret(): string {
-  const ownerSecret = process.env.OWNER_SESSION_SECRET?.trim();
+  const ownerSecret = readCleanEnv('OWNER_SESSION_SECRET').value;
   if (ownerSecret && ownerSecret.length >= 16) return ownerSecret;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  const serviceKey = getServiceRoleKey();
   if (serviceKey && serviceKey.length > 20) return serviceKey;
   return EPHEMERAL_FALLBACK_SECRET;
 }
 
 export function isSigningSecretStable(): boolean {
-  const ownerSecret = process.env.OWNER_SESSION_SECRET?.trim() || '';
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() || '';
+  const ownerSecret = readCleanEnv('OWNER_SESSION_SECRET').value;
+  const serviceKey = getServiceRoleKey();
   return ownerSecret.length >= 16 || serviceKey.length > 20;
 }
 
@@ -110,7 +114,7 @@ export function resetOwnerAuthRateLimitsForTesting(): void {
 }
 
 export function isOwnerSessionSecretConfigured(): boolean {
-  const secret = process.env.OWNER_SESSION_SECRET?.trim() || '';
+  const secret = readCleanEnv('OWNER_SESSION_SECRET').value;
   return secret.length >= 16;
 }
 
@@ -379,6 +383,7 @@ export async function requestOwnerVerificationCode(params: {
   error?: string;
   expiresInSeconds?: number;
   retryAfterSeconds?: number;
+  envDiagnostics?: SafeEnvPresenceReport;
 }> {
   const now = params.nowMs ?? Date.now();
   const ownerEmail = getOwnerEmail();
@@ -389,11 +394,15 @@ export async function requestOwnerVerificationCode(params: {
   }
 
   if (isServerlessEnv() && !isSigningSecretStable()) {
+    const diag = logSafeEnvDiagnostics('requestOwnerVerificationCode', true);
+    const scopeHint = diag.vercelEnv
+      ? ` Active Vercel environment: "${diag.vercelEnv}". Verify both variables are enabled for "${diag.vercelEnv}" and redeployed.`
+      : '';
     return {
       ok: false,
       status: 503,
-      error:
-        'Server configuration incomplete: set OWNER_SESSION_SECRET (and SUPABASE_SERVICE_ROLE_KEY) in Vercel Environment Variables so Owner Mode sessions persist.',
+      error: `Server configuration incomplete: OWNER_SESSION_SECRET present=${diag.hasOwnerSessionSecret} (validLength=${diag.ownerSessionSecretValidLength}), SUPABASE_SERVICE_ROLE_KEY present=${diag.hasServiceRoleKey}.${scopeHint}`,
+      envDiagnostics: diag,
     };
   }
 
@@ -557,6 +566,7 @@ export async function verifyOwnerVerificationCode(params: {
   error?: string;
   sessionToken?: string;
   expiresAt?: string;
+  envDiagnostics?: SafeEnvPresenceReport;
 }> {
   const now = params.nowMs ?? Date.now();
   const ownerEmail = getOwnerEmail();
@@ -567,11 +577,15 @@ export async function verifyOwnerVerificationCode(params: {
   }
 
   if (isServerlessEnv() && !isSigningSecretStable()) {
+    const diag = logSafeEnvDiagnostics('verifyOwnerVerificationCode', true);
+    const scopeHint = diag.vercelEnv
+      ? ` Active Vercel environment: "${diag.vercelEnv}". Verify both variables are enabled for "${diag.vercelEnv}" and redeployed.`
+      : '';
     return {
       ok: false,
       status: 503,
-      error:
-        'Server configuration incomplete: set OWNER_SESSION_SECRET (and SUPABASE_SERVICE_ROLE_KEY) in Vercel Environment Variables so Owner Mode sessions persist.',
+      error: `Server configuration incomplete: OWNER_SESSION_SECRET present=${diag.hasOwnerSessionSecret} (validLength=${diag.ownerSessionSecretValidLength}), SUPABASE_SERVICE_ROLE_KEY present=${diag.hasServiceRoleKey}.${scopeHint}`,
+      envDiagnostics: diag,
     };
   }
 
