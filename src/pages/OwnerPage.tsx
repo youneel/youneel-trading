@@ -255,13 +255,11 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
     loading: authLoading,
     ownerStatusLoading,
     isOwnerAccount,
-    ownerSessionToken,
     ownerSessionVerified,
     ownerEmailDeliveryConfigured,
     ownerDiagnostics,
     signInWithEmail,
     signUpWithEmail,
-    setOwnerSessionToken,
     refreshOwnerStatus,
     lockOwnerSession,
     signOut,
@@ -305,13 +303,12 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
   }, [cooldownSeconds]);
 
   const loadSecurityData = useCallback(async () => {
-    if (!accessToken || !ownerSessionToken || !ownerSessionVerified) return;
+    if (!accessToken || !ownerSessionVerified) return;
     try {
       const res = await fetch('/api/owner/security', {
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: {
           Authorization: `Bearer ${accessToken}`,
-          'X-Owner-Session': ownerSessionToken,
         },
       });
       if (res.ok) {
@@ -320,18 +317,17 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
     } catch {
       // ignore transient errors
     }
-  }, [accessToken, ownerSessionToken, ownerSessionVerified]);
+  }, [accessToken, ownerSessionVerified]);
 
   const loadOverviewData = useCallback(async () => {
-    if (!accessToken || !ownerSessionToken || !ownerSessionVerified) return;
+    if (!accessToken || !ownerSessionVerified) return;
     try {
       const headers = {
         Authorization: `Bearer ${accessToken}`,
-        'X-Owner-Session': ownerSessionToken,
       };
       const [ovRes, fundRes] = await Promise.all([
-        fetch('/api/owner/overview', { credentials: 'same-origin', headers }),
-        fetch('/api/owner/fundamental/status', { credentials: 'same-origin', headers }),
+        fetch('/api/owner/overview', { credentials: 'include', headers }),
+        fetch('/api/owner/fundamental/status', { credentials: 'include', headers }),
       ]);
       if (ovRes.ok) {
         setOverviewData(await ovRes.json());
@@ -342,19 +338,18 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
     } catch {
       // ignore
     }
-  }, [accessToken, ownerSessionToken, ownerSessionVerified]);
+  }, [accessToken, ownerSessionVerified]);
 
   const handleSyncFundamental = async () => {
-    if (!accessToken || !ownerSessionToken) return;
+    if (!accessToken) return;
     setSyncingFundamental(true);
     try {
       const res = await fetch('/api/owner/fundamental/sync', {
         method: 'POST',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-          'X-Owner-Session': ownerSessionToken,
         },
         body: JSON.stringify({ forceAi: false }),
       });
@@ -368,16 +363,15 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
   };
 
   const loadUsersAndInquiries = useCallback(async () => {
-    if (!accessToken || !ownerSessionToken || !ownerSessionVerified) return;
+    if (!accessToken || !ownerSessionVerified) return;
     setUsersError(null);
     try {
       const headers = {
         Authorization: `Bearer ${accessToken}`,
-        'X-Owner-Session': ownerSessionToken,
       };
       const [uRes, iRes] = await Promise.all([
-        fetch('/api/owner/users', { credentials: 'same-origin', headers }),
-        fetch('/api/owner/inquiries', { credentials: 'same-origin', headers }),
+        fetch('/api/owner/users', { credentials: 'include', headers }),
+        fetch('/api/owner/inquiries', { credentials: 'include', headers }),
       ]);
       if (uRes.ok) {
         const uData = await uRes.json();
@@ -391,7 +385,7 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
     } catch (err: any) {
       setUsersError(err?.message || 'Unable to load users and inquiries');
     }
-  }, [accessToken, ownerSessionToken, ownerSessionVerified]);
+  }, [accessToken, ownerSessionVerified]);
 
   useEffect(() => {
     if (!ownerSessionVerified) return;
@@ -401,17 +395,16 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
   }, [ownerSessionVerified, activeTab, loadSecurityData, loadOverviewData, loadUsersAndInquiries]);
 
   const handleToggleUserRole = async (targetUser: OwnerManagedUser) => {
-    if (!accessToken || !ownerSessionToken || targetUser.isSelfOwner || targetUser.role === 'owner') return;
+    if (!accessToken || targetUser.isSelfOwner || targetUser.role === 'owner') return;
     const nextRole = targetUser.role === 'admin' ? 'trader' : 'admin';
     setUsersError(null);
     try {
       const res = await fetch(`/api/owner/users/${encodeURIComponent(targetUser.id)}/role`, {
         method: 'PATCH',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-          'X-Owner-Session': ownerSessionToken,
         },
         body: JSON.stringify({ role: nextRole }),
       });
@@ -424,15 +417,14 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
   };
 
   const handleUpdateInquiryStatus = async (id: string, status: 'new' | 'reviewed' | 'resolved') => {
-    if (!accessToken || !ownerSessionToken) return;
+    if (!accessToken) return;
     try {
       const res = await fetch(`/api/owner/inquiries/${encodeURIComponent(id)}`, {
         method: 'PATCH',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-          'X-Owner-Session': ownerSessionToken,
         },
         body: JSON.stringify({ status }),
       });
@@ -478,7 +470,7 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
     try {
       const res = await fetch('/api/owner/auth/request-code', {
         method: 'POST',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       const data = await res.json();
@@ -491,7 +483,7 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
       setOtpSent(true);
       setOtpSuccess(t.otpSentNotice);
       setCooldownSeconds(typeof data.cooldownSeconds === 'number' ? data.cooldownSeconds : 45);
-      await refreshOwnerStatus();
+      await refreshOwnerStatus(true);
     } catch (err: any) {
       setOtpError(translateApiError(err?.message, lang));
     } finally {
@@ -507,7 +499,7 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
     try {
       const res = await fetch('/api/owner/auth/verify-code', {
         method: 'POST',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
@@ -516,9 +508,8 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Invalid code');
-      setOwnerSessionToken(data.sessionToken);
       setOtpCode('');
-      await refreshOwnerStatus(data.sessionToken);
+      await refreshOwnerStatus(false);
     } catch (err: any) {
       setOtpError(translateApiError(err?.message, lang));
     } finally {
@@ -675,7 +666,7 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
   }
 
   // Gate 3: Signed in as Owner account -> require 5-minute single-use Email Verification Code
-  if (!ownerSessionVerified || !ownerSessionToken) {
+  if (!ownerSessionVerified) {
     return (
       <div className="max-w-xl mx-auto px-4 py-12 space-y-5">
         <div className="rounded-3xl bg-white dark:bg-[#121214] border border-emerald-500/20 p-6 sm:p-8 space-y-5 shadow-xl">
@@ -953,7 +944,6 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
         <GiveawayBuilderPanel
           lang={lang}
           accessToken={accessToken!}
-          ownerSessionToken={ownerSessionToken}
         />
       )}
 
@@ -961,7 +951,6 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
         <BrokerCompetitionsPanel
           lang={lang}
           accessToken={accessToken!}
-          ownerSessionToken={ownerSessionToken}
         />
       )}
 

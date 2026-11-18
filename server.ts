@@ -43,11 +43,12 @@ import {
   getEmailDeliveryStatus,
   diagnoseEmailDeliveryConfig,
   isOwnerSessionSecretConfigured,
-  getActiveOtpSummary,
+  isSigningSecretStable,
+  getActiveOtpSummaryAsync,
   requestOwnerVerificationCode,
   verifyOwnerVerificationCode,
-  validateOwnerSessionToken,
-  revokeOwnerSessionToken,
+  validateOwnerSessionTokenAsync,
+  revokeOwnerSessionTokenAsync,
   recordOwnerAudit,
   getRecentAuditLogs,
 } from './server/ownerAuthService.js';
@@ -128,6 +129,7 @@ app.get('/api/health', (_req: Request, res: Response) => {
       finnhubConfigured: Boolean(newsKey),
       serviceRoleConfigured: isServiceRoleConfigured(),
       ownerSessionSecretConfigured: isOwnerSessionSecretConfigured(),
+      signingSecretConfigured: isSigningSecretStable(),
     },
   });
 });
@@ -1120,7 +1122,7 @@ type GiveawayDiagnosticCategory =
   | 'auth_error'
   | 'other_db_error';
 
-const GIVEAWAYS_MIGRATION_FILE = 'supabase/migrations/004_youneel_giveaways_complete.sql';
+const GIVEAWAYS_MIGRATION_FILE = 'supabase/migrations/006_complete_owner_auth_and_giveaways.sql';
 
 function classifyGiveawayDbError(
   err: any,
@@ -1899,15 +1901,25 @@ function parseCookies(cookieHeader?: string): Record<string, string> {
   return out;
 }
 
-function extractOwnerSessionToken(req: Request): string | undefined {
-  const headerTok = (req.headers['x-owner-session'] as string | undefined)?.trim();
-  if (headerTok) return headerTok;
+function normalizeCandidateToken(val?: string | null): string | undefined {
+  const t = (val || '').trim();
+  if (!t || t === 'null' || t === 'undefined' || !t.includes('.')) return undefined;
+  return t;
+}
+
+function extractOwnerSessionCandidates(req: Request): string[] {
   const cookies = parseCookies(req.headers.cookie);
-  return cookies[OWNER_SESSION_COOKIE_NAME]?.trim() || undefined;
+  const cookieTok = normalizeCandidateToken(cookies[OWNER_SESSION_COOKIE_NAME]);
+  const headerTok = normalizeCandidateToken(req.headers['x-owner-session'] as string | undefined);
+  const candidates: string[] = [];
+  if (cookieTok) candidates.push(cookieTok);
+  if (headerTok && headerTok !== cookieTok) candidates.push(headerTok);
+  return candidates;
 }
 
 function isSecureRequest(req: Request): boolean {
-  return Boolean(req.secure || req.headers['x-forwarded-proto'] === 'https');
+  const proto = String(req.headers['x-forwarded-proto'] || '').toLowerCase();
+  return Boolean(req.secure || proto.includes('https'));
 }
 
 function setOwnerSessionCookie(req: Request, res: Response, token: string): void {
@@ -1935,6 +1947,38 @@ function clearOwnerSessionCookie(req: Request, res: Response): void {
   res.setHeader('Set-Cookie', parts.join('; '));
 }
 
+async function resolveOwnerSessionCheck(
+  req: Request,
+  res: Response,
+  user: any,
+  slideRefresh = true
+) {
+  const candidates = extractOwnerSessionCandidates(req);
+  if (candidates.length === 0) {
+    return { valid: false, reason: 'Missing owner verification session' };
+  }
+
+  let lastResult: Awaited<ReturnType<typeof validateOwnerSessionTokenAsync>> = {
+    valid: false,
+    reason: 'Invalid owner session signature',
+  };
+  for (const tok of candidates) {
+    const check = await validateOwnerSessionTokenAsync({
+      token: tok,
+      user,
+      slideRefresh,
+    });
+    if (check.valid) {
+      if (check.refreshedToken) {
+        setOwnerSessionCookie(req, res, check.refreshedToken);
+      }
+      return check;
+    }
+    lastResult = check;
+  }
+  return lastResult;
+}
+
 async function requireVerifiedOwner(req: Request, res: Response) {
   const auth = await authenticateRequest(req.headers.authorization);
   if (!auth) {
@@ -1945,8 +1989,7 @@ async function requireVerifiedOwner(req: Request, res: Response) {
     res.status(403).json({ error: 'Owner authorization required' });
     return null;
   }
-  const ownerSessionToken = extractOwnerSessionToken(req);
-  const check = validateOwnerSessionToken({ token: ownerSessionToken, user: auth.user });
+  const check = await resolveOwnerSessionCheck(req, res, auth.user, true);
   if (!check.valid) {
     res.status(403).json({
       error: check.reason || 'Email verification code required',
@@ -1979,10 +2022,11 @@ app.get('/api/owner/auth/status', async (req: Request, res: Response) => {
     return;
   }
 
-  const ownerSessionToken = extractOwnerSessionToken(req);
-  const sessionCheck = validateOwnerSessionToken({ token: ownerSessionToken, user: auth.user });
+  const [sessionCheck, activeOtp] = await Promise.all([
+    resolveOwnerSessionCheck(req, res, auth.user, true),
+    getActiveOtpSummaryAsync(auth.user.email || ''),
+  ]);
   const deliveryDiag = diagnoseEmailDeliveryConfig();
-  const activeOtp = getActiveOtpSummary(auth.user.email || '');
 
   const authorizationResult = !verification.authorized
     ? verification.reason
@@ -2080,14 +2124,14 @@ app.post('/api/owner/auth/verify-code', async (req: Request, res: Response) => {
   setOwnerSessionCookie(req, res, result.sessionToken);
   res.json({
     verified: true,
-    sessionToken: result.sessionToken,
+    sessionActive: true,
     expiresAt: result.expiresAt,
   });
 });
 
 app.post('/api/owner/auth/logout', async (req: Request, res: Response) => {
-  const token = extractOwnerSessionToken(req);
-  revokeOwnerSessionToken(token);
+  const candidates = extractOwnerSessionCandidates(req);
+  await Promise.all(candidates.map((tok) => revokeOwnerSessionTokenAsync(tok)));
   clearOwnerSessionCookie(req, res);
   res.json({ ok: true });
 });
@@ -2096,12 +2140,11 @@ app.get('/api/owner/security', async (req: Request, res: Response) => {
   const owner = await requireVerifiedOwner(req, res);
   if (!owner) return;
 
-  const [auditLogs, verification] = await Promise.all([
+  const [auditLogs, verification, sessionCheck] = await Promise.all([
     getRecentAuditLogs(owner.db),
     verifyAndProvisionOwner(owner.user, owner.db, owner.usingServiceRole),
+    resolveOwnerSessionCheck(req, res, owner.user, false),
   ]);
-  const ownerSessionToken = extractOwnerSessionToken(req);
-  const sessionCheck = validateOwnerSessionToken({ token: ownerSessionToken, user: owner.user });
   const deliveryDiag = diagnoseEmailDeliveryConfig();
 
   res.json({

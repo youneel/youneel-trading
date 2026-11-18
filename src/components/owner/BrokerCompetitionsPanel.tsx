@@ -87,13 +87,11 @@ interface OwnerNotification {
 interface BrokerCompetitionsPanelProps {
   lang: Language;
   accessToken: string;
-  ownerSessionToken: string;
 }
 
 export const BrokerCompetitionsPanel: React.FC<BrokerCompetitionsPanelProps> = ({
   lang,
   accessToken,
-  ownerSessionToken,
 }) => {
   const t = translations[lang];
   const [competitions, setCompetitions] = useState<AdminCompetition[]>([]);
@@ -140,16 +138,18 @@ export const BrokerCompetitionsPanel: React.FC<BrokerCompetitionsPanelProps> = (
     () => ({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
-      'X-Owner-Session': ownerSessionToken,
     }),
-    [accessToken, ownerSessionToken]
+    [accessToken]
   );
 
   const loadWorkspace = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/owner/competitions', { headers: ownerHeaders });
+      const res = await fetch('/api/owner/competitions', {
+        headers: ownerHeaders,
+        credentials: 'include',
+      });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
       setCompetitions(Array.isArray(data.competitions) ? data.competitions : []);
@@ -174,6 +174,7 @@ export const BrokerCompetitionsPanel: React.FC<BrokerCompetitionsPanelProps> = (
       const res = await fetch('/api/owner/competitions/sync', {
         method: 'POST',
         headers: ownerHeaders,
+        credentials: 'include',
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Sync failed');
@@ -274,6 +275,7 @@ export const BrokerCompetitionsPanel: React.FC<BrokerCompetitionsPanelProps> = (
       const res = await fetch(url, {
         method,
         headers: ownerHeaders,
+        credentials: 'include',
         body: JSON.stringify(payload),
       });
       const data = await res.json();
@@ -292,6 +294,7 @@ export const BrokerCompetitionsPanel: React.FC<BrokerCompetitionsPanelProps> = (
       const res = await fetch(`/api/owner/competitions/${encodeURIComponent(c.id)}`, {
         method: 'PATCH',
         headers: ownerHeaders,
+        credentials: 'include',
         body: JSON.stringify({ ...c, ...updates }),
       });
       if (!res.ok) {
@@ -309,6 +312,7 @@ export const BrokerCompetitionsPanel: React.FC<BrokerCompetitionsPanelProps> = (
       await fetch(`/api/owner/competitions/${encodeURIComponent(id)}`, {
         method: 'DELETE',
         headers: ownerHeaders,
+        credentials: 'include',
       });
       await loadWorkspace();
     } catch (err: any) {
@@ -322,6 +326,7 @@ export const BrokerCompetitionsPanel: React.FC<BrokerCompetitionsPanelProps> = (
       const res = await fetch('/api/owner/brokers', {
         method: 'POST',
         headers: ownerHeaders,
+        credentials: 'include',
         body: JSON.stringify({
           broker_slug: newBrokerSlug,
           broker_name: newBrokerName,
@@ -343,7 +348,11 @@ export const BrokerCompetitionsPanel: React.FC<BrokerCompetitionsPanelProps> = (
   };
 
   const markNotificationsRead = async () => {
-    await fetch('/api/owner/notifications/read', { method: 'POST', headers: ownerHeaders });
+    await fetch('/api/owner/notifications/read', {
+      method: 'POST',
+      headers: ownerHeaders,
+      credentials: 'include',
+    });
     await loadWorkspace();
   };
 
@@ -716,7 +725,6 @@ export const BrokerCompetitionsPanel: React.FC<BrokerCompetitionsPanelProps> = (
                 imageUrl={bannerUrl}
                 crop={bannerCrop}
                 accessToken={accessToken}
-                ownerSessionToken={ownerSessionToken}
                 onChangeImageUrl={setBannerUrl}
                 onChangeCrop={setBannerCrop}
               />

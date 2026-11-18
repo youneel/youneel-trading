@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState, useCallback, use
 import { User, Session } from '@supabase/supabase-js';
 import { supabase, Profile } from '../lib/supabase';
 
-const OWNER_SESSION_STORAGE_KEY = 'youneel_owner_session_token';
+const LEGACY_OWNER_SESSION_STORAGE_KEY = 'youneel_owner_session_token';
 
 export interface OwnerAuthDiagnostics {
   supabaseAuthenticated: boolean;
@@ -32,7 +32,6 @@ interface AuthContextType {
   isAdmin: boolean;
   isOwnerAccount: boolean;
   ownerStatusLoading: boolean;
-  ownerSessionToken: string | null;
   ownerSessionVerified: boolean;
   ownerEmailDeliveryConfigured: boolean;
   ownerDiagnostics: OwnerAuthDiagnostics | null;
@@ -47,8 +46,7 @@ interface AuthContextType {
   deleteAccountAndData: () => Promise<{ success: boolean; error?: any }>;
   updateStartingCapital: (capital: number) => Promise<{ success: boolean; error?: string }>;
   refreshProfile: () => Promise<void>;
-  refreshOwnerStatus: (overrideOwnerToken?: string | null) => Promise<void>;
-  setOwnerSessionToken: (token: string | null) => void;
+  refreshOwnerStatus: (silent?: boolean) => Promise<void>;
   lockOwnerSession: () => Promise<void>;
 }
 
@@ -61,30 +59,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isAdmin, setIsAdmin] = useState(false);
   const [isOwnerAccount, setIsOwnerAccount] = useState(false);
   const [ownerStatusLoading, setOwnerStatusLoading] = useState(true);
-  const [ownerSessionToken, setOwnerSessionTokenState] = useState<string | null>(() => {
-    try {
-      return sessionStorage.getItem(OWNER_SESSION_STORAGE_KEY);
-    } catch {
-      return null;
-    }
-  });
-  const ownerSessionTokenRef = useRef<string | null>(ownerSessionToken);
   const [ownerSessionVerified, setOwnerSessionVerified] = useState(false);
+  const ownerSessionVerifiedRef = useRef(false);
+  const lastOwnerUserIdRef = useRef<string | null>(null);
   const [ownerEmailDeliveryConfigured, setOwnerEmailDeliveryConfigured] = useState(false);
   const [ownerDiagnostics, setOwnerDiagnostics] = useState<OwnerAuthDiagnostics | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const setOwnerSessionToken = useCallback((token: string | null) => {
-    ownerSessionTokenRef.current = token;
-    setOwnerSessionTokenState(token);
+  useEffect(() => {
     try {
-      if (token) {
-        sessionStorage.setItem(OWNER_SESSION_STORAGE_KEY, token);
-      } else {
-        sessionStorage.removeItem(OWNER_SESSION_STORAGE_KEY);
-      }
+      sessionStorage.removeItem(LEGACY_OWNER_SESSION_STORAGE_KEY);
     } catch {
-      // ignore storage quota errors
+      // ignore
     }
   }, []);
 
@@ -109,8 +95,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const checkOwnerStatus = useCallback(
-    async (accessTok?: string | null, overrideOwnerTok?: string | null): Promise<boolean> => {
+    async (accessTok?: string | null, opts?: { silent?: boolean }): Promise<boolean> => {
       if (!accessTok) {
+        lastOwnerUserIdRef.current = null;
+        ownerSessionVerifiedRef.current = false;
         setIsOwnerAccount(false);
         setOwnerSessionVerified(false);
         setOwnerEmailDeliveryConfigured(false);
@@ -119,48 +107,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return false;
       }
 
-      setOwnerStatusLoading(true);
+      if (!opts?.silent) {
+        setOwnerStatusLoading(true);
+      }
       try {
-        const headers: Record<string, string> = { Authorization: `Bearer ${accessTok}` };
-        const effectiveOwnerTok =
-          overrideOwnerTok !== undefined ? overrideOwnerTok : ownerSessionTokenRef.current;
-        if (effectiveOwnerTok) {
-          headers['X-Owner-Session'] = effectiveOwnerTok;
-        }
-
         const res = await fetch('/api/owner/auth/status', {
-          headers,
-          credentials: 'same-origin',
+          headers: { Authorization: `Bearer ${accessTok}` },
+          credentials: 'include',
         });
         if (res.ok) {
           const data = await res.json();
           const ownerOk = Boolean(data.isOwnerAccount);
           const sessionOk = Boolean(data.ownerSessionVerified);
+          ownerSessionVerifiedRef.current = sessionOk;
           setIsOwnerAccount(ownerOk);
           setOwnerSessionVerified(sessionOk);
           setOwnerEmailDeliveryConfigured(Boolean(data.deliveryConfigured));
           setOwnerDiagnostics(data.diagnostics || null);
-
-          if (!sessionOk && effectiveOwnerTok) {
-            setOwnerSessionToken(null);
-          }
           return ownerOk;
         }
 
-        setIsOwnerAccount(false);
-        setOwnerSessionVerified(false);
-        setOwnerDiagnostics(null);
+        if (!opts?.silent) {
+          ownerSessionVerifiedRef.current = false;
+          setIsOwnerAccount(false);
+          setOwnerSessionVerified(false);
+          setOwnerDiagnostics(null);
+        }
         return false;
       } catch {
-        setIsOwnerAccount(false);
-        setOwnerSessionVerified(false);
-        setOwnerDiagnostics(null);
-        return false;
+        // Preserve active session state across transient network/tab-wake blips
+        if (!opts?.silent && !ownerSessionVerifiedRef.current) {
+          setIsOwnerAccount(false);
+          setOwnerSessionVerified(false);
+          setOwnerDiagnostics(null);
+        }
+        return ownerSessionVerifiedRef.current;
       } finally {
-        setOwnerStatusLoading(false);
+        if (!opts?.silent) {
+          setOwnerStatusLoading(false);
+        }
       }
     },
-    [setOwnerSessionToken]
+    []
   );
 
   const fetchProfile = useCallback(async (userId: string, email?: string) => {
@@ -202,12 +190,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setSession(initialSession);
       setUser(initialSession?.user ?? null);
       if (initialSession?.user) {
+        lastOwnerUserIdRef.current = initialSession.user.id;
         await Promise.all([
           fetchProfile(initialSession.user.id, initialSession.user.email),
           checkAdminStatus(initialSession.access_token),
           checkOwnerStatus(initialSession.access_token),
         ]);
       } else {
+        lastOwnerUserIdRef.current = null;
+        ownerSessionVerifiedRef.current = false;
         setIsAdmin(false);
         setIsOwnerAccount(false);
         setOwnerSessionVerified(false);
@@ -219,24 +210,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, nextSession) => {
+    } = supabase.auth.onAuthStateChange(async (event, nextSession) => {
       if (!mounted) return;
       setSession(nextSession);
       setUser(nextSession?.user ?? null);
       if (nextSession?.user) {
+        const sameUser = lastOwnerUserIdRef.current === nextSession.user.id;
+        const isSilentEvent =
+          sameUser &&
+          (event === 'TOKEN_REFRESHED' ||
+            event === 'INITIAL_SESSION' ||
+            (event === 'SIGNED_IN' && ownerSessionVerifiedRef.current));
+
+        lastOwnerUserIdRef.current = nextSession.user.id;
         await Promise.all([
-          fetchProfile(nextSession.user.id, nextSession.user.email),
+          sameUser ? Promise.resolve() : fetchProfile(nextSession.user.id, nextSession.user.email),
           checkAdminStatus(nextSession.access_token),
-          checkOwnerStatus(nextSession.access_token),
+          checkOwnerStatus(nextSession.access_token, { silent: isSilentEvent }),
         ]);
       } else {
+        lastOwnerUserIdRef.current = null;
+        ownerSessionVerifiedRef.current = false;
         setProfile(null);
         setIsAdmin(false);
         setIsOwnerAccount(false);
         setOwnerSessionVerified(false);
         setOwnerDiagnostics(null);
         setOwnerStatusLoading(false);
-        setOwnerSessionToken(null);
       }
       if (mounted) setLoading(false);
     });
@@ -245,12 +245,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       mounted = false;
       subscription.unsubscribe();
     };
-  }, [fetchProfile, checkAdminStatus, checkOwnerStatus, setOwnerSessionToken]);
+  }, [fetchProfile, checkAdminStatus, checkOwnerStatus]);
 
   const signInWithEmail = async (email: string, password: string) => {
     const res = await supabase.auth.signInWithPassword({ email, password });
     let ownerOk = false;
     if (res.data.user && res.data.session) {
+      lastOwnerUserIdRef.current = res.data.user.id;
       const [, , ownerRes] = await Promise.all([
         fetchProfile(res.data.user.id, res.data.user.email),
         checkAdminStatus(res.data.session.access_token),
@@ -264,6 +265,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signUpWithEmail = async (email: string, password: string) => {
     const res = await supabase.auth.signUp({ email, password });
     if (res.data.user && res.data.session) {
+      lastOwnerUserIdRef.current = res.data.user.id;
       await Promise.all([
         fetchProfile(res.data.user.id, res.data.user.email),
         checkAdminStatus(res.data.session.access_token),
@@ -281,26 +283,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const lockOwnerSession = useCallback(async () => {
-    const tok = ownerSessionTokenRef.current;
     try {
       await fetch('/api/owner/auth/logout', {
         method: 'POST',
-        credentials: 'same-origin',
-        headers: tok ? { 'X-Owner-Session': tok } : {},
+        credentials: 'include',
       });
     } catch {
       // ignore
     }
-    setOwnerSessionToken(null);
+    ownerSessionVerifiedRef.current = false;
     setOwnerSessionVerified(false);
     if (session?.access_token) {
-      await checkOwnerStatus(session.access_token, null);
+      await checkOwnerStatus(session.access_token, { silent: false });
     }
-  }, [session?.access_token, setOwnerSessionToken, checkOwnerStatus]);
+  }, [session?.access_token, checkOwnerStatus]);
 
   const signOut = async () => {
     await lockOwnerSession();
     await supabase.auth.signOut();
+    lastOwnerUserIdRef.current = null;
     setUser(null);
     setSession(null);
     setProfile(null);
@@ -370,8 +371,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const refreshOwnerStatus = useCallback(
-    async (overrideOwnerToken?: string | null) => {
-      await checkOwnerStatus(session?.access_token ?? null, overrideOwnerToken);
+    async (silent = false) => {
+      await checkOwnerStatus(session?.access_token ?? null, { silent });
     },
     [session?.access_token, checkOwnerStatus]
   );
@@ -386,7 +387,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAdmin,
         isOwnerAccount,
         ownerStatusLoading,
-        ownerSessionToken,
         ownerSessionVerified,
         ownerEmailDeliveryConfigured,
         ownerDiagnostics,
@@ -399,7 +399,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         updateStartingCapital,
         refreshProfile,
         refreshOwnerStatus,
-        setOwnerSessionToken,
         lockOwnerSession,
       }}
     >

@@ -54,14 +54,27 @@ export type EmailSenderFn = (params: {
   html: string;
 }) => Promise<void>;
 
-// Ephemeral fallback secret per server boot if OWNER_SESSION_SECRET is omitted in dev;
-// configuring OWNER_SESSION_SECRET in environment keeps sessions valid across restarts.
+// Ephemeral fallback secret ONLY for local non-serverless single-process dev when env secrets are omitted.
 const EPHEMERAL_FALLBACK_SECRET = crypto.randomBytes(32).toString('hex');
 
+function isServerlessEnv(): boolean {
+  return Boolean(
+    process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NETLIFY
+  );
+}
+
 function getSigningSecret(): string {
-  const configured = process.env.OWNER_SESSION_SECRET?.trim() || process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
-  if (configured && configured.length >= 16) return configured;
+  const ownerSecret = process.env.OWNER_SESSION_SECRET?.trim();
+  if (ownerSecret && ownerSecret.length >= 16) return ownerSecret;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  if (serviceKey && serviceKey.length > 20) return serviceKey;
   return EPHEMERAL_FALLBACK_SECRET;
+}
+
+export function isSigningSecretStable(): boolean {
+  const ownerSecret = process.env.OWNER_SESSION_SECRET?.trim() || '';
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim() || '';
+  return ownerSecret.length >= 16 || serviceKey.length > 20;
 }
 
 function hashSecretValue(value: string, salt = ''): string {
@@ -76,7 +89,7 @@ function constantTimeHexEqual(a: string, b: string): boolean {
   return crypto.timingSafeEqual(Buffer.from(a, 'utf8'), Buffer.from(b, 'utf8'));
 }
 
-// Server-side in-memory stores (mirrored to Supabase when 002 migration + service_role exist)
+// Server-side in-memory stores (mirrored to Supabase when 002/006 migration + service_role exist)
 const otpStore = new Map<string, OtpRecord>();
 const requestTimestampsByKey = new Map<string, number[]>();
 const lockoutUntilByKey = new Map<string, number>();
@@ -375,6 +388,15 @@ export async function requestOwnerVerificationCode(params: {
     return { ok: false, status: 403, error: 'Unauthorized owner account' };
   }
 
+  if (isServerlessEnv() && !isSigningSecretStable()) {
+    return {
+      ok: false,
+      status: 503,
+      error:
+        'Server configuration incomplete: set OWNER_SESSION_SECRET (and SUPABASE_SERVICE_ROLE_KEY) in Vercel Environment Variables so Owner Mode sessions persist.',
+    };
+  }
+
   const delivery = getEmailDeliveryStatus();
   if (!delivery.configured) {
     return {
@@ -502,6 +524,27 @@ export async function requestOwnerVerificationCode(params: {
   };
 }
 
+export function createSignedOwnerSessionToken(params: {
+  sessionId: string;
+  userId: string;
+  email: string;
+  expiresAtMs: number;
+}): { token: string; sessionHash: string } {
+  const payloadB64 = Buffer.from(
+    JSON.stringify({
+      sid: params.sessionId,
+      uid: params.userId,
+      email: params.email.trim().toLowerCase(),
+      exp: params.expiresAtMs,
+    }),
+    'utf8'
+  ).toString('base64url');
+  const sig = hashSecretValue(payloadB64, 'owner_session');
+  const token = `${payloadB64}.${sig}`;
+  const sessionHash = hashSecretValue(token, 'session_store');
+  return { token, sessionHash };
+}
+
 export async function verifyOwnerVerificationCode(params: {
   user: User;
   code: string;
@@ -523,6 +566,15 @@ export async function verifyOwnerVerificationCode(params: {
     return { ok: false, status: 403, error: 'Unauthorized owner account' };
   }
 
+  if (isServerlessEnv() && !isSigningSecretStable()) {
+    return {
+      ok: false,
+      status: 503,
+      error:
+        'Server configuration incomplete: set OWNER_SESSION_SECRET (and SUPABASE_SERVICE_ROLE_KEY) in Vercel Environment Variables so Owner Mode sessions persist.',
+    };
+  }
+
   const rateKey = `${userEmail}:${params.ip}`;
   const lockedUntil = lockoutUntilByKey.get(rateKey) || 0;
   if (lockedUntil > now) {
@@ -538,13 +590,51 @@ export async function verifyOwnerVerificationCode(params: {
     return { ok: false, status: 400, error: 'Enter the 6-digit verification code.' };
   }
 
-  // Locate latest OTP record for owner
+  const adminDb = getAdminClient();
+
+  // Locate latest OTP record for owner (memory first, then Supabase across serverless instances)
   let activeRecord: OtpRecord | null = null;
+  let loadedFromDb = false;
   for (const rec of otpStore.values()) {
     if (rec.ownerEmail === userEmail) {
       if (!activeRecord || rec.createdAt > activeRecord.createdAt) {
         activeRecord = rec;
       }
+    }
+  }
+
+  if (adminDb) {
+    try {
+      const { data: dbRow } = await adminDb
+        .from('owner_verification_codes')
+        .select('id, owner_user_id, owner_email, code_hash, attempts, max_attempts, used, used_at, expires_at, requested_ip, created_at')
+        .eq('owner_email', userEmail)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (dbRow) {
+        const dbCreatedAt = Date.parse(dbRow.created_at);
+        if (!activeRecord || dbCreatedAt >= activeRecord.createdAt) {
+          activeRecord = {
+            id: dbRow.id,
+            ownerUserId: dbRow.owner_user_id,
+            ownerEmail: dbRow.owner_email,
+            codeHash: dbRow.code_hash,
+            attempts: Number(dbRow.attempts || 0),
+            maxAttempts: Number(dbRow.max_attempts || OTP_MAX_ATTEMPTS),
+            used: Boolean(dbRow.used),
+            usedAt: dbRow.used_at ? Date.parse(dbRow.used_at) : null,
+            expiresAt: Date.parse(dbRow.expires_at),
+            createdAt: Number.isFinite(dbCreatedAt) ? dbCreatedAt : now,
+            ip: dbRow.requested_ip || '',
+          };
+          otpStore.set(activeRecord.id, activeRecord);
+          loadedFromDb = true;
+        }
+      }
+    } catch {
+      // Ignore if migration not yet applied; rely on in-memory store
     }
   }
 
@@ -559,6 +649,16 @@ export async function verifyOwnerVerificationCode(params: {
   if (now > activeRecord.expiresAt) {
     activeRecord.used = true;
     activeRecord.usedAt = now;
+    if (adminDb) {
+      try {
+        await adminDb
+          .from('owner_verification_codes')
+          .update({ used: true, used_at: new Date(now).toISOString() })
+          .eq('id', activeRecord.id);
+      } catch {
+        // ignore
+      }
+    }
     return { ok: false, status: 400, error: 'Verification code expired. Request a new code.' };
   }
 
@@ -567,16 +667,33 @@ export async function verifyOwnerVerificationCode(params: {
 
   if (!matches) {
     activeRecord.attempts += 1;
-    if (activeRecord.attempts >= activeRecord.maxAttempts) {
+    const locked = activeRecord.attempts >= activeRecord.maxAttempts;
+    if (locked) {
       activeRecord.used = true;
       activeRecord.usedAt = now;
       lockoutUntilByKey.set(rateKey, now + OTP_LOCKOUT_MS);
+    }
+    if (adminDb && (loadedFromDb || activeRecord.id)) {
+      try {
+        await adminDb
+          .from('owner_verification_codes')
+          .update({
+            attempts: activeRecord.attempts,
+            ...(locked ? { used: true, used_at: new Date(now).toISOString() } : {}),
+          })
+          .eq('id', activeRecord.id);
+      } catch {
+        // ignore
+      }
+    }
+    if (locked) {
       await recordOwnerAudit({
         userId: params.user.id,
         email: userEmail,
         action: 'owner.otp.locked',
         resourceType: 'auth',
         ip: params.ip,
+        db: adminDb,
       });
       return {
         ok: false,
@@ -594,18 +711,12 @@ export async function verifyOwnerVerificationCode(params: {
   // Create signed owner session token
   const sessionId = crypto.randomUUID();
   const sessionExpiresAt = now + OWNER_SESSION_TTL_MS;
-  const payloadB64 = Buffer.from(
-    JSON.stringify({
-      sid: sessionId,
-      uid: params.user.id,
-      email: userEmail,
-      exp: sessionExpiresAt,
-    }),
-    'utf8'
-  ).toString('base64url');
-  const sig = hashSecretValue(payloadB64, 'owner_session');
-  const sessionToken = `${payloadB64}.${sig}`;
-  const sessionHash = hashSecretValue(sessionToken, 'session_store');
+  const { token: sessionToken, sessionHash } = createSignedOwnerSessionToken({
+    sessionId,
+    userId: params.user.id,
+    email: userEmail,
+    expiresAtMs: sessionExpiresAt,
+  });
 
   ownerSessionStore.set(sessionId, {
     id: sessionId,
@@ -618,7 +729,6 @@ export async function verifyOwnerVerificationCode(params: {
     lastSeenAt: now,
   });
 
-  const adminDb = getAdminClient();
   if (adminDb) {
     try {
       await adminDb
@@ -644,7 +754,7 @@ export async function verifyOwnerVerificationCode(params: {
         .update({ role: 'owner' })
         .eq('id', params.user.id);
     } catch {
-      // Ignore if migration 002 hasn't been executed yet
+      // Ignore if migration 002/006 hasn't been executed yet
     }
   }
 
@@ -670,7 +780,13 @@ export function validateOwnerSessionToken(params: {
   token?: string | null;
   user: User;
   nowMs?: number;
-}): { valid: boolean; sessionId?: string; expiresAt?: string; reason?: string } {
+}): {
+  valid: boolean;
+  sessionId?: string;
+  expiresAt?: string;
+  expiresAtMs?: number;
+  reason?: string;
+} {
   const now = params.nowMs ?? Date.now();
   const ownerEmail = getOwnerEmail();
   const userEmail = (params.user.email || '').trim().toLowerCase();
@@ -690,7 +806,13 @@ export function validateOwnerSessionToken(params: {
 
   const expectedSig = hashSecretValue(payloadB64, 'owner_session');
   if (!constantTimeHexEqual(sig, expectedSig)) {
-    return { valid: false, reason: 'Invalid owner session signature' };
+    return {
+      valid: false,
+      reason:
+        isServerlessEnv() && !isSigningSecretStable()
+          ? 'Owner session secret missing on server (configure OWNER_SESSION_SECRET in Vercel)'
+          : 'Invalid owner session signature',
+    };
   }
 
   let parsed: { sid?: string; uid?: string; email?: string; exp?: number };
@@ -722,6 +844,113 @@ export function validateOwnerSessionToken(params: {
     valid: true,
     sessionId: parsed.sid,
     expiresAt: new Date(parsed.exp).toISOString(),
+    expiresAtMs: parsed.exp,
+  };
+}
+
+export async function validateOwnerSessionTokenAsync(params: {
+  token?: string | null;
+  user: User;
+  nowMs?: number;
+  slideRefresh?: boolean;
+}): Promise<{
+  valid: boolean;
+  sessionId?: string;
+  expiresAt?: string;
+  refreshedToken?: string;
+  reason?: string;
+}> {
+  const now = params.nowMs ?? Date.now();
+  const base = validateOwnerSessionToken({ token: params.token, user: params.user, nowMs: now });
+  if (!base.valid || !base.sessionId || !base.expiresAtMs) {
+    return base;
+  }
+
+  const adminDb = getAdminClient();
+  if (adminDb) {
+    try {
+      const { data: row, error } = await adminDb
+        .from('owner_sessions')
+        .select('id, revoked, expires_at')
+        .eq('id', base.sessionId)
+        .maybeSingle();
+
+      if (!error && row) {
+        if (row.revoked) {
+          ownerSessionStore.set(base.sessionId, {
+            id: base.sessionId,
+            ownerUserId: params.user.id,
+            ownerEmail: (params.user.email || '').trim().toLowerCase(),
+            sessionHash: '',
+            expiresAt: base.expiresAtMs,
+            revoked: true,
+            createdAt: now,
+            lastSeenAt: now,
+          });
+          return { valid: false, reason: 'Owner session revoked' };
+        }
+        const dbExp = Date.parse(row.expires_at);
+        if (Number.isFinite(dbExp) && now > dbExp) {
+          return { valid: false, reason: 'Owner verification session expired' };
+        }
+      }
+    } catch {
+      // Table may not exist yet before migration 002/006; signed token validation remains authoritative.
+    }
+  }
+
+  // Sliding session refresh when less than half of the 4-hour TTL remains
+  let expiresAtIso = base.expiresAt!;
+  let refreshedToken: string | undefined;
+  const remainingMs = base.expiresAtMs - now;
+  if (params.slideRefresh && remainingMs < OWNER_SESSION_TTL_MS * 0.65) {
+    const newExpMs = now + OWNER_SESSION_TTL_MS;
+    const { token: newToken, sessionHash } = createSignedOwnerSessionToken({
+      sessionId: base.sessionId,
+      userId: params.user.id,
+      email: (params.user.email || '').trim().toLowerCase(),
+      expiresAtMs: newExpMs,
+    });
+    refreshedToken = newToken;
+    expiresAtIso = new Date(newExpMs).toISOString();
+
+    const mem = ownerSessionStore.get(base.sessionId);
+    if (mem) {
+      mem.expiresAt = newExpMs;
+      mem.sessionHash = sessionHash;
+      mem.lastSeenAt = now;
+    }
+
+    if (adminDb) {
+      try {
+        await adminDb
+          .from('owner_sessions')
+          .update({
+            session_hash: sessionHash,
+            expires_at: expiresAtIso,
+            last_seen_at: new Date(now).toISOString(),
+          })
+          .eq('id', base.sessionId);
+      } catch {
+        // ignore if table absent
+      }
+    }
+  } else if (adminDb) {
+    try {
+      await adminDb
+        .from('owner_sessions')
+        .update({ last_seen_at: new Date(now).toISOString() })
+        .eq('id', base.sessionId);
+    } catch {
+      // ignore
+    }
+  }
+
+  return {
+    valid: true,
+    sessionId: base.sessionId,
+    expiresAt: expiresAtIso,
+    refreshedToken,
   };
 }
 
@@ -744,6 +973,39 @@ export function getActiveOtpSummary(ownerEmail: string, nowMs = Date.now()): {
   };
 }
 
+export async function getActiveOtpSummaryAsync(ownerEmail: string, nowMs = Date.now()): Promise<{
+  hasActiveCode: boolean;
+  expiresAt: string | null;
+}> {
+  const mem = getActiveOtpSummary(ownerEmail, nowMs);
+  if (mem.hasActiveCode) return mem;
+
+  const adminDb = getAdminClient();
+  if (adminDb) {
+    try {
+      const normalized = ownerEmail.trim().toLowerCase();
+      const { data } = await adminDb
+        .from('owner_verification_codes')
+        .select('expires_at')
+        .eq('owner_email', normalized)
+        .eq('used', false)
+        .gt('expires_at', new Date(nowMs).toISOString())
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (data?.expires_at) {
+        return {
+          hasActiveCode: true,
+          expiresAt: data.expires_at,
+        };
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return mem;
+}
+
 export function revokeOwnerSessionToken(token?: string | null): void {
   const raw = (token || '').trim();
   if (!raw || !raw.includes('.')) return;
@@ -756,6 +1018,25 @@ export function revokeOwnerSessionToken(token?: string | null): void {
     }
   } catch {
     // ignore malformed token on logout
+  }
+}
+
+export async function revokeOwnerSessionTokenAsync(token?: string | null): Promise<void> {
+  revokeOwnerSessionToken(token);
+  const raw = (token || '').trim();
+  if (!raw || !raw.includes('.')) return;
+  const [payloadB64] = raw.split('.');
+  try {
+    const parsed = JSON.parse(Buffer.from(payloadB64, 'base64url').toString('utf8'));
+    const adminDb = getAdminClient();
+    if (adminDb && parsed?.sid) {
+      await adminDb
+        .from('owner_sessions')
+        .update({ revoked: true })
+        .eq('id', parsed.sid);
+    }
+  } catch {
+    // ignore
   }
 }
 

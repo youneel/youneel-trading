@@ -37,7 +37,23 @@ import { GiveawayStyledCard } from '../GiveawayStyledCard';
 interface GiveawayBuilderPanelProps {
   lang: Language;
   accessToken: string;
-  ownerSessionToken: string;
+}
+
+function toLocalDateTimeInput(dateInput: Date | string): string {
+  const d = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+  if (Number.isNaN(d.getTime())) return '';
+  const pad = (n: number) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+async function readJsonResponseSafe(res: Response): Promise<any> {
+  const raw = await res.text();
+  if (!raw) return {};
+  try {
+    return JSON.parse(raw);
+  } catch {
+    return { error: raw.slice(0, 220) || `HTTP ${res.status}` };
+  }
 }
 
 interface TableDiag {
@@ -80,7 +96,6 @@ const DEFAULT_CROP: ImageCropConfig = { x: 50, y: 50, zoom: 1, aspect: '16:9' };
 export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
   lang,
   accessToken,
-  ownerSessionToken,
 }) => {
   const t = translations[lang];
   const uploaderRef = useRef<ImageCropUploaderHandle>(null);
@@ -128,9 +143,8 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
     () => ({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
-      'X-Owner-Session': ownerSessionToken,
     }),
-    [accessToken, ownerSessionToken]
+    [accessToken]
   );
 
   const loadGiveaways = useCallback(async () => {
@@ -139,9 +153,9 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
     try {
       const res = await fetch('/api/owner/giveaways', {
         headers: ownerHeaders,
-        credentials: 'same-origin',
+        credentials: 'include',
       });
-      const data = await res.json();
+      const data = await readJsonResponseSafe(res);
       if (data.diagnostics) {
         setDiagnostics(data.diagnostics);
         if (data.diagnostics.overallStatus !== 'ok') {
@@ -168,6 +182,8 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
   }, [loadGiveaways]);
 
   const startNewBuilder = () => {
+    setError(null);
+    setStatusMsg(null);
     setEditingId(null);
     setTitle('');
     setSubtitle('');
@@ -184,14 +200,16 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
     setCtaLabel(lang === 'ar' ? 'المشاركة الآن' : 'Enter Giveaway');
     setTemplateId('premium_dark');
     setStyleConfig(GIVEAWAY_TEMPLATES.premium_dark.style);
-    setStartsAt(new Date().toISOString().slice(0, 16));
-    setEndsAt(new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 16));
+    setStartsAt(toLocalDateTimeInput(new Date()));
+    setEndsAt(toLocalDateTimeInput(new Date(Date.now() + 7 * 86400000)));
     setPublishAt('');
     setBuilderStep('content');
     setBuilderOpen(true);
   };
 
   const openEditBuilder = (g: GiveawayItem) => {
+    setError(null);
+    setStatusMsg(null);
     const tid: GiveawayTemplateId =
       g.design_template && g.design_template in GIVEAWAY_TEMPLATES
         ? g.design_template
@@ -215,9 +233,9 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
       ...GIVEAWAY_TEMPLATES[tid].style,
       ...(g.style_config || {}),
     });
-    setStartsAt(g.starts_at ? new Date(g.starts_at).toISOString().slice(0, 16) : '');
-    setEndsAt(g.ends_at ? new Date(g.ends_at).toISOString().slice(0, 16) : '');
-    setPublishAt(g.publish_at ? new Date(g.publish_at).toISOString().slice(0, 16) : '');
+    setStartsAt(g.starts_at ? toLocalDateTimeInput(g.starts_at) : '');
+    setEndsAt(g.ends_at ? toLocalDateTimeInput(g.ends_at) : '');
+    setPublishAt(g.publish_at ? toLocalDateTimeInput(g.publish_at) : '');
     setBuilderStep('content');
     setBuilderOpen(true);
   };
@@ -306,13 +324,13 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
       const method = editingId ? 'PATCH' : 'POST';
       const res = await fetch(url, {
         method,
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: ownerHeaders,
         body: JSON.stringify(payload),
       });
-      const data = await res.json();
+      const data = await readJsonResponseSafe(res);
       if (!res.ok) {
-        throw new Error(data.error || 'Failed to save giveaway');
+        throw new Error(data.error || `Failed to save giveaway (HTTP ${res.status})`);
       }
 
       setBuilderOpen(false);
@@ -330,12 +348,12 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
     try {
       const res = await fetch(`/api/owner/giveaways/${encodeURIComponent(id)}`, {
         method: 'PATCH',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: ownerHeaders,
         body: JSON.stringify(updates),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Update failed');
+      const data = await readJsonResponseSafe(res);
+      if (!res.ok) throw new Error(data.error || `Update failed (HTTP ${res.status})`);
       await loadGiveaways();
     } catch (err: any) {
       setError(err?.message || translateApiError(err?.message, lang));
@@ -347,11 +365,11 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
     try {
       const res = await fetch(`/api/owner/giveaways/${encodeURIComponent(id)}/duplicate`, {
         method: 'POST',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: ownerHeaders,
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Duplicate failed');
+      const data = await readJsonResponseSafe(res);
+      if (!res.ok) throw new Error(data.error || `Duplicate failed (HTTP ${res.status})`);
       setStatusMsg(t.giveawayCreatedMsg);
       await loadGiveaways();
     } catch (err: any) {
@@ -364,12 +382,12 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
     try {
       const res = await fetch(`/api/owner/giveaways/${encodeURIComponent(id)}`, {
         method: 'DELETE',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: ownerHeaders,
       });
       if (!res.ok) {
-        const d = await res.json();
-        throw new Error(d.error || 'Delete failed');
+        const d = await readJsonResponseSafe(res);
+        throw new Error(d.error || `Delete failed (HTTP ${res.status})`);
       }
       setConfirmDeleteId(null);
       setStatusMsg(t.giveawayDeletedMsg);
@@ -389,14 +407,14 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
         `/api/owner/giveaways/${encodeURIComponent(giveawayId)}/participants/${encodeURIComponent(participantId)}`,
         {
           method: 'PATCH',
-          credentials: 'same-origin',
+          credentials: 'include',
           headers: ownerHeaders,
           body: JSON.stringify({ status }),
         }
       );
       if (!res.ok) {
-        const d = await res.json();
-        throw new Error(d.error || 'Update failed');
+        const d = await readJsonResponseSafe(res);
+        throw new Error(d.error || `Update failed (HTTP ${res.status})`);
       }
       await loadGiveaways();
     } catch (err: any) {
@@ -789,7 +807,7 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
                 </div>
               )}
 
-              {builderStep === 'media' && (
+              <div className={builderStep === 'media' ? 'block' : 'hidden'}>
                 <ImageCropUploader
                   ref={uploaderRef}
                   lang={lang}
@@ -797,11 +815,10 @@ export const GiveawayBuilderPanel: React.FC<GiveawayBuilderPanelProps> = ({
                   imageUrl={imageUrl}
                   crop={imageCrop}
                   accessToken={accessToken}
-                  ownerSessionToken={ownerSessionToken}
                   onChangeImageUrl={setImageUrl}
                   onChangeCrop={setImageCrop}
                 />
-              )}
+              </div>
 
               {builderStep === 'design' && (
                 <div className="space-y-4">

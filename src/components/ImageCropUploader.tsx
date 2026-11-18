@@ -14,9 +14,37 @@ interface ImageCropUploaderProps {
   imageUrl: string;
   crop: ImageCropConfig;
   accessToken: string | null;
-  ownerSessionToken: string | null;
   onChangeImageUrl: (url: string) => void;
   onChangeCrop: (crop: ImageCropConfig) => void;
+}
+
+function encodeCanvasUnderLimit(canvas: HTMLCanvasElement, maxDataUrlLen = 3_200_000): {
+  dataUrl: string;
+  mimeType: string;
+} {
+  // Try WebP descending quality first, then JPEG if browser falls back or output exceeds Vercel limit
+  const attempts: Array<{ mime: string; quality: number }> = [
+    { mime: 'image/webp', quality: 0.88 },
+    { mime: 'image/webp', quality: 0.72 },
+    { mime: 'image/jpeg', quality: 0.85 },
+    { mime: 'image/jpeg', quality: 0.68 },
+  ];
+
+  for (const attempt of attempts) {
+    const out = canvas.toDataURL(attempt.mime, attempt.quality);
+    const matched = out.match(/^data:([^;]+);base64,/);
+    const actualMime = (matched?.[1] || attempt.mime).toLowerCase();
+    if (out.length <= maxDataUrlLen && ['image/webp', 'image/jpeg', 'image/png', 'image/avif'].includes(actualMime)) {
+      return { dataUrl: out, mimeType: actualMime };
+    }
+  }
+
+  const fallback = canvas.toDataURL('image/jpeg', 0.55);
+  const matched = fallback.match(/^data:([^;]+);base64,/);
+  return {
+    dataUrl: fallback,
+    mimeType: (matched?.[1] || 'image/jpeg').toLowerCase(),
+  };
 }
 
 export const ImageCropUploader = forwardRef<ImageCropUploaderHandle, ImageCropUploaderProps>(({
@@ -25,7 +53,6 @@ export const ImageCropUploader = forwardRef<ImageCropUploaderHandle, ImageCropUp
   imageUrl,
   crop,
   accessToken,
-  ownerSessionToken,
   onChangeImageUrl,
   onChangeCrop,
 }, ref) => {
@@ -67,7 +94,7 @@ export const ImageCropUploader = forwardRef<ImageCropUploaderHandle, ImageCropUp
   };
 
   const renderCroppedAndUpload = async (): Promise<string | null> => {
-    if (!activePreview || !accessToken || !ownerSessionToken) return null;
+    if (!activePreview || !accessToken) return null;
     setUploading(true);
     setUploadError(null);
     setUploadSuccess(null);
@@ -103,26 +130,31 @@ export const ImageCropUploader = forwardRef<ImageCropUploaderHandle, ImageCropUp
 
       ctx.drawImage(img, dx, dy, drawW, drawH);
 
-      const dataUrl = canvas.toDataURL('image/webp', 0.9);
+      const { dataUrl, mimeType } = encodeCanvasUnderLimit(canvas);
       const res = await fetch('/api/owner/storage/upload', {
         method: 'POST',
-        credentials: 'same-origin',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
-          'X-Owner-Session': ownerSessionToken,
         },
         body: JSON.stringify({
           bucket,
           filename: selectedFileName,
-          mimeType: 'image/webp',
+          mimeType,
           dataBase64: dataUrl,
           cropMetadata: crop,
         }),
       });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Upload failed');
+      const rawText = await res.text();
+      let data: any = {};
+      try {
+        data = rawText ? JSON.parse(rawText) : {};
+      } catch {
+        data = { error: rawText.slice(0, 200) || `Upload failed (HTTP ${res.status})` };
+      }
+      if (!res.ok) throw new Error(data.error || `Upload failed (HTTP ${res.status})`);
 
       onChangeImageUrl(data.url);
       setLocalPreviewUrl(null);

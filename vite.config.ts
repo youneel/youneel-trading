@@ -14,6 +14,31 @@ export default defineConfig(() => {
         '@': path.resolve(currentDir, '.'),
       },
     },
+    build: {
+      rolldownOptions: {
+        output: {
+          manualChunks(id) {
+            if (!id.includes('node_modules')) return;
+            if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/scheduler/')) {
+              return 'vendor-react';
+            }
+            if (id.includes('/@supabase/')) {
+              return 'vendor-supabase';
+            }
+            if (id.includes('/lightweight-charts/')) {
+              return 'vendor-charts';
+            }
+            if (id.includes('/motion/') || id.includes('/framer-motion/')) {
+              return 'vendor-motion';
+            }
+            if (id.includes('/lucide-react/')) {
+              return 'vendor-icons';
+            }
+            return 'vendor-misc';
+          },
+        },
+      },
+    },
     server: {
       allowedHosts: true as const,
       // HMR is disabled in AI Studio when DISABLE_HMR=true
