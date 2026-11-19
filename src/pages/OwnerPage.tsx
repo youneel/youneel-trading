@@ -308,6 +308,12 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
     return () => clearInterval(timer);
   }, [cooldownSeconds]);
 
+  useEffect(() => {
+    if (ownerDiagnostics?.emailVerificationStatus === 'code_pending' && !otpSent) {
+      setOtpSent(true);
+    }
+  }, [ownerDiagnostics?.emailVerificationStatus, otpSent]);
+
   const loadSecurityData = useCallback(async () => {
     if (!accessToken || !ownerSessionVerified) return;
     try {
@@ -730,6 +736,7 @@ export const OwnerPage: React.FC<OwnerPageProps> = ({ lang, onExitOwner }) => {
             <input
               type="text"
               inputMode="numeric"
+              autoComplete="one-time-code"
               maxLength={6}
               required
               dir="ltr"

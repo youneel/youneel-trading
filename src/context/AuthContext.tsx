@@ -233,7 +233,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           sameUser &&
           (event === 'TOKEN_REFRESHED' ||
             event === 'INITIAL_SESSION' ||
-            (event === 'SIGNED_IN' && ownerSessionVerifiedRef.current));
+            event === 'SIGNED_IN' ||
+            event === 'USER_UPDATED');
 
         lastOwnerUserIdRef.current = nextSession.user.id;
         await Promise.all([

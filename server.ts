@@ -44,6 +44,7 @@ import {
   verifyAndProvisionOwner,
 } from './server/supabaseAdmin.js';
 import {
+  OTP_TTL_MS,
   OTP_RESEND_COOLDOWN_MS,
   OWNER_SESSION_TTL_MS,
   getEmailDeliveryStatus,
@@ -1883,6 +1884,7 @@ app.post('/api/contact', async (req: Request, res: Response) => {
 // 6. PRIVATE YOUNEEL OWNER MODE (EMAIL+PASS + 5-MIN 2FA OTP + SERVER GUARD)
 // ============================================================================
 const OWNER_SESSION_COOKIE_NAME = 'youneel_owner_session';
+const OWNER_OTP_COOKIE_NAME = 'youneel_owner_otp';
 
 function getRequestIp(req: Request): string {
   const fwd = req.headers['x-forwarded-for'];
@@ -1925,9 +1927,27 @@ function extractOwnerSessionCandidates(req: Request): string[] {
   return candidates;
 }
 
+function extractOwnerOtpCookie(req: Request): string | undefined {
+  const cookies = parseCookies(req.headers.cookie);
+  return normalizeCandidateToken(cookies[OWNER_OTP_COOKIE_NAME]);
+}
+
 function isSecureRequest(req: Request): boolean {
   const proto = String(req.headers['x-forwarded-proto'] || '').toLowerCase();
   return Boolean(req.secure || proto.includes('https'));
+}
+
+function appendSetCookie(res: Response, cookieHeaderValue: string): void {
+  const existing = res.getHeader('Set-Cookie');
+  if (!existing) {
+    res.setHeader('Set-Cookie', cookieHeaderValue);
+    return;
+  }
+  if (Array.isArray(existing)) {
+    res.setHeader('Set-Cookie', [...existing, cookieHeaderValue]);
+    return;
+  }
+  res.setHeader('Set-Cookie', [String(existing), cookieHeaderValue]);
 }
 
 function setOwnerSessionCookie(req: Request, res: Response, token: string): void {
@@ -1940,7 +1960,7 @@ function setOwnerSessionCookie(req: Request, res: Response, token: string): void
     `Max-Age=${maxAge}`,
   ];
   if (isSecureRequest(req)) parts.push('Secure');
-  res.setHeader('Set-Cookie', parts.join('; '));
+  appendSetCookie(res, parts.join('; '));
 }
 
 function clearOwnerSessionCookie(req: Request, res: Response): void {
@@ -1952,7 +1972,32 @@ function clearOwnerSessionCookie(req: Request, res: Response): void {
     'Max-Age=0',
   ];
   if (isSecureRequest(req)) parts.push('Secure');
-  res.setHeader('Set-Cookie', parts.join('; '));
+  appendSetCookie(res, parts.join('; '));
+}
+
+function setOwnerOtpCookie(req: Request, res: Response, token: string): void {
+  const maxAge = Math.floor(OTP_TTL_MS / 1000);
+  const parts = [
+    `${OWNER_OTP_COOKIE_NAME}=${encodeURIComponent(token)}`,
+    'Path=/',
+    'HttpOnly',
+    'SameSite=Lax',
+    `Max-Age=${maxAge}`,
+  ];
+  if (isSecureRequest(req)) parts.push('Secure');
+  appendSetCookie(res, parts.join('; '));
+}
+
+function clearOwnerOtpCookie(req: Request, res: Response): void {
+  const parts = [
+    `${OWNER_OTP_COOKIE_NAME}=`,
+    'Path=/',
+    'HttpOnly',
+    'SameSite=Lax',
+    'Max-Age=0',
+  ];
+  if (isSecureRequest(req)) parts.push('Secure');
+  appendSetCookie(res, parts.join('; '));
 }
 
 async function resolveOwnerSessionCheck(
@@ -2032,7 +2077,7 @@ app.get('/api/owner/auth/status', async (req: Request, res: Response) => {
 
   const [sessionCheck, activeOtp] = await Promise.all([
     resolveOwnerSessionCheck(req, res, auth.user, true),
-    getActiveOtpSummaryAsync(auth.user.email || ''),
+    getActiveOtpSummaryAsync(auth.user.email || '', extractOwnerOtpCookie(req), auth.user.id),
   ]);
   const deliveryDiag = diagnoseEmailDeliveryConfig();
 
@@ -2102,6 +2147,10 @@ app.post('/api/owner/auth/request-code', async (req: Request, res: Response) => 
     return;
   }
 
+  if (result.otpChallengeToken) {
+    setOwnerOtpCookie(req, res, result.otpChallengeToken);
+  }
+
   res.json({
     sent: true,
     expiresInSeconds: result.expiresInSeconds,
@@ -2125,7 +2174,14 @@ app.post('/api/owner/auth/verify-code', async (req: Request, res: Response) => {
     code: String(req.body?.code || ''),
     ip: getRequestIp(req),
     userAgent: String(req.headers['user-agent'] || ''),
+    otpChallengeToken: extractOwnerOtpCookie(req),
   });
+
+  if (result.updatedOtpChallengeToken) {
+    setOwnerOtpCookie(req, res, result.updatedOtpChallengeToken);
+  } else if (result.clearOtpCookie) {
+    clearOwnerOtpCookie(req, res);
+  }
 
   if (!result.ok || !result.sessionToken) {
     res.status(result.status).json({
@@ -2147,6 +2203,7 @@ app.post('/api/owner/auth/logout', async (req: Request, res: Response) => {
   const candidates = extractOwnerSessionCandidates(req);
   await Promise.all(candidates.map((tok) => revokeOwnerSessionTokenAsync(tok)));
   clearOwnerSessionCookie(req, res);
+  clearOwnerOtpCookie(req, res);
   res.json({ ok: true });
 });
 

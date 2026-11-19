@@ -93,6 +93,8 @@ function constantTimeHexEqual(a: string, b: string): boolean {
 
 // Server-side in-memory stores (mirrored to Supabase when 002/006 migration + service_role exist)
 const otpStore = new Map<string, OtpRecord>();
+const consumedOtpIds = new Map<string, number>();
+const challengeAttemptStore = new Map<string, number>();
 const requestTimestampsByKey = new Map<string, number[]>();
 const lockoutUntilByKey = new Map<string, number>();
 const ownerSessionStore = new Map<string, OwnerSessionRecord>();
@@ -106,9 +108,95 @@ export function setEmailSenderForTesting(fn: EmailSenderFn | null): void {
 
 export function resetOwnerAuthRateLimitsForTesting(): void {
   otpStore.clear();
+  consumedOtpIds.clear();
+  challengeAttemptStore.clear();
   requestTimestampsByKey.clear();
   lockoutUntilByKey.clear();
   ownerSessionStore.clear();
+}
+
+function createSignedOtpChallengeToken(params: {
+  challengeId: string;
+  userId: string;
+  email: string;
+  codeHash: string;
+  attempts: number;
+  maxAttempts: number;
+  expiresAtMs: number;
+}): string {
+  const payloadB64 = Buffer.from(
+    JSON.stringify({
+      cid: params.challengeId,
+      uid: params.userId,
+      email: params.email.trim().toLowerCase(),
+      ch: params.codeHash,
+      att: params.attempts,
+      max: params.maxAttempts,
+      exp: params.expiresAtMs,
+    }),
+    'utf8'
+  ).toString('base64url');
+  const sig = hashSecretValue(payloadB64, 'owner_otp_challenge');
+  return `${payloadB64}.${sig}`;
+}
+
+function parseSignedOtpChallengeToken(params: {
+  token?: string | null;
+  userId?: string;
+  email: string;
+  nowMs?: number;
+}): {
+  valid: boolean;
+  expired?: boolean;
+  used?: boolean;
+  challengeId?: string;
+  codeHash?: string;
+  attempts?: number;
+  maxAttempts?: number;
+  expiresAtMs?: number;
+} {
+  const raw = (params.token || '').trim();
+  if (!raw || !raw.includes('.')) return { valid: false };
+  const [payloadB64, sig] = raw.split('.');
+  if (!payloadB64 || !sig) return { valid: false };
+
+  const expectedSig = hashSecretValue(payloadB64, 'owner_otp_challenge');
+  if (!constantTimeHexEqual(sig, expectedSig)) return { valid: false };
+
+  try {
+    const parsed = JSON.parse(Buffer.from(payloadB64, 'base64url').toString('utf8'));
+    const normalizedEmail = params.email.trim().toLowerCase();
+    if (
+      !parsed?.cid ||
+      !parsed?.email ||
+      parsed.email !== normalizedEmail ||
+      (params.userId && parsed.uid !== params.userId) ||
+      !parsed.ch ||
+      !parsed.exp
+    ) {
+      return { valid: false };
+    }
+    if (consumedOtpIds.has(parsed.cid)) {
+      return { valid: false, used: true, challengeId: parsed.cid };
+    }
+    const now = params.nowMs ?? Date.now();
+    if (now > Number(parsed.exp)) {
+      return { valid: false, expired: true, challengeId: parsed.cid };
+    }
+    const memAttempts = challengeAttemptStore.get(parsed.cid) ?? 0;
+    const attempts = Math.max(Number(parsed.att || 0), memAttempts);
+    const maxAttempts = Number(parsed.max || OTP_MAX_ATTEMPTS);
+    return {
+      valid: true,
+      challengeId: parsed.cid,
+      codeHash: parsed.ch,
+      attempts,
+      maxAttempts,
+      expiresAtMs: Number(parsed.exp),
+    };
+  } catch {
+    return { valid: false };
+  }
 }
 
 export function isOwnerSessionSecretConfigured(): boolean {
@@ -380,6 +468,7 @@ export async function requestOwnerVerificationCode(params: {
   error?: string;
   expiresInSeconds?: number;
   retryAfterSeconds?: number;
+  otpChallengeToken?: string;
   envDiagnostics?: SafeConfigDiagnostics;
 }> {
   const now = params.nowMs ?? Date.now();
@@ -514,6 +603,16 @@ export async function requestOwnerVerificationCode(params: {
     }
   }
 
+  const otpChallengeToken = createSignedOtpChallengeToken({
+    challengeId: id,
+    userId: params.user.id,
+    email: userEmail,
+    codeHash,
+    attempts: 0,
+    maxAttempts: OTP_MAX_ATTEMPTS,
+    expiresAtMs: expiresAt,
+  });
+
   await recordOwnerAudit({
     userId: params.user.id,
     email: userEmail,
@@ -527,6 +626,7 @@ export async function requestOwnerVerificationCode(params: {
     ok: true,
     status: 200,
     expiresInSeconds: Math.round(OTP_TTL_MS / 1000),
+    otpChallengeToken,
   };
 }
 
@@ -556,6 +656,7 @@ export async function verifyOwnerVerificationCode(params: {
   code: string;
   ip: string;
   userAgent?: string;
+  otpChallengeToken?: string | null;
   nowMs?: number;
 }): Promise<{
   ok: boolean;
@@ -563,6 +664,8 @@ export async function verifyOwnerVerificationCode(params: {
   error?: string;
   sessionToken?: string;
   expiresAt?: string;
+  updatedOtpChallengeToken?: string;
+  clearOtpCookie?: boolean;
   envDiagnostics?: SafeConfigDiagnostics;
 }> {
   const now = params.nowMs ?? Date.now();
@@ -603,9 +706,10 @@ export async function verifyOwnerVerificationCode(params: {
 
   const adminDb = getAdminClient();
 
-  // Locate latest OTP record for owner (memory first, then Supabase across serverless instances)
+  // Locate latest OTP record for owner (memory first, then Supabase, then signed HttpOnly challenge cookie)
   let activeRecord: OtpRecord | null = null;
   let loadedFromDb = false;
+  let loadedFromCookie = false;
   for (const rec of otpStore.values()) {
     if (rec.ownerEmail === userEmail) {
       if (!activeRecord || rec.createdAt > activeRecord.createdAt) {
@@ -645,21 +749,74 @@ export async function verifyOwnerVerificationCode(params: {
         }
       }
     } catch {
-      // Ignore if migration not yet applied; rely on in-memory store
+      // Ignore if migration 006 not yet applied; fallback to signed challenge cookie
     }
+  }
+
+  // Signed HttpOnly OTP challenge cookie fallback (survives Vercel cold starts & cross-instance switches)
+  const cookieChallenge = parseSignedOtpChallengeToken({
+    token: params.otpChallengeToken,
+    userId: params.user.id,
+    email: userEmail,
+    nowMs: now,
+  });
+  const cookieCreatedAt = cookieChallenge.expiresAtMs ? cookieChallenge.expiresAtMs - OTP_TTL_MS : 0;
+  if (
+    cookieChallenge.valid &&
+    cookieChallenge.challengeId &&
+    cookieChallenge.codeHash &&
+    cookieChallenge.expiresAtMs &&
+    (!activeRecord ||
+      (cookieChallenge.challengeId !== activeRecord.id && cookieCreatedAt > activeRecord.createdAt))
+  ) {
+    activeRecord = {
+      id: cookieChallenge.challengeId,
+      ownerUserId: params.user.id,
+      ownerEmail: userEmail,
+      codeHash: cookieChallenge.codeHash,
+      attempts: cookieChallenge.attempts ?? 0,
+      maxAttempts: cookieChallenge.maxAttempts ?? OTP_MAX_ATTEMPTS,
+      used: false,
+      usedAt: null,
+      expiresAt: cookieChallenge.expiresAtMs,
+      createdAt: cookieCreatedAt,
+      ip: params.ip,
+    };
+    otpStore.set(activeRecord.id, activeRecord);
+    loadedFromCookie = true;
+  } else if (!activeRecord && cookieChallenge.used) {
+    return {
+      ok: false,
+      status: 400,
+      clearOtpCookie: true,
+      error: 'Verification code has already been used.',
+    };
+  } else if (!activeRecord && cookieChallenge.expired) {
+    return {
+      ok: false,
+      status: 400,
+      clearOtpCookie: true,
+      error: 'Verification code expired. Request a new code.',
+    };
   }
 
   if (!activeRecord) {
     return { ok: false, status: 400, error: 'No active verification code found. Request a new code.' };
   }
 
-  if (activeRecord.used) {
-    return { ok: false, status: 400, error: 'Verification code has already been used.' };
+  if (activeRecord.used || consumedOtpIds.has(activeRecord.id)) {
+    return {
+      ok: false,
+      status: 400,
+      clearOtpCookie: true,
+      error: 'Verification code has already been used.',
+    };
   }
 
   if (now > activeRecord.expiresAt) {
     activeRecord.used = true;
     activeRecord.usedAt = now;
+    consumedOtpIds.set(activeRecord.id, now);
     if (adminDb) {
       try {
         await adminDb
@@ -670,7 +827,12 @@ export async function verifyOwnerVerificationCode(params: {
         // ignore
       }
     }
-    return { ok: false, status: 400, error: 'Verification code expired. Request a new code.' };
+    return {
+      ok: false,
+      status: 400,
+      clearOtpCookie: true,
+      error: 'Verification code expired. Request a new code.',
+    };
   }
 
   const submittedHash = hashSecretValue(cleanCode, userEmail);
@@ -678,13 +840,15 @@ export async function verifyOwnerVerificationCode(params: {
 
   if (!matches) {
     activeRecord.attempts += 1;
+    challengeAttemptStore.set(activeRecord.id, activeRecord.attempts);
     const locked = activeRecord.attempts >= activeRecord.maxAttempts;
     if (locked) {
       activeRecord.used = true;
       activeRecord.usedAt = now;
+      consumedOtpIds.set(activeRecord.id, now);
       lockoutUntilByKey.set(rateKey, now + OTP_LOCKOUT_MS);
     }
-    if (adminDb && (loadedFromDb || activeRecord.id)) {
+    if (adminDb && (loadedFromDb || !loadedFromCookie)) {
       try {
         await adminDb
           .from('owner_verification_codes')
@@ -709,15 +873,31 @@ export async function verifyOwnerVerificationCode(params: {
       return {
         ok: false,
         status: 429,
+        clearOtpCookie: true,
         error: 'Too many invalid attempts. Verification locked temporarily.',
       };
     }
-    return { ok: false, status: 401, error: 'Invalid verification code.' };
+    const updatedOtpChallengeToken = createSignedOtpChallengeToken({
+      challengeId: activeRecord.id,
+      userId: params.user.id,
+      email: userEmail,
+      codeHash: activeRecord.codeHash,
+      attempts: activeRecord.attempts,
+      maxAttempts: activeRecord.maxAttempts,
+      expiresAtMs: activeRecord.expiresAt,
+    });
+    return {
+      ok: false,
+      status: 401,
+      updatedOtpChallengeToken,
+      error: 'Invalid verification code.',
+    };
   }
 
   // Mark code single-use immediately
   activeRecord.used = true;
   activeRecord.usedAt = now;
+  consumedOtpIds.set(activeRecord.id, now);
 
   // Create signed owner session token
   const sessionId = crypto.randomUUID();
@@ -783,6 +963,7 @@ export async function verifyOwnerVerificationCode(params: {
     ok: true,
     status: 200,
     sessionToken,
+    clearOtpCookie: true,
     expiresAt: new Date(sessionExpiresAt).toISOString(),
   };
 }
@@ -984,7 +1165,12 @@ export function getActiveOtpSummary(ownerEmail: string, nowMs = Date.now()): {
   };
 }
 
-export async function getActiveOtpSummaryAsync(ownerEmail: string, nowMs = Date.now()): Promise<{
+export async function getActiveOtpSummaryAsync(
+  ownerEmail: string,
+  otpChallengeToken?: string | null,
+  userId?: string,
+  nowMs = Date.now()
+): Promise<{
   hasActiveCode: boolean;
   expiresAt: string | null;
 }> {
@@ -1014,6 +1200,20 @@ export async function getActiveOtpSummaryAsync(ownerEmail: string, nowMs = Date.
       // ignore
     }
   }
+
+  const parsedCookie = parseSignedOtpChallengeToken({
+    token: otpChallengeToken,
+    userId,
+    email: ownerEmail,
+    nowMs,
+  });
+  if (parsedCookie.valid && parsedCookie.expiresAtMs) {
+    return {
+      hasActiveCode: true,
+      expiresAt: new Date(parsedCookie.expiresAtMs).toISOString(),
+    };
+  }
+
   return mem;
 }
 
