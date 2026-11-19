@@ -56,7 +56,8 @@ export const GiveawayStyledCard: React.FC<GiveawayStyledCardProps> = ({
     crop.aspect === '1:1' ? 'h-64' : crop.aspect === '4:3' ? 'h-56' : 'h-48';
 
   const buttonLabel = item.cta_label?.trim() || t.enterNow;
-  const hasExternalUrl = Boolean(item.external_url && item.external_url.trim().startsWith('http'));
+  const externalHref = (item.external_url || '').trim();
+  const hasExternalUrl = Boolean(externalHref && /^https?:\/\//i.test(externalHref));
 
   return (
     <article
@@ -201,7 +202,7 @@ export const GiveawayStyledCard: React.FC<GiveawayStyledCardProps> = ({
         <div className="pt-2 space-y-2">
           {isPreview ? (
             <div
-              className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs text-center flex items-center justify-center gap-2"
+              className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs text-center flex items-center justify-center gap-2 select-none cursor-default"
               style={{ backgroundColor: style.accentColor, color: '#09090b' }}
             >
               <span>{buttonLabel}</span>
@@ -209,7 +210,7 @@ export const GiveawayStyledCard: React.FC<GiveawayStyledCardProps> = ({
             </div>
           ) : item.myEntry ? (
             <div
-              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center border"
+              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center border select-none cursor-default"
               style={{
                 backgroundColor: style.surfaceColor,
                 borderColor: `${style.accentColor}30`,
@@ -220,31 +221,31 @@ export const GiveawayStyledCard: React.FC<GiveawayStyledCardProps> = ({
             </div>
           ) : isUpcoming ? (
             <div
-              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center"
+              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center select-none cursor-default"
               style={{ backgroundColor: style.surfaceColor, color: style.mutedColor }}
             >
               {t.statusScheduled}
             </div>
           ) : !isActive ? (
             <div
-              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center"
+              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center select-none cursor-default"
               style={{ backgroundColor: style.surfaceColor, color: style.mutedColor }}
             >
               {t.statusEnded}
             </div>
           ) : isFull ? (
             <div
-              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center"
+              className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold text-center select-none cursor-default"
               style={{ backgroundColor: style.surfaceColor, color: style.mutedColor }}
             >
               {t.giveawayCapacityFull}
             </div>
           ) : hasExternalUrl ? (
             <a
-              href={item.external_url}
+              href={externalHref}
               target="_blank"
-              rel="noreferrer"
-              className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs text-center flex items-center justify-center gap-2 transition-opacity hover:opacity-90"
+              rel="noopener noreferrer"
+              className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs text-center flex items-center justify-center gap-2 transition-opacity hover:opacity-90 cursor-pointer select-none"
               style={{ backgroundColor: style.accentColor, color: '#09090b' }}
             >
               <span>{buttonLabel}</span>
@@ -254,7 +255,7 @@ export const GiveawayStyledCard: React.FC<GiveawayStyledCardProps> = ({
             <button
               type="button"
               onClick={() => onEnterClick?.(item)}
-              className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs text-center transition-opacity hover:opacity-90"
+              className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs text-center transition-opacity hover:opacity-90 cursor-pointer select-none"
               style={{ backgroundColor: style.accentColor, color: '#09090b' }}
             >
               {buttonLabel}
@@ -263,7 +264,7 @@ export const GiveawayStyledCard: React.FC<GiveawayStyledCardProps> = ({
             <button
               type="button"
               onClick={() => onOpenAuth?.()}
-              className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs text-center transition-opacity hover:opacity-90"
+              className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs text-center transition-opacity hover:opacity-90 cursor-pointer select-none"
               style={{ backgroundColor: style.accentColor, color: '#09090b' }}
             >
               {t.signInToParticipate}

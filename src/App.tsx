@@ -235,6 +235,7 @@ export default function App() {
               lang={lang}
               onNavigate={handleTabChange}
               onSelectSymbol={setActiveSymbol}
+              onOpenAuth={handleOpenAuth}
               quotes={liveQuotes}
               quoteErrors={quoteErrors}
             />

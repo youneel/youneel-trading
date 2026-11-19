@@ -22,11 +22,13 @@ import {
 import { GiveawayStyledCard } from '../components/GiveawayStyledCard';
 import { GiveawayItem } from '../lib/giveawayTemplates';
 import { MarketChartBackdrop } from '../components/MarketChartBackdrop';
+import { useAuth } from '../context/AuthContext';
 
 interface HomePageProps {
   lang: Language;
   onNavigate: (tab: string) => void;
   onSelectSymbol?: (sym: SupportedSymbol) => void;
+  onOpenAuth?: () => void;
   quotes: Record<string, MarketQuote>;
   quoteErrors?: Record<string, SymbolQuoteError>;
 }
@@ -51,10 +53,12 @@ const HomePageInner: React.FC<HomePageProps> = ({
   lang,
   onNavigate,
   onSelectSymbol,
+  onOpenAuth,
   quotes,
   quoteErrors = {},
 }) => {
   const t = translations[lang];
+  const { user, accessToken } = useAuth();
   const [featuredCompetitions, setFeaturedCompetitions] = useState<PublicBrokerCompetition[]>([]);
   const [analysisSummaries, setAnalysisSummaries] = useState<HomeAnalysisSummary[]>([]);
   const [activeGiveaways, setActiveGiveaways] = useState<GiveawayItem[]>([]);
@@ -97,7 +101,9 @@ const HomePageInner: React.FC<HomePageProps> = ({
       })
       .catch(() => {});
 
-    fetch('/api/giveaways', { signal: controller.signal })
+    const headers: Record<string, string> = {};
+    if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
+    fetch('/api/giveaways', { signal: controller.signal, headers, credentials: 'same-origin' })
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (data && Array.isArray(data.giveaways)) {
@@ -125,7 +131,7 @@ const HomePageInner: React.FC<HomePageProps> = ({
       .catch(() => setNewsUnavailable(true));
 
     return () => controller.abort();
-  }, []);
+  }, [accessToken]);
 
   const formatQuotePrice = (price: number, sym: SupportedSymbol) => {
     const dec = INSTRUMENT_SPECS[sym].decimals;
@@ -320,7 +326,9 @@ const HomePageInner: React.FC<HomePageProps> = ({
                 key={g.id}
                 item={g}
                 lang={lang}
-                isPreview
+                isSignedIn={Boolean(user)}
+                onOpenAuth={onOpenAuth}
+                onEnterClick={() => onNavigate('giveaways')}
               />
             ))}
           </div>
