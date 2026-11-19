@@ -194,7 +194,7 @@ function OwnerDiagnosticsPanel({
     },
     {
       label: 'Server Secret Config',
-      value: `OWNER_SESSION_SECRET=${Boolean(diagnostics.envPresence?.hasOwnerSessionSecret ?? diagnostics.ownerSessionSecretConfigured)} • SUPABASE_SERVICE_ROLE_KEY=${Boolean(diagnostics.envPresence?.hasServiceRoleKey ?? diagnostics.serviceRoleConfigured)}${diagnostics.envPresence?.vercelEnv ? ` • Vercel Env: ${diagnostics.envPresence.vercelEnv}` : ''}`,
+      value: `OWNER_SESSION_SECRET=${Boolean(diagnostics.envPresence?.ownerSessionSecretConfigured ?? diagnostics.ownerSessionSecretConfigured)} • SUPABASE_SERVICE_ROLE_KEY=${Boolean(diagnostics.envPresence?.hasServiceRoleKey ?? diagnostics.serviceRoleConfigured)}${diagnostics.envPresence?.serviceRoleKeyFormat ? ` (${diagnostics.envPresence.serviceRoleKeyFormat})` : ''}${diagnostics.envPresence?.vercelEnv ? ` • Vercel Env: ${diagnostics.envPresence.vercelEnv}` : ''}`,
       ok: Boolean(diagnostics.signingSecretConfigured ?? (diagnostics.ownerSessionSecretConfigured || diagnostics.serviceRoleConfigured)),
       mono: true,
     },

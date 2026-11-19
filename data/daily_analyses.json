@@ -25813,6 +25813,21 @@
     ],
     "XAUUSD_2026-11-18": [
       {
+        "id": "XAUUSD_2026-11-18_1795049063975",
+        "snapshotId": "XAUUSD_2026-11-18",
+        "symbol": "XAUUSD",
+        "tradingDate": "2026-11-18",
+        "timestamp": "2026-11-19T00:44:23.975Z",
+        "currentPrice": 3751.88,
+        "priceDeltaFromSnapshot": 25.41,
+        "priceDeltaPct": 0.68,
+        "originalBias": "Strong Bearish",
+        "validityStatus": "VALID",
+        "h1Score": -81,
+        "m15Score": 57,
+        "reason": "Price (3751.88) respects the original Strong Bearish bias parameters."
+      },
+      {
         "id": "XAUUSD_2026-11-18_1795035818200",
         "snapshotId": "XAUUSD_2026-11-18",
         "symbol": "XAUUSD",
@@ -25847,6 +25862,21 @@
     ],
     "BTCUSD_2026-11-18": [
       {
+        "id": "BTCUSD_2026-11-18_1795049065344",
+        "snapshotId": "BTCUSD_2026-11-18",
+        "symbol": "BTCUSD",
+        "tradingDate": "2026-11-18",
+        "timestamp": "2026-11-19T00:44:25.344Z",
+        "currentPrice": 63062.26,
+        "priceDeltaFromSnapshot": 576.29,
+        "priceDeltaPct": 0.92,
+        "originalBias": "Strong Bearish",
+        "validityStatus": "VALID",
+        "h1Score": -100,
+        "m15Score": -29,
+        "reason": "Price (63062.26) respects the original Strong Bearish bias parameters."
+      },
+      {
         "id": "BTCUSD_2026-11-18_1795035841630",
         "snapshotId": "BTCUSD_2026-11-18",
         "symbol": "BTCUSD",
@@ -25863,6 +25893,21 @@
       }
     ],
     "EURUSD_2026-11-18": [
+      {
+        "id": "EURUSD_2026-11-18_1795049066037",
+        "snapshotId": "EURUSD_2026-11-18",
+        "symbol": "EURUSD",
+        "tradingDate": "2026-11-18",
+        "timestamp": "2026-11-19T00:44:26.037Z",
+        "currentPrice": 1.0977,
+        "priceDeltaFromSnapshot": -0.0001,
+        "priceDeltaPct": -0.01,
+        "originalBias": "Strong Bearish",
+        "validityStatus": "VALID",
+        "h1Score": -71,
+        "m15Score": -48,
+        "reason": "Price (1.09770) respects the original Strong Bearish bias parameters."
+      },
       {
         "id": "EURUSD_2026-11-18_1795035853397",
         "snapshotId": "EURUSD_2026-11-18",
@@ -25881,6 +25926,21 @@
     ],
     "GBPUSD_2026-11-18": [
       {
+        "id": "GBPUSD_2026-11-18_1795049066742",
+        "snapshotId": "GBPUSD_2026-11-18",
+        "symbol": "GBPUSD",
+        "tradingDate": "2026-11-18",
+        "timestamp": "2026-11-19T00:44:26.742Z",
+        "currentPrice": 1.3148,
+        "priceDeltaFromSnapshot": -0.0003,
+        "priceDeltaPct": -0.02,
+        "originalBias": "Strong Bearish",
+        "validityStatus": "VALID",
+        "h1Score": -90,
+        "m15Score": -81,
+        "reason": "Price (1.31480) respects the original Strong Bearish bias parameters."
+      },
+      {
         "id": "GBPUSD_2026-11-18_1795035865118",
         "snapshotId": "GBPUSD_2026-11-18",
         "symbol": "GBPUSD",
@@ -25897,6 +25957,21 @@
       }
     ],
     "USDJPY_2026-11-18": [
+      {
+        "id": "USDJPY_2026-11-18_1795049067437",
+        "snapshotId": "USDJPY_2026-11-18",
+        "symbol": "USDJPY",
+        "tradingDate": "2026-11-18",
+        "timestamp": "2026-11-19T00:44:27.437Z",
+        "currentPrice": 159.427,
+        "priceDeltaFromSnapshot": 0.156,
+        "priceDeltaPct": 0.1,
+        "originalBias": "Bullish",
+        "validityStatus": "VALID",
+        "h1Score": 86,
+        "m15Score": 100,
+        "reason": "Price (159.427) respects the original Bullish bias parameters."
+      },
       {
         "id": "USDJPY_2026-11-18_1795035869226",
         "snapshotId": "USDJPY_2026-11-18",

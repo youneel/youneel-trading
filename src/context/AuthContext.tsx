@@ -27,10 +27,13 @@ export interface OwnerAuthDiagnostics {
     runtime: string;
     vercelEnv: string | null;
     hasOwnerSessionSecret: boolean;
-    ownerSessionSecretValidLength: boolean;
+    ownerSessionSecretConfigured: boolean;
+    ownerSessionSecretStrong?: boolean;
     hasServiceRoleKey: boolean;
-    hasServiceRoleAlias: boolean;
+    serviceRoleKeyFormat?: string;
     hasSupabaseUrl: boolean;
+    supabaseUrlValid?: boolean;
+    signingSecretConfigured?: boolean;
   };
 }
 

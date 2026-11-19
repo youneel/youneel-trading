@@ -1,13 +1,13 @@
 import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import { SupabaseClient, User } from '@supabase/supabase-js';
-import { getAdminClient, getOwnerEmail, getServiceRoleKey } from './supabaseAdmin.js';
+import { getAdminClient, getOwnerEmail } from './supabaseAdmin.js';
 import {
-  isServerlessRuntime,
-  logSafeEnvDiagnostics,
-  readCleanEnv,
-  SafeEnvPresenceReport,
-} from './env.js';
+  getServerConfig,
+  logSafeConfigDiagnostics,
+  readServerEnv,
+  SafeConfigDiagnostics,
+} from './config.js';
 
 export const OTP_TTL_MS = 5 * 60 * 1000; // 5 minutes
 export const OWNER_SESSION_TTL_MS = 4 * 60 * 60 * 1000; // 4 hours
@@ -64,21 +64,19 @@ export type EmailSenderFn = (params: {
 const EPHEMERAL_FALLBACK_SECRET = crypto.randomBytes(32).toString('hex');
 
 function isServerlessEnv(): boolean {
-  return isServerlessRuntime();
+  return getServerConfig().isServerless;
 }
 
 function getSigningSecret(): string {
-  const ownerSecret = readCleanEnv('OWNER_SESSION_SECRET').value;
-  if (ownerSecret && ownerSecret.length >= 16) return ownerSecret;
-  const serviceKey = getServiceRoleKey();
-  if (serviceKey && serviceKey.length > 20) return serviceKey;
+  const cfg = getServerConfig();
+  if (cfg.signingSecretConfigured && cfg.signingSecret) {
+    return cfg.signingSecret;
+  }
   return EPHEMERAL_FALLBACK_SECRET;
 }
 
 export function isSigningSecretStable(): boolean {
-  const ownerSecret = readCleanEnv('OWNER_SESSION_SECRET').value;
-  const serviceKey = getServiceRoleKey();
-  return ownerSecret.length >= 16 || serviceKey.length > 20;
+  return getServerConfig().signingSecretConfigured;
 }
 
 function hashSecretValue(value: string, salt = ''): string {
@@ -114,8 +112,7 @@ export function resetOwnerAuthRateLimitsForTesting(): void {
 }
 
 export function isOwnerSessionSecretConfigured(): boolean {
-  const secret = readCleanEnv('OWNER_SESSION_SECRET').value;
-  return secret.length >= 16;
+  return getServerConfig().ownerSessionSecretConfigured;
 }
 
 export function getEmailDeliveryStatus(): {
@@ -126,12 +123,12 @@ export function getEmailDeliveryStatus(): {
     return { configured: true, provider: 'smtp' };
   }
   const hasSmtp = Boolean(
-    process.env.SMTP_HOST?.trim() &&
-      process.env.SMTP_USER?.trim() &&
-      process.env.SMTP_PASS?.trim()
+    readServerEnv('SMTP_HOST').value &&
+      readServerEnv('SMTP_USER').value &&
+      readServerEnv('SMTP_PASS').value
   );
   if (hasSmtp) return { configured: true, provider: 'smtp' };
-  if (process.env.RESEND_API_KEY?.trim()) return { configured: true, provider: 'resend' };
+  if (readServerEnv('RESEND_API_KEY').value) return { configured: true, provider: 'resend' };
   return { configured: false, provider: 'none' };
 }
 
@@ -150,11 +147,11 @@ export function diagnoseEmailDeliveryConfig(): {
     };
   }
 
-  const smtpHost = process.env.SMTP_HOST?.trim() || '';
-  const smtpUser = process.env.SMTP_USER?.trim() || '';
-  const smtpPass = process.env.SMTP_PASS?.trim() || '';
-  const smtpPort = process.env.SMTP_PORT?.trim() || '587';
-  const resendKey = process.env.RESEND_API_KEY?.trim() || '';
+  const smtpHost = readServerEnv('SMTP_HOST').value;
+  const smtpUser = readServerEnv('SMTP_USER').value;
+  const smtpPass = readServerEnv('SMTP_PASS').value;
+  const smtpPort = readServerEnv('SMTP_PORT').value || '587';
+  const resendKey = readServerEnv('RESEND_API_KEY').value;
 
   if (smtpHost && smtpUser && smtpPass) {
     return {
@@ -219,14 +216,14 @@ async function sendOwnerVerificationEmail(to: string, code: string, expiresMinut
     return;
   }
 
-  const smtpHost = process.env.SMTP_HOST?.trim();
-  const smtpUser = process.env.SMTP_USER?.trim();
-  const smtpPass = process.env.SMTP_PASS?.trim();
+  const smtpHost = readServerEnv('SMTP_HOST').value;
+  const smtpUser = readServerEnv('SMTP_USER').value;
+  const smtpPass = readServerEnv('SMTP_PASS').value;
 
   if (smtpHost && smtpUser && smtpPass) {
-    const port = parseInt(process.env.SMTP_PORT || '587', 10);
-    const secure = process.env.SMTP_SECURE === 'true' || port === 465;
-    const from = process.env.SMTP_FROM?.trim() || `YOUNEEL TRADING Security <${smtpUser}>`;
+    const port = parseInt(readServerEnv('SMTP_PORT').value || '587', 10);
+    const secure = readServerEnv('SMTP_SECURE').value === 'true' || port === 465;
+    const from = readServerEnv('SMTP_FROM').value || `YOUNEEL TRADING Security <${smtpUser}>`;
 
     const transporter = nodemailer.createTransport({
       host: smtpHost,
@@ -270,9 +267,9 @@ async function sendOwnerVerificationEmail(to: string, code: string, expiresMinut
     }
   }
 
-  const resendKey = process.env.RESEND_API_KEY?.trim();
+  const resendKey = readServerEnv('RESEND_API_KEY').value;
   if (resendKey) {
-    const from = process.env.SMTP_FROM?.trim() || 'YOUNEEL TRADING <onboarding@resend.dev>';
+    const from = readServerEnv('SMTP_FROM').value || 'YOUNEEL TRADING <onboarding@resend.dev>';
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -383,7 +380,7 @@ export async function requestOwnerVerificationCode(params: {
   error?: string;
   expiresInSeconds?: number;
   retryAfterSeconds?: number;
-  envDiagnostics?: SafeEnvPresenceReport;
+  envDiagnostics?: SafeConfigDiagnostics;
 }> {
   const now = params.nowMs ?? Date.now();
   const ownerEmail = getOwnerEmail();
@@ -394,14 +391,14 @@ export async function requestOwnerVerificationCode(params: {
   }
 
   if (isServerlessEnv() && !isSigningSecretStable()) {
-    const diag = logSafeEnvDiagnostics('requestOwnerVerificationCode', true);
+    const diag = logSafeConfigDiagnostics('requestOwnerVerificationCode', true);
     const scopeHint = diag.vercelEnv
       ? ` Active Vercel environment: "${diag.vercelEnv}". Verify both variables are enabled for "${diag.vercelEnv}" and redeployed.`
       : '';
     return {
       ok: false,
       status: 503,
-      error: `Server configuration incomplete: OWNER_SESSION_SECRET present=${diag.hasOwnerSessionSecret} (validLength=${diag.ownerSessionSecretValidLength}), SUPABASE_SERVICE_ROLE_KEY present=${diag.hasServiceRoleKey}.${scopeHint}`,
+      error: `Server configuration incomplete: OWNER_SESSION_SECRET configured=${diag.ownerSessionSecretConfigured} (present=${diag.hasOwnerSessionSecret}), SUPABASE_SERVICE_ROLE_KEY configured=${diag.hasServiceRoleKey} (format=${diag.serviceRoleKeyFormat}).${scopeHint}`,
       envDiagnostics: diag,
     };
   }
@@ -566,7 +563,7 @@ export async function verifyOwnerVerificationCode(params: {
   error?: string;
   sessionToken?: string;
   expiresAt?: string;
-  envDiagnostics?: SafeEnvPresenceReport;
+  envDiagnostics?: SafeConfigDiagnostics;
 }> {
   const now = params.nowMs ?? Date.now();
   const ownerEmail = getOwnerEmail();
@@ -577,14 +574,14 @@ export async function verifyOwnerVerificationCode(params: {
   }
 
   if (isServerlessEnv() && !isSigningSecretStable()) {
-    const diag = logSafeEnvDiagnostics('verifyOwnerVerificationCode', true);
+    const diag = logSafeConfigDiagnostics('verifyOwnerVerificationCode', true);
     const scopeHint = diag.vercelEnv
       ? ` Active Vercel environment: "${diag.vercelEnv}". Verify both variables are enabled for "${diag.vercelEnv}" and redeployed.`
       : '';
     return {
       ok: false,
       status: 503,
-      error: `Server configuration incomplete: OWNER_SESSION_SECRET present=${diag.hasOwnerSessionSecret} (validLength=${diag.ownerSessionSecretValidLength}), SUPABASE_SERVICE_ROLE_KEY present=${diag.hasServiceRoleKey}.${scopeHint}`,
+      error: `Server configuration incomplete: OWNER_SESSION_SECRET configured=${diag.ownerSessionSecretConfigured} (present=${diag.hasOwnerSessionSecret}), SUPABASE_SERVICE_ROLE_KEY configured=${diag.hasServiceRoleKey} (format=${diag.serviceRoleKeyFormat}).${scopeHint}`,
       envDiagnostics: diag,
     };
   }

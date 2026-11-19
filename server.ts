@@ -1,4 +1,4 @@
-import './server/env.js';
+import './server/config.js';
 import express, { Request, Response } from 'express';
 import http from 'http';
 import crypto from 'crypto';
@@ -6,7 +6,12 @@ import { WebSocketServer, WebSocket as WsClient } from 'ws';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI, Type } from '@google/genai';
-import { getSafeEnvPresence, logSafeEnvDiagnostics } from './server/env.js';
+import {
+  getSafeConfigDiagnostics,
+  getServerConfig,
+  logSafeConfigDiagnostics,
+  readServerEnv,
+} from './server/config.js';
 import {
   getVerifiedMarketData,
   getVerifiedQuote,
@@ -82,7 +87,7 @@ import {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-logSafeEnvDiagnostics('server-init');
+logSafeConfigDiagnostics('server-init');
 
 const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
@@ -116,9 +121,9 @@ function normalizeSymbolParam(raw: unknown): string {
 // HEALTH & SYSTEM CAPABILITIES
 // ============================================================================
 app.get('/api/health', (_req: Request, res: Response) => {
-  const marketKey = (process.env.TWELVE_DATA_API_KEY || process.env.MARKET_DATA_API_KEY)?.trim();
-  const newsKey = (process.env.FINNHUB_API_KEY || process.env.NEWS_API_KEY)?.trim();
-  const envPresence = getSafeEnvPresence();
+  const marketKey = readServerEnv('TWELVE_DATA_API_KEY', 'MARKET_DATA_API_KEY').value;
+  const newsKey = readServerEnv('FINNHUB_API_KEY', 'NEWS_API_KEY').value;
+  const envPresence = getSafeConfigDiagnostics();
   res.json({
     status: 'ok',
     name: 'YOUNEEL TRADING API',
@@ -2066,7 +2071,7 @@ app.get('/api/owner/auth/status', async (req: Request, res: Response) => {
       serviceRoleConfigured: isServiceRoleConfigured(),
       ownerSessionSecretConfigured: isOwnerSessionSecretConfigured(),
       signingSecretConfigured: isSigningSecretStable(),
-      envPresence: getSafeEnvPresence(),
+      envPresence: getSafeConfigDiagnostics(),
     },
   });
 });
@@ -2178,7 +2183,7 @@ app.get('/api/owner/security', async (req: Request, res: Response) => {
       serviceRoleConfigured: isServiceRoleConfigured(),
       ownerSessionSecretConfigured: isOwnerSessionSecretConfigured(),
       signingSecretConfigured: isSigningSecretStable(),
-      envPresence: getSafeEnvPresence(),
+      envPresence: getSafeConfigDiagnostics(),
     },
   });
 });
@@ -2188,8 +2193,8 @@ app.get('/api/owner/overview', async (req: Request, res: Response) => {
   const owner = await requireVerifiedOwner(req, res);
   if (!owner) return;
 
-  const marketKeyConfigured = Boolean((process.env.TWELVE_DATA_API_KEY || process.env.MARKET_DATA_API_KEY)?.trim());
-  const newsKeyConfigured = Boolean((process.env.FINNHUB_API_KEY || process.env.NEWS_API_KEY)?.trim());
+  const marketKeyConfigured = Boolean(readServerEnv('TWELVE_DATA_API_KEY', 'MARKET_DATA_API_KEY').value);
+  const newsKeyConfigured = Boolean(readServerEnv('FINNHUB_API_KEY', 'NEWS_API_KEY').value);
 
   const [
     profilesRes,
@@ -3166,7 +3171,7 @@ app.post('/api/owner/fundamental/sync', async (req: Request, res: Response) => {
 // SERVERLESS / VERCEL CRON SYNC ENDPOINT
 // ============================================================================
 app.get('/api/cron/sync', async (req: Request, res: Response) => {
-  const cronSecret = process.env.CRON_SECRET?.trim();
+  const cronSecret = getServerConfig().cronSecret;
   const authHeader = String(req.headers.authorization || '');
   const isCronHeader = Boolean(req.headers['x-vercel-cron']);
 
@@ -3295,9 +3300,7 @@ async function startServer() {
   });
 }
 
-const isServerlessRuntime = Boolean(
-  process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.NETLIFY
-);
+const isServerlessRuntime = getServerConfig().isServerless;
 
 if (!isServerlessRuntime) {
   startServer().catch((err) => {

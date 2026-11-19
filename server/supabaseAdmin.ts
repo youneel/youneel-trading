@@ -1,48 +1,33 @@
 import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
-import { readCleanEnv } from './env.js';
-
-const DEFAULT_SUPABASE_URL = 'https://xhqvlqygqvyniuiqjjzx.supabase.co';
-const DEFAULT_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_8sLROvIDtB-WfqqSNkWsfw_2dAmTJLS';
+import { getServerConfig } from './config.js';
 
 export function getSupabaseUrl(): string {
-  const { value } = readCleanEnv(
-    'SUPABASE_URL',
-    'NEXT_PUBLIC_SUPABASE_URL',
-    'VITE_SUPABASE_URL'
-  );
-  if (value && /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(value.replace(/\/+$/, ''))) {
-    return value.replace(/\/+$/, '');
-  }
-  return DEFAULT_SUPABASE_URL;
+  return getServerConfig().supabaseUrl;
 }
 
 export function getSupabasePublishableKey(): string {
-  const { value } = readCleanEnv(
-    'SUPABASE_ANON_KEY',
-    'NEXT_PUBLIC_SUPABASE_ANON_KEY',
-    'VITE_SUPABASE_ANON_KEY'
-  );
-  return value || DEFAULT_SUPABASE_PUBLISHABLE_KEY;
+  return getServerConfig().supabaseAnonKey;
 }
 
 export function getServiceRoleKey(): string {
-  const { value } = readCleanEnv(
-    'SUPABASE_SERVICE_ROLE_KEY',
-    'SUPABASE_SERVICE_ROLE',
-    'SUPABASE_SECRET_KEY',
-    'SUPABASE_SERVICE_KEY'
-  );
-  return value;
+  return getServerConfig().supabaseServiceRoleKey;
 }
 
 export function isServiceRoleConfigured(): boolean {
-  return getServiceRoleKey().length > 20;
+  const cfg = getServerConfig();
+  return cfg.supabaseUrlValid && cfg.serviceRoleConfigured;
 }
 
 export function getAdminClient(): SupabaseClient | null {
-  const key = getServiceRoleKey();
-  if (key.length <= 20) return null;
-  return createClient(getSupabaseUrl(), key, {
+  const cfg = getServerConfig();
+  if (!cfg.supabaseUrlValid) {
+    console.error('[SupabaseAdmin] Invalid SUPABASE_URL configured on server; admin client disabled.');
+    return null;
+  }
+  if (!cfg.serviceRoleConfigured || !cfg.supabaseServiceRoleKey) {
+    return null;
+  }
+  return createClient(cfg.supabaseUrl, cfg.supabaseServiceRoleKey, {
     auth: {
       persistSession: false,
       autoRefreshToken: false,
@@ -51,7 +36,11 @@ export function getAdminClient(): SupabaseClient | null {
 }
 
 export function getUserScopedClient(accessToken: string): SupabaseClient {
-  return createClient(getSupabaseUrl(), getSupabasePublishableKey(), {
+  const cfg = getServerConfig();
+  if (!cfg.supabaseUrlValid) {
+    throw new Error('Server SUPABASE_URL is invalid.');
+  }
+  return createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
     global: {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -76,6 +65,12 @@ export async function authenticateRequest(authHeader?: string): Promise<{
   if (!authHeader || !authHeader.startsWith('Bearer ')) return null;
   const token = authHeader.slice(7).trim();
   if (!token) return null;
+
+  const cfg = getServerConfig();
+  if (!cfg.supabaseUrlValid) {
+    console.error('[SupabaseAdmin] Refusing auth verification because SUPABASE_URL is invalid.');
+    return null;
+  }
 
   const client = getUserScopedClient(token);
   const { data, error } = await client.auth.getUser(token);
@@ -121,8 +116,7 @@ export async function isAuthorizedAdmin(user: User, db: SupabaseClient): Promise
 }
 
 export function getOwnerEmail(): string {
-  const { value } = readCleanEnv('OWNER_EMAIL');
-  return (value || 'younesselidrissi64@gmail.com').toLowerCase();
+  return getServerConfig().ownerEmail;
 }
 
 export interface OwnerVerificationDetails {
