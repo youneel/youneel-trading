@@ -25280,6 +25280,4911 @@
         "invalidationExplanation": "The Strong Bearish structural bias is invalidated by an H4 or D1 candle close above 50969.60, which marks the upper boundary of the nearest unmitigated H1 bearish order block and recent structural breakdown zone. Secondary invalidation parameters include a candle close above 52751.22, while the Daily 50% equilibrium threshold sits at 51869.98.",
         "conclusion": "Quantitative evidence across the Weekly through M5 timeframes favors a Strong Bearish posture for US30 near 50198.17, though the overarching Monthly bullish structure remains an active higher-timeframe divergence. Market participants should monitor reactions around the 50200.54 resistance and 50029.35 support levels alongside the 50969.60 invalidation threshold without assuming directional certainty."
       }
+    },
+    "XAUUSD_2026-11-19": {
+      "id": "XAUUSD_2026-11-19",
+      "symbol": "XAUUSD",
+      "displayName": "Gold Spot (XAU/USD)",
+      "marketType": "Spot Metal",
+      "tradingDate": "2026-11-19",
+      "timezone": "America/New_York",
+      "analysisTimestamp": "2026-11-19T11:19:05.123Z",
+      "modelVersion": "YOUNEEL-QUANT-v2.0",
+      "referencePrice": 3728.3,
+      "dataQuality": {
+        "status": "COMPLETE",
+        "availableWeightPct": 100,
+        "missingTimeframes": [],
+        "notes": []
+      },
+      "marketDataRef": {
+        "quoteSource": "GoldBroker Spot (XAU/USD)",
+        "quoteTimestamp": "2026-11-19T11:18:00.000Z",
+        "timeframeSources": {
+          "MN": {
+            "source": "GoldBroker Spot (XAU/USD Monthly Resampled)",
+            "bars": 120,
+            "latestBar": "2026-11-01T00:00:00.000Z"
+          },
+          "W1": {
+            "source": "GoldBroker Spot (XAU/USD Weekly Resampled)",
+            "bars": 260,
+            "latestBar": "2026-11-16T00:00:00.000Z"
+          },
+          "D1": {
+            "source": "GoldBroker Spot (XAU/USD Daily + Live Spot)",
+            "bars": 260,
+            "latestBar": "2026-11-19T00:00:00.000Z"
+          },
+          "H4": {
+            "source": "Twelve Data (XAU/USD)",
+            "bars": 240,
+            "latestBar": "2026-11-19T08:00:00.000Z"
+          },
+          "H1": {
+            "source": "Twelve Data (XAU/USD)",
+            "bars": 240,
+            "latestBar": "2026-11-19T11:00:00.000Z"
+          },
+          "M15": {
+            "source": "Twelve Data (XAU/USD)",
+            "bars": 240,
+            "latestBar": "2026-11-19T11:15:00.000Z"
+          },
+          "M5": {
+            "source": "Twelve Data (XAU/USD)",
+            "bars": 240,
+            "latestBar": "2026-11-19T11:15:00.000Z"
+          }
+        }
+      },
+      "dailyBias": "Strong Bearish",
+      "bullishScore": 0,
+      "bearishScore": 85,
+      "netScore": -85,
+      "directionalAlignmentScore": 85,
+      "scoringBreakdown": [
+        {
+          "component": "Higher-Timeframe Structure (MN + W1)",
+          "weightPct": 30,
+          "available": true,
+          "rawScore": -60,
+          "weightedContribution": -18,
+          "note": "MN=Bearish (-50), W1=Bearish (-71)"
+        },
+        {
+          "component": "Daily Structure (D1)",
+          "weightPct": 25,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -25,
+          "note": "D1=Bearish (Reversing)"
+        },
+        {
+          "component": "4H Structure (H4)",
+          "weightPct": 20,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -20,
+          "note": "H4=Bearish (Trending Bearish)"
+        },
+        {
+          "component": "1H Confirmation (H1)",
+          "weightPct": 15,
+          "available": true,
+          "rawScore": -81,
+          "weightedContribution": -12.15,
+          "note": "H1=Bearish (Trending Bearish)"
+        },
+        {
+          "component": "Momentum & Volatility (RSI / MACD / ADX)",
+          "weightPct": 10,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -10,
+          "note": "RSI=27.84, MACD_Hist=-22.7527, ADX=32.57 (+DI:8.29/-DI:29.75)"
+        }
+      ],
+      "weightsUsed": {
+        "higherTimeframe": 0.3,
+        "daily": 0.25,
+        "h4": 0.2,
+        "h1": 0.15,
+        "momentumVolatility": 0.1
+      },
+      "timeframeConflicts": [],
+      "mtfTable": [
+        {
+          "timeframe": "MN",
+          "barCount": 120,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bearish",
+          "structureScore": -50,
+          "latestEvent": "Bearish CHoCH @ 3942.85",
+          "rsi14": 49.74,
+          "adx14": 61.1,
+          "atr14": 446.76,
+          "emaAlignment": "Mixed (20:3929.9 / 50:3224.01)",
+          "premiumDiscountZone": "EQUILIBRIUM (50.6%)",
+          "latestTimestamp": "2026-11-01T00:00:00.000Z"
+        },
+        {
+          "timeframe": "W1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Trending Bearish",
+          "directionalLean": "Bearish",
+          "structureScore": -71,
+          "latestEvent": "Bearish BOS @ 3942.85",
+          "rsi14": 34.72,
+          "adx14": 18.85,
+          "atr14": 221.33,
+          "emaAlignment": "Mixed (20:4147.97 / 50:4188.07 / 200:3214.85)",
+          "premiumDiscountZone": "DISCOUNT (1.8%)",
+          "latestTimestamp": "2026-11-16T00:00:00.000Z"
+        },
+        {
+          "timeframe": "D1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bearish",
+          "structureScore": -100,
+          "latestEvent": "Bearish CHoCH @ 3852.63",
+          "rsi14": 27.84,
+          "adx14": 32.57,
+          "atr14": 85.58,
+          "emaAlignment": "Bearish Stack (P<20<50<200)",
+          "premiumDiscountZone": "DISCOUNT (5.8%)",
+          "latestTimestamp": "2026-11-19T00:00:00.000Z"
+        },
+        {
+          "timeframe": "H4",
+          "barCount": 240,
+          "sufficient": true,
+          "regime": "Trending Bearish",
+          "directionalLean": "Bearish",
+          "structureScore": -100,
+          "latestEvent": "Bearish BOS @ 3833.62",
+          "rsi14": 26.66,
+          "adx14": 41.79,
+          "atr14": 29.56,
+          "emaAlignment": "Bearish Stack (P<20<50<200)",
+          "premiumDiscountZone": "DISCOUNT (14.7%)",
+          "latestTimestamp": "2026-11-19T08:00:00.000Z"
+        },
+        {
+          "timeframe": "H1",
+          "barCount": 240,
+          "sufficient": true,
+          "regime": "Trending Bearish",
+          "directionalLean": "Bearish",
+          "structureScore": -81,
+          "latestEvent": "Bearish BOS @ 3719.19",
+          "rsi14": 42.62,
+          "adx14": 30.72,
+          "atr14": 16.84,
+          "emaAlignment": "Bearish Stack (P<20<50<200)",
+          "premiumDiscountZone": "DISCOUNT (20.7%)",
+          "latestTimestamp": "2026-11-19T11:00:00.000Z"
+        },
+        {
+          "timeframe": "M15",
+          "barCount": 240,
+          "sufficient": true,
+          "regime": "Ranging",
+          "directionalLean": "Bearish",
+          "structureScore": -90,
+          "latestEvent": "Bearish BOS @ 3728.40",
+          "rsi14": 46.99,
+          "adx14": 9.97,
+          "atr14": 7.52,
+          "emaAlignment": "Bearish Stack (P<20<50<200)",
+          "premiumDiscountZone": "PREMIUM (55.5%)",
+          "latestTimestamp": "2026-11-19T11:15:00.000Z"
+        },
+        {
+          "timeframe": "M5",
+          "barCount": 240,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Neutral",
+          "structureScore": -14,
+          "latestEvent": "Bullish CHoCH @ 3735.80",
+          "rsi14": 43.25,
+          "adx14": 11.89,
+          "atr14": 3.47,
+          "emaAlignment": "Bearish Stack (P<20<50<200)",
+          "premiumDiscountZone": "DISCOUNT (17%)",
+          "latestTimestamp": "2026-11-19T11:15:00.000Z"
+        }
+      ],
+      "marketStructure": {
+        "primaryRegime": "Reversing",
+        "dailySummary": "D1 Reversing | Score -100 | Latest: CHoCH @ 3728.30",
+        "h4Summary": "H4 Trending Bearish | Score -100 | PD: DISCOUNT",
+        "h1Summary": "H1 Trending Bearish | Score -81 | RSI 42.62",
+        "recentEvents": [
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 3719.19,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T02:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 3789.10"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 3742.26,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T17:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 3789.10"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 3833.62,
+            "timeframe": "H4",
+            "timestamp": "2026-11-18T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 3891.96"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 3868.62,
+            "timeframe": "H4",
+            "timestamp": "2026-11-16T04:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 4066.53"
+          },
+          {
+            "type": "CHoCH",
+            "direction": "bearish",
+            "level": 3852.63,
+            "timeframe": "D1",
+            "timestamp": "2026-11-16T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 4148.69"
+          },
+          {
+            "type": "CHoCH",
+            "direction": "bullish",
+            "level": 4082.82,
+            "timeframe": "D1",
+            "timestamp": "2026-11-05T00:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidation": "Candle close below 3870.22"
+          }
+        ]
+      },
+      "liquidity": {
+        "buySide": [
+          {
+            "kind": "BSL",
+            "price": 3758.13,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T01:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 3758.13"
+          },
+          {
+            "kind": "BSL",
+            "price": 3789.1,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T13:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 3789.10"
+          },
+          {
+            "kind": "BSL",
+            "price": 3858.4,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T23:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 3858.40"
+          },
+          {
+            "kind": "EQH",
+            "price": 3887.01,
+            "upperBound": 3887.6,
+            "lowerBound": 3886.42,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T05:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept above 3887.60"
+          },
+          {
+            "kind": "BSL",
+            "price": 3891.96,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T12:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 3891.96"
+          },
+          {
+            "kind": "BSL",
+            "price": 3891.96,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T15:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 3891.96"
+          }
+        ],
+        "sellSide": [
+          {
+            "kind": "SSL",
+            "price": 3695.08,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T03:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 3695.08"
+          }
+        ],
+        "recentSweeps": [
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 3870.22,
+            "wickExtreme": 3852.63,
+            "closePrice": 3874.85,
+            "timeframe": "D1",
+            "timestamp": "2026-11-12T00:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (3852.63)"
+          },
+          {
+            "side": "BSL_SWEEP",
+            "sweptLevel": 4147.11,
+            "wickExtreme": 4148.69,
+            "closePrice": 4141.76,
+            "timeframe": "D1",
+            "timestamp": "2026-11-09T00:00:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close above sweep wick high (4148.69)"
+          }
+        ]
+      },
+      "importantZones": {
+        "supports": [
+          {
+            "label": "S1 (H1 Swing Low)",
+            "category": "support",
+            "price": 3719.19,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T19:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 3719.19"
+          },
+          {
+            "label": "S2 (H1 Swing Low)",
+            "category": "support",
+            "price": 3695.08,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T03:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 3695.08"
+          }
+        ],
+        "resistances": [
+          {
+            "label": "R1 (H1 Swing High)",
+            "category": "resistance",
+            "price": 3758.13,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T01:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 3758.13"
+          },
+          {
+            "label": "R2 (H1 Swing High)",
+            "category": "resistance",
+            "price": 3789.1,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T13:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 3789.10"
+          },
+          {
+            "label": "R3 (H1 Swing High)",
+            "category": "resistance",
+            "price": 3858.4,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T23:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 3858.40"
+          },
+          {
+            "label": "R1 (H4 Swing High)",
+            "category": "resistance",
+            "price": 3891.96,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T12:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 3891.96"
+          }
+        ],
+        "orderBlocks": [
+          {
+            "direction": "bearish",
+            "low": 3942.13,
+            "high": 3954.87,
+            "midpoint": 3948.5,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T10:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (3954.87)"
+          },
+          {
+            "direction": "bearish",
+            "low": 3874.32,
+            "high": 3900.92,
+            "midpoint": 3887.62,
+            "timeframe": "H1",
+            "timestamp": "2026-11-15T23:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (3900.92)"
+          },
+          {
+            "direction": "bearish",
+            "low": 3845.64,
+            "high": 3858.4,
+            "midpoint": 3852.02,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T23:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (3858.40)"
+          },
+          {
+            "direction": "bearish",
+            "low": 3765.91,
+            "high": 3786.59,
+            "midpoint": 3776.25,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T09:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (3786.59)"
+          },
+          {
+            "direction": "bearish",
+            "low": 3743.77,
+            "high": 3789.1,
+            "midpoint": 3766.44,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T13:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (3789.10)"
+          },
+          {
+            "direction": "bearish",
+            "low": 3738.71,
+            "high": 3758.13,
+            "midpoint": 3748.42,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T01:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (3758.13)"
+          }
+        ],
+        "fairValueGaps": [
+          {
+            "direction": "bearish",
+            "low": 3944.46,
+            "high": 3955.7,
+            "midpoint": 3950.08,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T09:00:00.000Z",
+            "status": "PARTIALLY_MITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (3955.70)"
+          },
+          {
+            "direction": "bearish",
+            "low": 3908.39,
+            "high": 3929.63,
+            "midpoint": 3919.01,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T14:00:00.000Z",
+            "status": "PARTIALLY_MITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (3929.63)"
+          },
+          {
+            "direction": "bearish",
+            "low": 3905.44,
+            "high": 3908.02,
+            "midpoint": 3906.73,
+            "timeframe": "H1",
+            "timestamp": "2026-11-13T06:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (3908.02)"
+          },
+          {
+            "direction": "bearish",
+            "low": 3858.08,
+            "high": 3862.5,
+            "midpoint": 3860.29,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T19:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (3862.50)"
+          },
+          {
+            "direction": "bearish",
+            "low": 3830.73,
+            "high": 3845.64,
+            "midpoint": 3838.19,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T01:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (3845.64)"
+          },
+          {
+            "direction": "bearish",
+            "low": 3755.69,
+            "high": 3761.25,
+            "midpoint": 3758.47,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T16:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (3761.25)"
+          }
+        ],
+        "premiumDiscount": {
+          "rangeHigh": 4217.3,
+          "rangeLow": 3697.96,
+          "equilibrium": 3957.63,
+          "premiumZone": [
+            3957.63,
+            4217.3
+          ],
+          "discountZone": [
+            3697.96,
+            3957.63
+          ],
+          "positionPct": 5.8,
+          "currentZone": "DISCOUNT",
+          "timeframe": "D1",
+          "timestamp": "2026-11-19T00:00:00.000Z"
+        }
+      },
+      "keyLevels": [
+        {
+          "label": "R1 (H1 Swing High)",
+          "category": "resistance",
+          "price": 3758.13,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T01:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 3758.13"
+        },
+        {
+          "label": "R2 (H1 Swing High)",
+          "category": "resistance",
+          "price": 3789.1,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T13:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 3789.10"
+        },
+        {
+          "label": "S1 (H1 Swing Low)",
+          "category": "support",
+          "price": 3719.19,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T19:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 3719.19"
+        },
+        {
+          "label": "S2 (H1 Swing Low)",
+          "category": "support",
+          "price": 3695.08,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T03:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 3695.08"
+        },
+        {
+          "label": "BSL (H1)",
+          "category": "liquidity",
+          "price": 3758.13,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T01:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades above 3758.13"
+        },
+        {
+          "label": "BSL (H1)",
+          "category": "liquidity",
+          "price": 3789.1,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T13:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades above 3789.10"
+        },
+        {
+          "label": "SSL (H1)",
+          "category": "liquidity",
+          "price": 3695.08,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T03:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades below 3695.08"
+        },
+        {
+          "label": "Bearish OB (H1)",
+          "category": "order_block",
+          "price": 3766.44,
+          "high": 3789.1,
+          "low": 3743.77,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T13:00:00.000Z",
+          "status": "MITIGATED",
+          "invalidationCondition": "Close above bearish OB high (3789.10)"
+        },
+        {
+          "label": "Bearish OB (H1)",
+          "category": "order_block",
+          "price": 3748.42,
+          "high": 3758.13,
+          "low": 3738.71,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T01:00:00.000Z",
+          "status": "MITIGATED",
+          "invalidationCondition": "Close above bearish OB high (3758.13)"
+        },
+        {
+          "label": "Bearish FVG (H1)",
+          "category": "fvg",
+          "price": 3838.19,
+          "high": 3845.64,
+          "low": 3830.73,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T01:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Candle close above FVG upper bound (3845.64)"
+        },
+        {
+          "label": "Bearish FVG (H1)",
+          "category": "fvg",
+          "price": 3758.47,
+          "high": 3761.25,
+          "low": 3755.69,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T16:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Candle close above FVG upper bound (3761.25)"
+        }
+      ],
+      "bullishScenario": {
+        "trigger": "Reclaim and close H4 candle above 3758.13 to trigger bullish CHoCH",
+        "targets": [
+          3758.13,
+          3789.1
+        ],
+        "rationale": "Requires buyer defense of 3719.19 (H1) and expansion toward resting BSL at 3789.10."
+      },
+      "bearishScenario": {
+        "trigger": "Reject below 3758.13 supply / confirm 1H breakdown below 3719.19",
+        "targets": [
+          3719.19,
+          3695.08
+        ],
+        "rationale": "Requires seller defense at 3758.13 and liquidity draw into SSL at 3695.08."
+      },
+      "invalidationConditions": {
+        "primaryInvalidationPrice": 3758.13,
+        "direction": "above",
+        "rule": "H4 or D1 candle close above 3758.13 invalidates the bearish structural bias.",
+        "secondaryRules": [
+          "Candle close above 3881.63",
+          "Equilibrium threshold sits at 3957.63 (Daily 50% level)."
+        ]
+      },
+      "marketConditions": {
+        "volatilityState": "Elevated / Expanding",
+        "atrDaily": 85.58,
+        "atrDailyPct": 2.295,
+        "trendStrengthAdx": 32.57,
+        "volumeAssessment": "Spot/Index feed reports zero traded volume for this instrument",
+        "relevantNews": [
+          {
+            "title": "Gold Price Today on November 19, 2026",
+            "source": "Yahoo Finance Metals",
+            "publishedAt": "2026-11-19T11:09:10.000Z",
+            "url": "https://www.usatoday.com/story/money/investing/2026/11/19/gold-price-on-november-19-2026/92857040007/?.tsrc=rss"
+          },
+          {
+            "title": "Sterling today: Pound flat as dollar holds firm; UK Gen Z confidence slumps",
+            "source": "Investing.com Forex",
+            "publishedAt": "2026-11-19T10:00:09.000Z",
+            "url": "https://www.investing.com/news/forex-news/sterling-today-pound-flat-as-dollar-holds-firm-uk-gen-z-confidence-slumps-5038221"
+          },
+          {
+            "title": "US Stock Futures Rise as Anthropic Prepares for Record IPO, Fed Signals Rate Hikes and Oil Prices Advance: Dow Jones, S&P, Nasdaq, Wall Street",
+            "source": "Yahoo Finance Energy",
+            "publishedAt": "2026-11-19T10:51:38.000Z",
+            "url": "https://investorshub.advfn.com/market-news/article/40334/us-stock-futures-rise-as-anthropic-prepares-for-record-ipo-fed-signals-rate-hikes-and-oil-prices-advance-dow-jones-sp-nasdaq-wall-street?.tsrc=rss"
+          },
+          {
+            "title": "Euro yields idle near 1-month peaks on hawkish Fed and ECB rhetoric trap",
+            "source": "Investing.com Forex",
+            "publishedAt": "2026-11-19T09:09:11.000Z",
+            "url": "https://www.investing.com/news/forex-news/euro-yields-idle-near-1month-peaks-on-hawkish-fed-and-ecb-rhetoric-trap-5037883"
+          }
+        ]
+      },
+      "summary": "XAUUSD carries a Strong Bearish deterministic daily bias on 2026-11-19 (2026-11-19 NY session) with a 85% directional alignment score (Bullish 0 vs Bearish 85). Higher and intraday structures show constructive alignment. Key invalidation: H4 or D1 candle close above 3758.13 invalidates the bearish structural bias.",
+      "aiAnalyst": {
+        "used": false,
+        "model": null,
+        "error": "Gemini explanation request timed out"
+      }
+    },
+    "NASDAQ_2026-11-19": {
+      "id": "NASDAQ_2026-11-19",
+      "symbol": "NASDAQ",
+      "displayName": "NASDAQ-100 Index (US100)",
+      "marketType": "Equity Index",
+      "tradingDate": "2026-11-19",
+      "timezone": "America/New_York",
+      "analysisTimestamp": "2026-11-19T11:19:17.017Z",
+      "modelVersion": "YOUNEEL-QUANT-v2.0",
+      "referencePrice": 27116.26,
+      "dataQuality": {
+        "status": "COMPLETE",
+        "availableWeightPct": 100,
+        "missingTimeframes": [],
+        "notes": []
+      },
+      "marketDataRef": {
+        "quoteSource": "Yahoo Finance (^NDX NASDAQ-100)",
+        "quoteTimestamp": "2026-11-18T22:15:59.000Z",
+        "timeframeSources": {
+          "MN": {
+            "source": "Yahoo Finance (^NDX NASDAQ-100)",
+            "bars": 121,
+            "latestBar": "2026-11-18T22:15:59.000Z"
+          },
+          "W1": {
+            "source": "Yahoo Finance (^NDX NASDAQ-100)",
+            "bars": 260,
+            "latestBar": "2026-11-18T22:15:59.000Z"
+          },
+          "D1": {
+            "source": "Yahoo Finance (^NDX NASDAQ-100)",
+            "bars": 260,
+            "latestBar": "2026-11-18T14:30:00.000Z"
+          },
+          "H4": {
+            "source": "Yahoo Finance (^NDX NASDAQ-100)",
+            "bars": 143,
+            "latestBar": "2026-11-18T20:00:00.000Z"
+          },
+          "H1": {
+            "source": "Yahoo Finance (^NDX NASDAQ-100)",
+            "bars": 162,
+            "latestBar": "2026-11-18T22:00:00.000Z"
+          },
+          "M15": {
+            "source": "Yahoo Finance (^NDX NASDAQ-100)",
+            "bars": 131,
+            "latestBar": "2026-11-18T21:00:00.000Z"
+          },
+          "M5": {
+            "source": "Yahoo Finance (^NDX NASDAQ-100)",
+            "bars": 260,
+            "latestBar": "2026-11-18T21:00:00.000Z"
+          }
+        }
+      },
+      "dailyBias": "Strong Bearish",
+      "bullishScore": 3,
+      "bearishScore": 67,
+      "netScore": -63,
+      "directionalAlignmentScore": 63,
+      "scoringBreakdown": [
+        {
+          "component": "Higher-Timeframe Structure (MN + W1)",
+          "weightPct": 30,
+          "available": true,
+          "rawScore": 11,
+          "weightedContribution": 3.3,
+          "note": "MN=Bullish (78), W1=Bearish (-57)"
+        },
+        {
+          "component": "Daily Structure (D1)",
+          "weightPct": 25,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -25,
+          "note": "D1=Bearish (Trending Bearish)"
+        },
+        {
+          "component": "4H Structure (H4)",
+          "weightPct": 20,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -20,
+          "note": "H4=Bearish (Reversing)"
+        },
+        {
+          "component": "1H Confirmation (H1)",
+          "weightPct": 15,
+          "available": true,
+          "rawScore": -78,
+          "weightedContribution": -11.7,
+          "note": "H1=Bearish (Trending Bearish)"
+        },
+        {
+          "component": "Momentum & Volatility (RSI / MACD / ADX)",
+          "weightPct": 10,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -10,
+          "note": "RSI=37.62, MACD_Hist=-61.2691, ADX=31.61 (+DI:16.86/-DI:38.09)"
+        }
+      ],
+      "weightsUsed": {
+        "higherTimeframe": 0.3,
+        "daily": 0.25,
+        "h4": 0.2,
+        "h1": 0.15,
+        "momentumVolatility": 0.1
+      },
+      "timeframeConflicts": [
+        "Monthly (Bullish, score 78) diverges from Weekly (Bearish, score -57)",
+        "Monthly (Bullish, score 78) diverges from Daily (Bearish, score -100)",
+        "Monthly (Bullish, score 78) diverges from 4H (Bearish, score -100)",
+        "Monthly (Bullish, score 78) diverges from 1H (Bearish, score -78)"
+      ],
+      "mtfTable": [
+        {
+          "timeframe": "MN",
+          "barCount": 121,
+          "sufficient": true,
+          "regime": "Trending Bullish",
+          "directionalLean": "Bullish",
+          "structureScore": 78,
+          "latestEvent": "Bullish BOS @ 26182.10",
+          "rsi14": 57.65,
+          "adx14": 28.63,
+          "atr14": 2005.34,
+          "emaAlignment": "Bullish (P>20>50)",
+          "premiumDiscountZone": "PREMIUM (75.5%)",
+          "latestTimestamp": "2026-11-18T22:15:59.000Z"
+        },
+        {
+          "timeframe": "W1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bearish",
+          "structureScore": -57,
+          "latestEvent": "Bearish CHoCH @ 28753.29",
+          "rsi14": 41.68,
+          "adx14": 18.18,
+          "atr14": 1208.76,
+          "emaAlignment": "Mixed (20:28568.38 / 50:27571.36 / 200:21525.67)",
+          "premiumDiscountZone": "EQUILIBRIUM (50.2%)",
+          "latestTimestamp": "2026-11-18T22:15:59.000Z"
+        },
+        {
+          "timeframe": "D1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Trending Bearish",
+          "directionalLean": "Bearish",
+          "structureScore": -100,
+          "latestEvent": "Bearish BOS @ 28825.72",
+          "rsi14": 37.62,
+          "adx14": 31.61,
+          "atr14": 653.79,
+          "emaAlignment": "Mixed (20:28156.89 / 50:28878.79 / 200:27943.08)",
+          "premiumDiscountZone": "DISCOUNT (11.2%)",
+          "latestTimestamp": "2026-11-18T14:30:00.000Z"
+        },
+        {
+          "timeframe": "H4",
+          "barCount": 143,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bearish",
+          "structureScore": -100,
+          "latestEvent": "Bearish CHoCH @ 27421.18",
+          "rsi14": 39.76,
+          "adx14": 28.26,
+          "atr14": 347.3,
+          "emaAlignment": "Bearish (P<20<50)",
+          "premiumDiscountZone": "DISCOUNT (23.7%)",
+          "latestTimestamp": "2026-11-18T20:00:00.000Z"
+        },
+        {
+          "timeframe": "H1",
+          "barCount": 162,
+          "sufficient": true,
+          "regime": "Trending Bearish",
+          "directionalLean": "Bearish",
+          "structureScore": -78,
+          "latestEvent": "Bearish BOS @ 27610.27",
+          "rsi14": 44.4,
+          "adx14": 31.62,
+          "atr14": 182.61,
+          "emaAlignment": "Bearish (P<20<50)",
+          "premiumDiscountZone": "DISCOUNT (26.5%)",
+          "latestTimestamp": "2026-11-18T22:00:00.000Z"
+        },
+        {
+          "timeframe": "M15",
+          "barCount": 131,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bullish",
+          "structureScore": 50,
+          "latestEvent": "Bullish CHoCH @ 26993.12",
+          "rsi14": 53.67,
+          "adx14": 12.36,
+          "atr14": 94.34,
+          "emaAlignment": "Mixed (20:27075.61 / 50:27100.52)",
+          "premiumDiscountZone": "PREMIUM (74.8%)",
+          "latestTimestamp": "2026-11-18T21:00:00.000Z"
+        },
+        {
+          "timeframe": "M5",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Ranging",
+          "directionalLean": "Bullish",
+          "structureScore": 71,
+          "latestEvent": "Bullish BOS @ 27106.14",
+          "rsi14": 54.78,
+          "adx14": 13.65,
+          "atr14": 42.05,
+          "emaAlignment": "Mixed (20:27089.8 / 50:27076.01 / 200:27153.08)",
+          "premiumDiscountZone": "EQUILIBRIUM (51.7%)",
+          "latestTimestamp": "2026-11-18T21:00:00.000Z"
+        }
+      ],
+      "marketStructure": {
+        "primaryRegime": "Trending Bearish",
+        "dailySummary": "D1 Trending Bearish | Score -100 | Latest: BOS @ 27116.26",
+        "h4Summary": "H4 Reversing | Score -100 | PD: DISCOUNT",
+        "h1Summary": "H1 Trending Bearish | Score -78 | RSI 44.4",
+        "recentEvents": [
+          {
+            "type": "CHoCH",
+            "direction": "bearish",
+            "level": 27421.18,
+            "timeframe": "H4",
+            "timestamp": "2026-11-16T16:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 28593.40"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 27610.27,
+            "timeframe": "H1",
+            "timestamp": "2026-11-16T14:30:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 28546.57"
+          },
+          {
+            "type": "MSS",
+            "direction": "bearish",
+            "level": 27948.39,
+            "timeframe": "H1",
+            "timestamp": "2026-11-13T14:30:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 28546.57"
+          },
+          {
+            "type": "CHoCH",
+            "direction": "bullish",
+            "level": 28025.77,
+            "timeframe": "H4",
+            "timestamp": "2026-11-11T12:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close below 26609.89"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 28825.72,
+            "timeframe": "D1",
+            "timestamp": "2026-10-30T13:30:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 29928.31"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 29073.29,
+            "timeframe": "D1",
+            "timestamp": "2026-10-22T13:30:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 31361.37"
+          }
+        ]
+      },
+      "liquidity": {
+        "buySide": [
+          {
+            "kind": "BSL",
+            "price": 27235.91,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T17:30:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 27235.91"
+          },
+          {
+            "kind": "BSL",
+            "price": 28013.84,
+            "timeframe": "H1",
+            "timestamp": "2026-11-13T20:30:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 28013.84"
+          },
+          {
+            "kind": "EQH",
+            "price": 28019.81,
+            "upperBound": 28025.77,
+            "lowerBound": 28013.84,
+            "timeframe": "H1",
+            "timestamp": "2026-11-13T20:30:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept above 28025.77"
+          },
+          {
+            "kind": "BSL",
+            "price": 28546.57,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T15:30:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 28546.57"
+          },
+          {
+            "kind": "BSL",
+            "price": 28593.4,
+            "timeframe": "H4",
+            "timestamp": "2026-11-11T16:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 28593.40"
+          },
+          {
+            "kind": "BSL",
+            "price": 28593.4,
+            "timeframe": "H1",
+            "timestamp": "2026-11-11T18:30:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 28593.40"
+          }
+        ],
+        "sellSide": [
+          {
+            "kind": "EQL",
+            "price": 26621.87,
+            "upperBound": 26633.85,
+            "lowerBound": 26609.89,
+            "timeframe": "H1",
+            "timestamp": "2026-11-05T20:30:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept below 26609.89"
+          },
+          {
+            "kind": "EQL",
+            "price": 26597.19,
+            "upperBound": 26609.89,
+            "lowerBound": 26584.48,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T12:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept below 26584.48"
+          },
+          {
+            "kind": "EQL",
+            "price": 26597.19,
+            "upperBound": 26609.89,
+            "lowerBound": 26584.48,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T15:30:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept below 26584.48"
+          },
+          {
+            "kind": "SSL",
+            "price": 26584.48,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T12:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 26584.48"
+          },
+          {
+            "kind": "SSL",
+            "price": 26584.48,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T15:30:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 26584.48"
+          },
+          {
+            "kind": "SSL",
+            "price": 22841.42,
+            "timeframe": "D1",
+            "timestamp": "2026-03-30T13:30:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 22841.42"
+          }
+        ],
+        "recentSweeps": [
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 26609.89,
+            "wickExtreme": 26584.48,
+            "closePrice": 26869.27,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T15:30:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (26584.48)"
+          },
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 26606.43,
+            "wickExtreme": 26580.86,
+            "closePrice": 27001.78,
+            "timeframe": "D1",
+            "timestamp": "2026-11-17T14:30:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (26580.86)"
+          },
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 26609.89,
+            "wickExtreme": 26584.48,
+            "closePrice": 26869.27,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T12:00:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (26584.48)"
+          },
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 27421.18,
+            "wickExtreme": 27256.84,
+            "closePrice": 27508.04,
+            "timeframe": "H4",
+            "timestamp": "2026-11-16T12:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (27256.84)"
+          }
+        ]
+      },
+      "importantZones": {
+        "supports": [
+          {
+            "label": "S1 (H1 Swing Low)",
+            "category": "support",
+            "price": 26888.05,
+            "timeframe": "H1",
+            "timestamp": "2026-11-06T17:30:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 26888.05"
+          },
+          {
+            "label": "S2 (H1 Swing Low)",
+            "category": "support",
+            "price": 26633.85,
+            "timeframe": "H1",
+            "timestamp": "2026-11-05T15:30:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 26633.85"
+          },
+          {
+            "label": "S1 (H4 Swing Low)",
+            "category": "support",
+            "price": 26609.89,
+            "timeframe": "H4",
+            "timestamp": "2026-11-05T20:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 26609.89"
+          },
+          {
+            "label": "S3 (H1 Swing Low)",
+            "category": "support",
+            "price": 26609.89,
+            "timeframe": "H1",
+            "timestamp": "2026-11-05T20:30:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 26609.89"
+          }
+        ],
+        "resistances": [
+          {
+            "label": "R1 (H1 Swing High)",
+            "category": "resistance",
+            "price": 27235.91,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T17:30:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 27235.91"
+          },
+          {
+            "label": "R2 (H1 Swing High)",
+            "category": "resistance",
+            "price": 27315.99,
+            "timeframe": "H1",
+            "timestamp": "2026-11-06T14:30:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 27315.99"
+          },
+          {
+            "label": "R3 (H1 Swing High)",
+            "category": "resistance",
+            "price": 27902.2,
+            "timeframe": "H1",
+            "timestamp": "2026-11-09T15:30:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 27902.20"
+          },
+          {
+            "label": "R1 (H4 Swing High)",
+            "category": "resistance",
+            "price": 28025.77,
+            "timeframe": "H4",
+            "timestamp": "2026-11-09T16:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 28025.77"
+          }
+        ],
+        "orderBlocks": [
+          {
+            "direction": "bearish",
+            "low": 29807.84,
+            "high": 29928.12,
+            "midpoint": 29867.98,
+            "timeframe": "H1",
+            "timestamp": "2026-10-21T16:30:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (29928.12)"
+          },
+          {
+            "direction": "bearish",
+            "low": 29301.85,
+            "high": 29407.05,
+            "midpoint": 29354.45,
+            "timeframe": "H1",
+            "timestamp": "2026-10-29T19:30:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (29407.05)"
+          },
+          {
+            "direction": "bearish",
+            "low": 28500.75,
+            "high": 28752.38,
+            "midpoint": 28626.57,
+            "timeframe": "H1",
+            "timestamp": "2026-11-02T14:30:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (28752.38)"
+          },
+          {
+            "direction": "bearish",
+            "low": 28384.53,
+            "high": 28652.89,
+            "midpoint": 28518.71,
+            "timeframe": "H1",
+            "timestamp": "2026-11-04T16:30:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (28652.89)"
+          },
+          {
+            "direction": "bearish",
+            "low": 28206.86,
+            "high": 28294.39,
+            "midpoint": 28250.63,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T20:30:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (28294.39)"
+          },
+          {
+            "direction": "bearish",
+            "low": 27880.72,
+            "high": 28013.84,
+            "midpoint": 27947.28,
+            "timeframe": "H1",
+            "timestamp": "2026-11-13T20:30:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (28013.84)"
+          }
+        ],
+        "fairValueGaps": [
+          {
+            "direction": "bearish",
+            "low": 28681.23,
+            "high": 29301.85,
+            "midpoint": 28991.54,
+            "timeframe": "H1",
+            "timestamp": "2026-10-30T14:30:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (29301.85)"
+          },
+          {
+            "direction": "bullish",
+            "low": 26836.46,
+            "high": 26953.63,
+            "midpoint": 26895.05,
+            "timeframe": "H1",
+            "timestamp": "2026-11-06T15:30:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (26836.46)"
+          },
+          {
+            "direction": "bearish",
+            "low": 28320.64,
+            "high": 28350.21,
+            "midpoint": 28335.43,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T19:30:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (28350.21)"
+          },
+          {
+            "direction": "bearish",
+            "low": 27791.11,
+            "high": 28206.86,
+            "midpoint": 27998.99,
+            "timeframe": "H1",
+            "timestamp": "2026-11-13T15:30:00.000Z",
+            "status": "PARTIALLY_MITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (28206.86)"
+          },
+          {
+            "direction": "bearish",
+            "low": 27609.38,
+            "high": 27874.17,
+            "midpoint": 27741.78,
+            "timeframe": "H1",
+            "timestamp": "2026-11-16T14:30:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (27874.17)"
+          },
+          {
+            "direction": "bearish",
+            "low": 27521.98,
+            "high": 27880.72,
+            "midpoint": 27701.35,
+            "timeframe": "H1",
+            "timestamp": "2026-11-16T15:30:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (27880.72)"
+          }
+        ],
+        "premiumDiscount": {
+          "rangeHigh": 31361.37,
+          "rangeLow": 26580.86,
+          "equilibrium": 28971.12,
+          "premiumZone": [
+            28971.12,
+            31361.37
+          ],
+          "discountZone": [
+            26580.86,
+            28971.12
+          ],
+          "positionPct": 11.2,
+          "currentZone": "DISCOUNT",
+          "timeframe": "D1",
+          "timestamp": "2026-11-18T14:30:00.000Z"
+        }
+      },
+      "keyLevels": [
+        {
+          "label": "R1 (H1 Swing High)",
+          "category": "resistance",
+          "price": 27235.91,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T17:30:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 27235.91"
+        },
+        {
+          "label": "R2 (H1 Swing High)",
+          "category": "resistance",
+          "price": 27315.99,
+          "timeframe": "H1",
+          "timestamp": "2026-11-06T14:30:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 27315.99"
+        },
+        {
+          "label": "S1 (H1 Swing Low)",
+          "category": "support",
+          "price": 26888.05,
+          "timeframe": "H1",
+          "timestamp": "2026-11-06T17:30:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 26888.05"
+        },
+        {
+          "label": "S2 (H1 Swing Low)",
+          "category": "support",
+          "price": 26633.85,
+          "timeframe": "H1",
+          "timestamp": "2026-11-05T15:30:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 26633.85"
+        },
+        {
+          "label": "BSL (H1)",
+          "category": "liquidity",
+          "price": 27235.91,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T17:30:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades above 27235.91"
+        },
+        {
+          "label": "BSL (H1)",
+          "category": "liquidity",
+          "price": 28013.84,
+          "timeframe": "H1",
+          "timestamp": "2026-11-13T20:30:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades above 28013.84"
+        },
+        {
+          "label": "EQL (H1)",
+          "category": "liquidity",
+          "price": 26621.87,
+          "high": 26633.85,
+          "low": 26609.89,
+          "timeframe": "H1",
+          "timestamp": "2026-11-05T20:30:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept below 26609.89"
+        },
+        {
+          "label": "EQL (H4)",
+          "category": "liquidity",
+          "price": 26597.19,
+          "high": 26609.89,
+          "low": 26584.48,
+          "timeframe": "H4",
+          "timestamp": "2026-11-17T12:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept below 26584.48"
+        },
+        {
+          "label": "Bearish OB (H1)",
+          "category": "order_block",
+          "price": 28250.63,
+          "high": 28294.39,
+          "low": 28206.86,
+          "timeframe": "H1",
+          "timestamp": "2026-11-12T20:30:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Close above bearish OB high (28294.39)"
+        },
+        {
+          "label": "Bearish OB (H1)",
+          "category": "order_block",
+          "price": 27947.28,
+          "high": 28013.84,
+          "low": 27880.72,
+          "timeframe": "H1",
+          "timestamp": "2026-11-13T20:30:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Close above bearish OB high (28013.84)"
+        },
+        {
+          "label": "Bearish FVG (H1)",
+          "category": "fvg",
+          "price": 27741.78,
+          "high": 27874.17,
+          "low": 27609.38,
+          "timeframe": "H1",
+          "timestamp": "2026-11-16T14:30:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Candle close above FVG upper bound (27874.17)"
+        },
+        {
+          "label": "Bearish FVG (H1)",
+          "category": "fvg",
+          "price": 27701.35,
+          "high": 27880.72,
+          "low": 27521.98,
+          "timeframe": "H1",
+          "timestamp": "2026-11-16T15:30:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Candle close above FVG upper bound (27880.72)"
+        }
+      ],
+      "bullishScenario": {
+        "trigger": "Reclaim and close H4 candle above 27235.91 to trigger bullish CHoCH",
+        "targets": [
+          27235.91,
+          28013.84
+        ],
+        "rationale": "Requires buyer defense of 26888.05 (H1) and expansion toward resting BSL at 28013.84."
+      },
+      "bearishScenario": {
+        "trigger": "Reject below 27235.91 supply / confirm 1H breakdown below 26888.05",
+        "targets": [
+          26888.05,
+          26597.19
+        ],
+        "rationale": "Requires seller defense at 27235.91 and liquidity draw into SSL at 26597.19."
+      },
+      "invalidationConditions": {
+        "primaryInvalidationPrice": 28013.84,
+        "direction": "above",
+        "rule": "H4 or D1 candle close above 28013.84 invalidates the bearish structural bias.",
+        "secondaryRules": [
+          "Candle close above 28546.57",
+          "Equilibrium threshold sits at 28971.12 (Daily 50% level)."
+        ]
+      },
+      "marketConditions": {
+        "volatilityState": "Elevated / Expanding",
+        "atrDaily": 653.79,
+        "atrDailyPct": 2.411,
+        "trendStrengthAdx": 31.61,
+        "volumeAssessment": "Distribution (RVOL 0.91x vs 20-bar avg)",
+        "relevantNews": [
+          {
+            "title": "Gold Price Today on November 19, 2026",
+            "source": "Yahoo Finance Metals",
+            "publishedAt": "2026-11-19T11:09:10.000Z",
+            "url": "https://www.usatoday.com/story/money/investing/2026/11/19/gold-price-on-november-19-2026/92857040007/?.tsrc=rss"
+          },
+          {
+            "title": "Dow Jones Futures Rise, Techs Jump: Anthropic IPO To Debut After Pricing High; Palo Alto, Everpure Rally On Earnings",
+            "source": "Yahoo Finance US Indices",
+            "publishedAt": "2026-11-19T11:07:17.000Z",
+            "url": "https://finance.yahoo.com/m/107e5a2c-4fba-3df3-b2fd-5d1160e65516/dow-jones-futures-rise%2C-techs.html?.tsrc=rss"
+          },
+          {
+            "title": "US Stock Futures Rise as Anthropic Prepares for Record IPO, Fed Signals Rate Hikes and Oil Prices Advance: Dow Jones, S&P, Nasdaq, Wall Street",
+            "source": "Yahoo Finance Energy",
+            "publishedAt": "2026-11-19T10:51:38.000Z",
+            "url": "https://investorshub.advfn.com/market-news/article/40334/us-stock-futures-rise-as-anthropic-prepares-for-record-ipo-fed-signals-rate-hikes-and-oil-prices-advance-dow-jones-sp-nasdaq-wall-street?.tsrc=rss"
+          },
+          {
+            "title": "Bitcoin Price: Heading For The $50,000s?",
+            "source": "Yahoo Finance Crypto",
+            "publishedAt": "2026-11-19T11:01:49.000Z",
+            "url": "https://www.trefis.com/stock/btc-usd/articles/626622/bitcoin-price-heading-for-the-50000s/2026-11-19?.tsrc=rss"
+          }
+        ]
+      },
+      "summary": "NASDAQ carries a Strong Bearish deterministic daily bias on 2026-11-19 (2026-11-19 NY session) with a 63% directional alignment score (Bullish 3 vs Bearish 67). Caution: Monthly (Bullish, score 78) diverges from Weekly (Bearish, score -57). Key invalidation: H4 or D1 candle close above 28013.84 invalidates the bearish structural bias.",
+      "aiAnalyst": {
+        "used": false,
+        "model": null,
+        "error": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-4-hydrogen, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 20h40m42.879310952s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://aistudio.google.com/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"description\":\"Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\",\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-4-hydrogen\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"74442s\"}]}}"
+      }
+    },
+    "BTCUSD_2026-11-19": {
+      "id": "BTCUSD_2026-11-19",
+      "symbol": "BTCUSD",
+      "displayName": "Bitcoin Spot (BTC/USD)",
+      "marketType": "Crypto Spot",
+      "tradingDate": "2026-11-19",
+      "timezone": "America/New_York",
+      "analysisTimestamp": "2026-11-19T11:19:18.718Z",
+      "modelVersion": "YOUNEEL-QUANT-v2.0",
+      "referencePrice": 63660.5,
+      "dataQuality": {
+        "status": "COMPLETE",
+        "availableWeightPct": 100,
+        "missingTimeframes": [],
+        "notes": []
+      },
+      "marketDataRef": {
+        "quoteSource": "Coinbase WebSocket (BTC-USD Spot)",
+        "quoteTimestamp": "2026-11-19T11:19:18.121923Z",
+        "timeframeSources": {
+          "MN": {
+            "source": "Yahoo Finance (BTC-USD Spot MN)",
+            "bars": 121,
+            "latestBar": "2026-11-19T11:19:15.000Z"
+          },
+          "W1": {
+            "source": "Yahoo Finance (BTC-USD Spot W1)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:19:15.000Z"
+          },
+          "D1": {
+            "source": "Coinbase Exchange (BTC-USD Spot)",
+            "bars": 260,
+            "latestBar": "2026-11-19T00:00:00.000Z"
+          },
+          "H4": {
+            "source": "Coinbase Exchange (BTC-USD Spot)",
+            "bars": 88,
+            "latestBar": "2026-11-19T08:00:00.000Z"
+          },
+          "H1": {
+            "source": "Coinbase Exchange (BTC-USD Spot)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:00:00.000Z"
+          },
+          "M15": {
+            "source": "Coinbase Exchange (BTC-USD Spot)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:15:00.000Z"
+          },
+          "M5": {
+            "source": "Coinbase Exchange (BTC-USD Spot)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:15:00.000Z"
+          }
+        }
+      },
+      "dailyBias": "Strong Bearish",
+      "bullishScore": 4,
+      "bearishScore": 63,
+      "netScore": -59,
+      "directionalAlignmentScore": 59,
+      "scoringBreakdown": [
+        {
+          "component": "Higher-Timeframe Structure (MN + W1)",
+          "weightPct": 30,
+          "available": true,
+          "rawScore": -41,
+          "weightedContribution": -12.3,
+          "note": "MN=Neutral (17), W1=Bearish (-100)"
+        },
+        {
+          "component": "Daily Structure (D1)",
+          "weightPct": 25,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -25,
+          "note": "D1=Bearish (Trending Bearish)"
+        },
+        {
+          "component": "4H Structure (H4)",
+          "weightPct": 20,
+          "available": true,
+          "rawScore": -78,
+          "weightedContribution": -15.6,
+          "note": "H4=Bearish (Trending Bearish)"
+        },
+        {
+          "component": "1H Confirmation (H1)",
+          "weightPct": 15,
+          "available": true,
+          "rawScore": 29,
+          "weightedContribution": 4.35,
+          "note": "H1=Bullish (Reversing)"
+        },
+        {
+          "component": "Momentum & Volatility (RSI / MACD / ADX)",
+          "weightPct": 10,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -10,
+          "note": "RSI=24.63, MACD_Hist=-891.5935, ADX=41.18 (+DI:5.99/-DI:36.45)"
+        }
+      ],
+      "weightsUsed": {
+        "higherTimeframe": 0.3,
+        "daily": 0.25,
+        "h4": 0.2,
+        "h1": 0.15,
+        "momentumVolatility": 0.1
+      },
+      "timeframeConflicts": [
+        "Weekly (Bearish, score -100) diverges from 1H (Bullish, score 29)",
+        "Daily (Bearish, score -100) diverges from 1H (Bullish, score 29)",
+        "4H (Bearish, score -78) diverges from 1H (Bullish, score 29)"
+      ],
+      "mtfTable": [
+        {
+          "timeframe": "MN",
+          "barCount": 121,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Neutral",
+          "structureScore": 17,
+          "latestEvent": "Bullish CHoCH @ 82792.21",
+          "rsi14": 44.17,
+          "adx14": 20.68,
+          "atr14": 14445.94,
+          "emaAlignment": "Mixed (20:75997.78 / 50:67114.57)",
+          "premiumDiscountZone": "DISCOUNT (38.2%)",
+          "latestTimestamp": "2026-11-19T11:19:15.000Z"
+        },
+        {
+          "timeframe": "W1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bearish",
+          "structureScore": -100,
+          "latestEvent": "Bearish CHoCH @ 74944.59",
+          "rsi14": 37.7,
+          "adx14": 24.05,
+          "atr14": 6080.25,
+          "emaAlignment": "Mixed (20:73315.87 / 50:76750.52 / 200:64114.33)",
+          "premiumDiscountZone": "DISCOUNT (20%)",
+          "latestTimestamp": "2026-11-19T11:19:15.000Z"
+        },
+        {
+          "timeframe": "D1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Trending Bearish",
+          "directionalLean": "Bearish",
+          "structureScore": -100,
+          "latestEvent": "Bearish BOS @ 76141.02",
+          "rsi14": 24.63,
+          "adx14": 41.18,
+          "atr14": 2578.82,
+          "emaAlignment": "Mixed (20:70649.67 / 50:75160.58 / 200:73999.81)",
+          "premiumDiscountZone": "DISCOUNT (7.5%)",
+          "latestTimestamp": "2026-11-19T00:00:00.000Z"
+        },
+        {
+          "timeframe": "H4",
+          "barCount": 88,
+          "sufficient": true,
+          "regime": "Trending Bearish",
+          "directionalLean": "Bearish",
+          "structureScore": -78,
+          "latestEvent": "Bearish BOS @ 63256.75",
+          "rsi14": 40.68,
+          "adx14": 50,
+          "atr14": 1094.77,
+          "emaAlignment": "Bearish (P<20<50)",
+          "premiumDiscountZone": "DISCOUNT (17.7%)",
+          "latestTimestamp": "2026-11-19T08:00:00.000Z"
+        },
+        {
+          "timeframe": "H1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bullish",
+          "structureScore": 29,
+          "latestEvent": "Bullish CHoCH @ 63232.26",
+          "rsi14": 52.99,
+          "adx14": 17.85,
+          "atr14": 463.18,
+          "emaAlignment": "Mixed (20:63436 / 50:63763.5 / 200:67354.56)",
+          "premiumDiscountZone": "EQUILIBRIUM (51.9%)",
+          "latestTimestamp": "2026-11-19T11:00:00.000Z"
+        },
+        {
+          "timeframe": "M15",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bullish",
+          "structureScore": 52,
+          "latestEvent": "Bullish CHoCH @ 63226.63",
+          "rsi14": 55.22,
+          "adx14": 33.34,
+          "atr14": 170.19,
+          "emaAlignment": "Mixed (20:63619.67 / 50:63404.01 / 200:63811.14)",
+          "premiumDiscountZone": "PREMIUM (84.5%)",
+          "latestTimestamp": "2026-11-19T11:15:00.000Z"
+        },
+        {
+          "timeframe": "M5",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bearish",
+          "structureScore": -57,
+          "latestEvent": "Bearish CHoCH @ 63720.00",
+          "rsi14": 44.25,
+          "adx14": 12.41,
+          "atr14": 83.71,
+          "emaAlignment": "Mixed (20:63733.89 / 50:63662.67 / 200:63264.22)",
+          "premiumDiscountZone": "DISCOUNT (40.4%)",
+          "latestTimestamp": "2026-11-19T11:15:00.000Z"
+        }
+      ],
+      "marketStructure": {
+        "primaryRegime": "Trending Bearish",
+        "dailySummary": "D1 Trending Bearish | Score -100 | Latest: BOS @ 63660.50",
+        "h4Summary": "H4 Trending Bearish | Score -78 | PD: DISCOUNT",
+        "h1Summary": "H1 Reversing | Score 29 | RSI 52.99",
+        "recentEvents": [
+          {
+            "type": "CHoCH",
+            "direction": "bullish",
+            "level": 63232.26,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T04:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close below 62000.00"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 62202.64,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T22:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 64889.54"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 63256.75,
+            "timeframe": "H4",
+            "timestamp": "2026-11-18T12:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 65383.29"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 63833.47,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T16:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 65626.98"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 76141.02,
+            "timeframe": "D1",
+            "timestamp": "2026-11-05T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 81890.00"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 79107,
+            "timeframe": "D1",
+            "timestamp": "2026-10-29T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 84856.07"
+          }
+        ]
+      },
+      "liquidity": {
+        "buySide": [
+          {
+            "kind": "BSL",
+            "price": 64889.54,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T07:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 64889.54"
+          },
+          {
+            "kind": "EQH",
+            "price": 65174.69,
+            "upperBound": 65199.37,
+            "lowerBound": 65150,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T23:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept above 65199.37"
+          },
+          {
+            "kind": "BSL",
+            "price": 65199.37,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T23:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 65199.37"
+          },
+          {
+            "kind": "BSL",
+            "price": 65383.29,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T12:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 65383.29"
+          },
+          {
+            "kind": "BSL",
+            "price": 65383.29,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T14:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 65383.29"
+          },
+          {
+            "kind": "EQH",
+            "price": 65429.84,
+            "upperBound": 65476.38,
+            "lowerBound": 65383.29,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T14:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept above 65476.38"
+          }
+        ],
+        "sellSide": [
+          {
+            "kind": "SSL",
+            "price": 62322.12,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T03:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 62322.12"
+          },
+          {
+            "kind": "SSL",
+            "price": 62000,
+            "timeframe": "H4",
+            "timestamp": "2026-11-18T20:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 62000.00"
+          },
+          {
+            "kind": "SSL",
+            "price": 62000,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T22:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 62000.00"
+          },
+          {
+            "kind": "EQL",
+            "price": 61973.09,
+            "upperBound": 62000,
+            "lowerBound": 61946.17,
+            "timeframe": "H4",
+            "timestamp": "2026-11-18T20:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept below 61946.17"
+          },
+          {
+            "kind": "SSL",
+            "price": 61946.17,
+            "timeframe": "D1",
+            "timestamp": "2026-11-15T00:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 61946.17"
+          },
+          {
+            "kind": "SSL",
+            "price": 61946.17,
+            "timeframe": "H4",
+            "timestamp": "2026-11-15T00:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 61946.17"
+          }
+        ],
+        "recentSweeps": [
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 63833.47,
+            "wickExtreme": 63256.75,
+            "closePrice": 64047.12,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T12:00:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (63256.75)"
+          },
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 62209.81,
+            "wickExtreme": 61946.17,
+            "closePrice": 65315.35,
+            "timeframe": "D1",
+            "timestamp": "2026-11-15T00:00:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (61946.17)"
+          },
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 62468.21,
+            "wickExtreme": 61946.17,
+            "closePrice": 65315.35,
+            "timeframe": "D1",
+            "timestamp": "2026-11-15T00:00:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (61946.17)"
+          },
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 74887.5,
+            "wickExtreme": 74722,
+            "closePrice": 75731.04,
+            "timeframe": "D1",
+            "timestamp": "2026-11-06T00:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (74722.00)"
+          }
+        ]
+      },
+      "importantZones": {
+        "supports": [
+          {
+            "label": "S1 (H4 Swing Low)",
+            "category": "support",
+            "price": 63256.75,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T12:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 63256.75"
+          },
+          {
+            "label": "S1 (H1 Swing Low)",
+            "category": "support",
+            "price": 63256.75,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T15:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 63256.75"
+          },
+          {
+            "label": "S1 (D1 Swing Low)",
+            "category": "support",
+            "price": 62468.21,
+            "timeframe": "D1",
+            "timestamp": "2026-08-14T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 62468.21"
+          },
+          {
+            "label": "S2 (H1 Swing Low)",
+            "category": "support",
+            "price": 62322.12,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T03:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 62322.12"
+          }
+        ],
+        "resistances": [
+          {
+            "label": "R1 (D1 Swing High)",
+            "category": "resistance",
+            "price": 64658.85,
+            "timeframe": "D1",
+            "timestamp": "2026-07-06T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 64658.85"
+          },
+          {
+            "label": "R2 (D1 Swing High)",
+            "category": "resistance",
+            "price": 64669.42,
+            "timeframe": "D1",
+            "timestamp": "2026-07-10T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 64669.42"
+          },
+          {
+            "label": "R1 (H1 Swing High)",
+            "category": "resistance",
+            "price": 64889.54,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T07:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 64889.54"
+          },
+          {
+            "label": "R2 (H1 Swing High)",
+            "category": "resistance",
+            "price": 65150,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T03:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 65150.00"
+          }
+        ],
+        "orderBlocks": [
+          {
+            "direction": "bearish",
+            "low": 66919.27,
+            "high": 67462.72,
+            "midpoint": 67191,
+            "timeframe": "H1",
+            "timestamp": "2026-11-14T09:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (67462.72)"
+          },
+          {
+            "direction": "bearish",
+            "low": 65311,
+            "high": 65806.29,
+            "midpoint": 65558.64,
+            "timeframe": "H1",
+            "timestamp": "2026-11-14T19:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (65806.29)"
+          },
+          {
+            "direction": "bearish",
+            "low": 64522.26,
+            "high": 65326.82,
+            "midpoint": 64924.54,
+            "timeframe": "H1",
+            "timestamp": "2026-11-16T02:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (65326.82)"
+          },
+          {
+            "direction": "bearish",
+            "low": 64798.02,
+            "high": 65100,
+            "midpoint": 64949.01,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T13:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (65100.00)"
+          },
+          {
+            "direction": "bearish",
+            "low": 64404.23,
+            "high": 64889.54,
+            "midpoint": 64646.89,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T07:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (64889.54)"
+          },
+          {
+            "direction": "bullish",
+            "low": 62476.85,
+            "high": 62863.42,
+            "midpoint": 62670.13,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T02:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close below bullish OB low (62476.85)"
+          }
+        ],
+        "fairValueGaps": [
+          {
+            "direction": "bearish",
+            "low": 67698.05,
+            "high": 68140.05,
+            "midpoint": 67919.05,
+            "timeframe": "H1",
+            "timestamp": "2026-11-14T03:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (68140.05)"
+          },
+          {
+            "direction": "bearish",
+            "low": 66003.46,
+            "high": 66491,
+            "midpoint": 66247.23,
+            "timeframe": "H1",
+            "timestamp": "2026-11-14T15:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (66491.00)"
+          },
+          {
+            "direction": "bearish",
+            "low": 64817.75,
+            "high": 65329.12,
+            "midpoint": 65073.44,
+            "timeframe": "H1",
+            "timestamp": "2026-11-15T15:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (65329.12)"
+          },
+          {
+            "direction": "bearish",
+            "low": 64887.83,
+            "high": 65231.58,
+            "midpoint": 65059.71,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T00:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (65231.58)"
+          },
+          {
+            "direction": "bearish",
+            "low": 64294.33,
+            "high": 64479.22,
+            "midpoint": 64386.78,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T11:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (64479.22)"
+          },
+          {
+            "direction": "bullish",
+            "low": 62863.42,
+            "high": 63130.88,
+            "midpoint": 62997.15,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T04:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (62863.42)"
+          }
+        ],
+        "premiumDiscount": {
+          "rangeHigh": 84856.07,
+          "rangeLow": 61946.17,
+          "equilibrium": 73401.12,
+          "premiumZone": [
+            73401.12,
+            84856.07
+          ],
+          "discountZone": [
+            61946.17,
+            73401.12
+          ],
+          "positionPct": 7.5,
+          "currentZone": "DISCOUNT",
+          "timeframe": "D1",
+          "timestamp": "2026-11-19T00:00:00.000Z"
+        }
+      },
+      "keyLevels": [
+        {
+          "label": "R1 (D1 Swing High)",
+          "category": "resistance",
+          "price": 64658.85,
+          "timeframe": "D1",
+          "timestamp": "2026-07-06T00:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 64658.85"
+        },
+        {
+          "label": "R2 (D1 Swing High)",
+          "category": "resistance",
+          "price": 64669.42,
+          "timeframe": "D1",
+          "timestamp": "2026-07-10T00:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 64669.42"
+        },
+        {
+          "label": "S1 (H4 Swing Low)",
+          "category": "support",
+          "price": 63256.75,
+          "timeframe": "H4",
+          "timestamp": "2026-11-17T12:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 63256.75"
+        },
+        {
+          "label": "S1 (H1 Swing Low)",
+          "category": "support",
+          "price": 63256.75,
+          "timeframe": "H1",
+          "timestamp": "2026-11-17T15:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 63256.75"
+        },
+        {
+          "label": "BSL (H1)",
+          "category": "liquidity",
+          "price": 64889.54,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T07:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades above 64889.54"
+        },
+        {
+          "label": "EQH (H1)",
+          "category": "liquidity",
+          "price": 65174.69,
+          "high": 65199.37,
+          "low": 65150,
+          "timeframe": "H1",
+          "timestamp": "2026-11-17T23:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept above 65199.37"
+        },
+        {
+          "label": "SSL (H1)",
+          "category": "liquidity",
+          "price": 62322.12,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T03:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades below 62322.12"
+        },
+        {
+          "label": "SSL (H4)",
+          "category": "liquidity",
+          "price": 62000,
+          "timeframe": "H4",
+          "timestamp": "2026-11-18T20:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades below 62000.00"
+        },
+        {
+          "label": "Bearish OB (H1)",
+          "category": "order_block",
+          "price": 64646.89,
+          "high": 64889.54,
+          "low": 64404.23,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T07:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Close above bearish OB high (64889.54)"
+        },
+        {
+          "label": "Bullish OB (H1)",
+          "category": "order_block",
+          "price": 62670.13,
+          "high": 62863.42,
+          "low": 62476.85,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T02:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Close below bullish OB low (62476.85)"
+        },
+        {
+          "label": "Bearish FVG (H1)",
+          "category": "fvg",
+          "price": 64386.78,
+          "high": 64479.22,
+          "low": 64294.33,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T11:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Candle close above FVG upper bound (64479.22)"
+        },
+        {
+          "label": "Bullish FVG (H1)",
+          "category": "fvg",
+          "price": 62997.15,
+          "high": 63130.88,
+          "low": 62863.42,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T04:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Candle close below FVG lower bound (62863.42)"
+        }
+      ],
+      "bullishScenario": {
+        "trigger": "Reclaim and close H4 candle above 64658.85 to trigger bullish CHoCH",
+        "targets": [
+          64658.85,
+          65174.69
+        ],
+        "rationale": "Requires buyer defense of 63256.75 (H4) and expansion toward resting BSL at 65174.69."
+      },
+      "bearishScenario": {
+        "trigger": "Reject below 64658.85 supply / confirm 1H breakdown below 63256.75",
+        "targets": [
+          63256.75,
+          62000
+        ],
+        "rationale": "Requires seller defense at 64658.85 and liquidity draw into SSL at 62000.00."
+      },
+      "invalidationConditions": {
+        "primaryInvalidationPrice": 64889.54,
+        "direction": "above",
+        "rule": "H4 or D1 candle close above 64889.54 invalidates the bearish structural bias.",
+        "secondaryRules": [
+          "Candle close below 62000.00",
+          "Equilibrium threshold sits at 73401.12 (Daily 50% level)."
+        ]
+      },
+      "marketConditions": {
+        "volatilityState": "Elevated / Expanding",
+        "atrDaily": 2578.82,
+        "atrDailyPct": 4.051,
+        "trendStrengthAdx": 41.18,
+        "volumeAssessment": "Distribution (RVOL 0.35x vs 20-bar avg)",
+        "relevantNews": [
+          {
+            "title": "Bitcoin Price: Heading For The $50,000s?",
+            "source": "Yahoo Finance Crypto",
+            "publishedAt": "2026-11-19T11:01:49.000Z",
+            "url": "https://www.trefis.com/stock/btc-usd/articles/626622/bitcoin-price-heading-for-the-50000s/2026-11-19?.tsrc=rss"
+          },
+          {
+            "title": "iShares Russell 3000 ETF (IWV) Buys $10.5 Million More Apple on Nov. 17",
+            "source": "Yahoo Finance US Indices",
+            "publishedAt": "2026-11-19T11:06:34.000Z",
+            "url": "https://finance.yahoo.com/markets/stocks/articles/ishares-russell-3000-etf-iwv-110634387.html?.tsrc=rss"
+          },
+          {
+            "title": "Live updates: Bitcoin nears $64,000 as Anthropic’s record IPO lifts tech",
+            "source": "CoinDesk",
+            "publishedAt": "2026-11-19T10:48:26.000Z",
+            "url": "https://www.coindesk.com/markets/2026/11/19/live-updates-bitcoin-nears-usd64-000-as-anthropic-s-record-ipo-lifts-tech"
+          },
+          {
+            "title": "Bitcoin Struggles to Hold $64,000 as ETF Outflows Hit $2.9B in November",
+            "source": "Yahoo Finance Crypto",
+            "publishedAt": "2026-11-19T10:25:05.000Z",
+            "url": "https://decrypt.co/383597/bitcoin-struggles-to-hold-64000-as-etf-outflows-hit-2-9b-in-november?.tsrc=rss"
+          }
+        ]
+      },
+      "summary": "BTCUSD carries a Strong Bearish deterministic daily bias on 2026-11-19 (2026-11-19 NY session) with a 59% directional alignment score (Bullish 4 vs Bearish 63). Caution: Weekly (Bearish, score -100) diverges from 1H (Bullish, score 29). Key invalidation: H4 or D1 candle close above 64889.54 invalidates the bearish structural bias.",
+      "aiAnalyst": {
+        "used": false,
+        "model": null,
+        "error": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-4-hydrogen, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 20h40m41.168670102s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://aistudio.google.com/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"description\":\"Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\",\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-4-hydrogen\",\"location\":\"global\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"74441s\"}]}}"
+      }
+    },
+    "EURUSD_2026-11-19": {
+      "id": "EURUSD_2026-11-19",
+      "symbol": "EURUSD",
+      "displayName": "Euro / US Dollar (EUR/USD)",
+      "marketType": "Forex Spot",
+      "tradingDate": "2026-11-19",
+      "timezone": "America/New_York",
+      "analysisTimestamp": "2026-11-19T11:19:20.344Z",
+      "modelVersion": "YOUNEEL-QUANT-v2.0",
+      "referencePrice": 1.1005,
+      "dataQuality": {
+        "status": "COMPLETE",
+        "availableWeightPct": 100,
+        "missingTimeframes": [],
+        "notes": []
+      },
+      "marketDataRef": {
+        "quoteSource": "Yahoo Finance (EURUSD=X Spot FX)",
+        "quoteTimestamp": "2026-11-19T11:18:45.000Z",
+        "timeframeSources": {
+          "MN": {
+            "source": "Yahoo Finance (EURUSD=X Spot FX)",
+            "bars": 121,
+            "latestBar": "2026-11-19T11:18:45.000Z"
+          },
+          "W1": {
+            "source": "Yahoo Finance (EURUSD=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:18:45.000Z"
+          },
+          "D1": {
+            "source": "Yahoo Finance (EURUSD=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T00:00:00.000Z"
+          },
+          "H4": {
+            "source": "Yahoo Finance (EURUSD=X Spot FX)",
+            "bars": 240,
+            "latestBar": "2026-11-19T08:00:00.000Z"
+          },
+          "H1": {
+            "source": "Yahoo Finance (EURUSD=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:18:45.000Z"
+          },
+          "M15": {
+            "source": "Yahoo Finance (EURUSD=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:18:45.000Z"
+          },
+          "M5": {
+            "source": "Yahoo Finance (EURUSD=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:18:45.000Z"
+          }
+        }
+      },
+      "dailyBias": "Strong Bearish",
+      "bullishScore": 9,
+      "bearishScore": 74,
+      "netScore": -65,
+      "directionalAlignmentScore": 65,
+      "scoringBreakdown": [
+        {
+          "component": "Higher-Timeframe Structure (MN + W1)",
+          "weightPct": 30,
+          "available": true,
+          "rawScore": -91,
+          "weightedContribution": -27.3,
+          "note": "MN=Bearish (-83), W1=Bearish (-100)"
+        },
+        {
+          "component": "Daily Structure (D1)",
+          "weightPct": 25,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -25,
+          "note": "D1=Bearish (Trending Bearish)"
+        },
+        {
+          "component": "4H Structure (H4)",
+          "weightPct": 20,
+          "available": true,
+          "rawScore": -57,
+          "weightedContribution": -11.4,
+          "note": "H4=Bearish (Trending Bearish)"
+        },
+        {
+          "component": "1H Confirmation (H1)",
+          "weightPct": 15,
+          "available": true,
+          "rawScore": 57,
+          "weightedContribution": 8.55,
+          "note": "H1=Bullish (Reversing)"
+        },
+        {
+          "component": "Momentum & Volatility (RSI / MACD / ADX)",
+          "weightPct": 10,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -10,
+          "note": "RSI=31.23, MACD_Hist=-0.0014, ADX=30.38 (+DI:13.02/-DI:25.67)"
+        }
+      ],
+      "weightsUsed": {
+        "higherTimeframe": 0.3,
+        "daily": 0.25,
+        "h4": 0.2,
+        "h1": 0.15,
+        "momentumVolatility": 0.1
+      },
+      "timeframeConflicts": [
+        "Monthly (Bearish, score -83) diverges from 1H (Bullish, score 57)",
+        "Weekly (Bearish, score -100) diverges from 1H (Bullish, score 57)",
+        "Daily (Bearish, score -100) diverges from 1H (Bullish, score 57)",
+        "4H (Bearish, score -57) diverges from 1H (Bullish, score 57)"
+      ],
+      "mtfTable": [
+        {
+          "timeframe": "MN",
+          "barCount": 121,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bearish",
+          "structureScore": -83,
+          "latestEvent": "Bearish CHoCH @ 1.13254",
+          "rsi14": 42.76,
+          "adx14": 16.55,
+          "atr14": 0.03054,
+          "emaAlignment": "Mixed (20:1.13392 / 50:1.12309)",
+          "premiumDiscountZone": "PREMIUM (64%)",
+          "latestTimestamp": "2026-11-19T11:18:45.000Z"
+        },
+        {
+          "timeframe": "W1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Trending Bearish",
+          "directionalLean": "Bearish",
+          "structureScore": -100,
+          "latestEvent": "Bearish BOS @ 1.13545",
+          "rsi14": 28.61,
+          "adx14": 28.43,
+          "atr14": 0.01228,
+          "emaAlignment": "Mixed (20:1.12945 / 50:1.14242 / 200:1.11518)",
+          "premiumDiscountZone": "DISCOUNT (5.6%)",
+          "latestTimestamp": "2026-11-19T11:18:45.000Z"
+        },
+        {
+          "timeframe": "D1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Trending Bearish",
+          "directionalLean": "Bearish",
+          "structureScore": -100,
+          "latestEvent": "Bearish BOS @ 1.11095",
+          "rsi14": 31.23,
+          "adx14": 30.38,
+          "atr14": 0.00708,
+          "emaAlignment": "Bearish Stack (P<20<50<200)",
+          "premiumDiscountZone": "DISCOUNT (11%)",
+          "latestTimestamp": "2026-11-19T00:00:00.000Z"
+        },
+        {
+          "timeframe": "H4",
+          "barCount": 240,
+          "sufficient": true,
+          "regime": "Trending Bearish",
+          "directionalLean": "Bearish",
+          "structureScore": -57,
+          "latestEvent": "Bearish BOS @ 1.09721",
+          "rsi14": 47.13,
+          "adx14": 52.47,
+          "atr14": 0.00216,
+          "emaAlignment": "Mixed (20:1.09996 / 50:1.10532 / 200:1.11624)",
+          "premiumDiscountZone": "DISCOUNT (21.9%)",
+          "latestTimestamp": "2026-11-19T08:00:00.000Z"
+        },
+        {
+          "timeframe": "H1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bullish",
+          "structureScore": 57,
+          "latestEvent": "Bullish MSS @ 1.09818",
+          "rsi14": 62.99,
+          "adx14": 28.75,
+          "atr14": 0.00089,
+          "emaAlignment": "Mixed (20:1.09857 / 50:1.09892 / 200:1.10705)",
+          "premiumDiscountZone": "PREMIUM (85.2%)",
+          "latestTimestamp": "2026-11-19T11:18:45.000Z"
+        },
+        {
+          "timeframe": "M15",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Trending Bullish",
+          "directionalLean": "Bullish",
+          "structureScore": 100,
+          "latestEvent": "Bullish BOS @ 1.10035",
+          "rsi14": 68.22,
+          "adx14": 39.59,
+          "atr14": 0.00042,
+          "emaAlignment": "Mixed (20:1.09953 / 50:1.09851 / 200:1.09878)",
+          "premiumDiscountZone": "PREMIUM (84.9%)",
+          "latestTimestamp": "2026-11-19T11:18:45.000Z"
+        },
+        {
+          "timeframe": "M5",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Trending Bullish",
+          "directionalLean": "Bullish",
+          "structureScore": 81,
+          "latestEvent": "Bullish BOS @ 1.10035",
+          "rsi14": 54.69,
+          "adx14": 46.25,
+          "atr14": 0.00023,
+          "emaAlignment": "Bullish Stack (P>20>50>200)",
+          "premiumDiscountZone": "PREMIUM (71.7%)",
+          "latestTimestamp": "2026-11-19T11:18:45.000Z"
+        }
+      ],
+      "marketStructure": {
+        "primaryRegime": "Trending Bearish",
+        "dailySummary": "D1 Trending Bearish | Score -100 | Latest: BOS @ 1.10050",
+        "h4Summary": "H4 Trending Bearish | Score -57 | PD: DISCOUNT",
+        "h1Summary": "H1 Reversing | Score 57 | RSI 62.99",
+        "recentEvents": [
+          {
+            "type": "MSS",
+            "direction": "bullish",
+            "level": 1.09818,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T07:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close below 1.09589"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 1.09637,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T03:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidation": "Candle close above 1.09818"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 1.09721,
+            "timeframe": "H4",
+            "timestamp": "2026-11-18T08:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 1.10254"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 1.10485,
+            "timeframe": "H4",
+            "timestamp": "2026-11-13T12:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 1.11062"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 1.11095,
+            "timeframe": "D1",
+            "timestamp": "2026-11-12T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 1.12752"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 1.11623,
+            "timeframe": "D1",
+            "timestamp": "2026-10-12T23:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 1.16537"
+          }
+        ]
+      },
+      "liquidity": {
+        "buySide": [
+          {
+            "kind": "BSL",
+            "price": 1.10254,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T16:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 1.10254"
+          },
+          {
+            "kind": "BSL",
+            "price": 1.10254,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T18:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 1.10254"
+          },
+          {
+            "kind": "BSL",
+            "price": 1.10327,
+            "timeframe": "H4",
+            "timestamp": "2026-11-16T08:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 1.10327"
+          },
+          {
+            "kind": "BSL",
+            "price": 1.10327,
+            "timeframe": "H1",
+            "timestamp": "2026-11-16T09:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 1.10327"
+          },
+          {
+            "kind": "BSL",
+            "price": 1.10705,
+            "timeframe": "H1",
+            "timestamp": "2026-11-13T13:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 1.10705"
+          },
+          {
+            "kind": "BSL",
+            "price": 1.10742,
+            "timeframe": "H4",
+            "timestamp": "2026-11-13T04:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 1.10742"
+          }
+        ],
+        "sellSide": [
+          {
+            "kind": "EQL",
+            "price": 1.09637,
+            "upperBound": 1.09637,
+            "lowerBound": 1.09637,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T16:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept below 1.09637"
+          },
+          {
+            "kind": "SSL",
+            "price": 1.09589,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T03:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 1.09589"
+          },
+          {
+            "kind": "EQL",
+            "price": 1.09583,
+            "upperBound": 1.09589,
+            "lowerBound": 1.09577,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T03:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept below 1.09577"
+          },
+          {
+            "kind": "SSL",
+            "price": 1.09577,
+            "timeframe": "H4",
+            "timestamp": "2026-11-18T12:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 1.09577"
+          },
+          {
+            "kind": "SSL",
+            "price": 1.09577,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T12:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 1.09577"
+          }
+        ],
+        "recentSweeps": [
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 1.11095,
+            "wickExtreme": 1.10836,
+            "closePrice": 1.11689,
+            "timeframe": "D1",
+            "timestamp": "2026-11-11T00:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (1.10836)"
+          },
+          {
+            "side": "BSL_SWEEP",
+            "sweptLevel": 1.12701,
+            "wickExtreme": 1.12752,
+            "closePrice": 1.12072,
+            "timeframe": "D1",
+            "timestamp": "2026-11-04T00:00:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close above sweep wick high (1.12752)"
+          }
+        ]
+      },
+      "importantZones": {
+        "supports": [
+          {
+            "label": "S1 (H1 Swing Low)",
+            "category": "support",
+            "price": 1.09938,
+            "timeframe": "H1",
+            "timestamp": "2026-11-16T18:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 1.09938"
+          },
+          {
+            "label": "S2 (H1 Swing Low)",
+            "category": "support",
+            "price": 1.09878,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T01:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 1.09878"
+          },
+          {
+            "label": "S3 (H1 Swing Low)",
+            "category": "support",
+            "price": 1.09842,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 1.09842"
+          },
+          {
+            "label": "S1 (H4 Swing Low)",
+            "category": "support",
+            "price": 1.09721,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T12:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 1.09721"
+          }
+        ],
+        "resistances": [
+          {
+            "label": "R1 (H1 Swing High)",
+            "category": "resistance",
+            "price": 1.10156,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T05:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 1.10156"
+          },
+          {
+            "label": "R2 (H1 Swing High)",
+            "category": "resistance",
+            "price": 1.10205,
+            "timeframe": "H1",
+            "timestamp": "2026-11-16T15:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 1.10205"
+          },
+          {
+            "label": "R1 (H4 Swing High)",
+            "category": "resistance",
+            "price": 1.10254,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T16:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 1.10254"
+          },
+          {
+            "label": "R3 (H1 Swing High)",
+            "category": "resistance",
+            "price": 1.10254,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T18:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 1.10254"
+          }
+        ],
+        "orderBlocks": [
+          {
+            "direction": "bearish",
+            "low": 1.11657,
+            "high": 1.11694,
+            "midpoint": 1.11676,
+            "timeframe": "H1",
+            "timestamp": "2026-11-11T04:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (1.11694)"
+          },
+          {
+            "direction": "bearish",
+            "low": 1.10951,
+            "high": 1.11012,
+            "midpoint": 1.10982,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T00:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (1.11012)"
+          },
+          {
+            "direction": "bearish",
+            "low": 1.10951,
+            "high": 1.11062,
+            "midpoint": 1.11007,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T10:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (1.11062)"
+          },
+          {
+            "direction": "bearish",
+            "low": 1.10473,
+            "high": 1.10619,
+            "midpoint": 1.10546,
+            "timeframe": "H1",
+            "timestamp": "2026-11-13T14:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (1.10619)"
+          },
+          {
+            "direction": "bearish",
+            "low": 1.10314,
+            "high": 1.10387,
+            "midpoint": 1.10351,
+            "timeframe": "H1",
+            "timestamp": "2026-11-13T16:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (1.10387)"
+          },
+          {
+            "direction": "bullish",
+            "low": 1.09589,
+            "high": 1.09637,
+            "midpoint": 1.09613,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T03:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close below bullish OB low (1.09589)"
+          }
+        ],
+        "fairValueGaps": [
+          {
+            "direction": "bullish",
+            "low": 1.09637,
+            "high": 1.09661,
+            "midpoint": 1.09649,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T05:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (1.09637)"
+          },
+          {
+            "direction": "bullish",
+            "low": 1.09697,
+            "high": 1.09721,
+            "midpoint": 1.09709,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T07:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (1.09697)"
+          },
+          {
+            "direction": "bullish",
+            "low": 1.09721,
+            "high": 1.0983,
+            "midpoint": 1.09776,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T08:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (1.09721)"
+          },
+          {
+            "direction": "bullish",
+            "low": 1.0989,
+            "high": 1.09926,
+            "midpoint": 1.09908,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T09:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (1.09890)"
+          },
+          {
+            "direction": "bullish",
+            "low": 1.09914,
+            "high": 1.09951,
+            "midpoint": 1.09933,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T10:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (1.09914)"
+          },
+          {
+            "direction": "bullish",
+            "low": 1.10035,
+            "high": 1.10059,
+            "midpoint": 1.10047,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T11:00:00.000Z",
+            "status": "PARTIALLY_MITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (1.10035)"
+          }
+        ],
+        "premiumDiscount": {
+          "rangeHigh": 1.14116,
+          "rangeLow": 1.09545,
+          "equilibrium": 1.11831,
+          "premiumZone": [
+            1.11831,
+            1.14116
+          ],
+          "discountZone": [
+            1.09545,
+            1.11831
+          ],
+          "positionPct": 11,
+          "currentZone": "DISCOUNT",
+          "timeframe": "D1",
+          "timestamp": "2026-11-19T00:00:00.000Z"
+        }
+      },
+      "keyLevels": [
+        {
+          "label": "R1 (H1 Swing High)",
+          "category": "resistance",
+          "price": 1.10156,
+          "timeframe": "H1",
+          "timestamp": "2026-11-17T05:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 1.10156"
+        },
+        {
+          "label": "R2 (H1 Swing High)",
+          "category": "resistance",
+          "price": 1.10205,
+          "timeframe": "H1",
+          "timestamp": "2026-11-16T15:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 1.10205"
+        },
+        {
+          "label": "S1 (H1 Swing Low)",
+          "category": "support",
+          "price": 1.09938,
+          "timeframe": "H1",
+          "timestamp": "2026-11-16T18:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 1.09938"
+        },
+        {
+          "label": "S2 (H1 Swing Low)",
+          "category": "support",
+          "price": 1.09878,
+          "timeframe": "H1",
+          "timestamp": "2026-11-17T01:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 1.09878"
+        },
+        {
+          "label": "BSL (H4)",
+          "category": "liquidity",
+          "price": 1.10254,
+          "timeframe": "H4",
+          "timestamp": "2026-11-17T16:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades above 1.10254"
+        },
+        {
+          "label": "BSL (H1)",
+          "category": "liquidity",
+          "price": 1.10254,
+          "timeframe": "H1",
+          "timestamp": "2026-11-17T18:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades above 1.10254"
+        },
+        {
+          "label": "EQL (H1)",
+          "category": "liquidity",
+          "price": 1.09637,
+          "high": 1.09637,
+          "low": 1.09637,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T16:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept below 1.09637"
+        },
+        {
+          "label": "SSL (H1)",
+          "category": "liquidity",
+          "price": 1.09589,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T03:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades below 1.09589"
+        },
+        {
+          "label": "Bearish OB (H1)",
+          "category": "order_block",
+          "price": 1.10351,
+          "high": 1.10387,
+          "low": 1.10314,
+          "timeframe": "H1",
+          "timestamp": "2026-11-13T16:00:00.000Z",
+          "status": "MITIGATED",
+          "invalidationCondition": "Close above bearish OB high (1.10387)"
+        },
+        {
+          "label": "Bullish OB (H1)",
+          "category": "order_block",
+          "price": 1.09613,
+          "high": 1.09637,
+          "low": 1.09589,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T03:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Close below bullish OB low (1.09589)"
+        },
+        {
+          "label": "Bullish FVG (H1)",
+          "category": "fvg",
+          "price": 1.09933,
+          "high": 1.09951,
+          "low": 1.09914,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T10:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Candle close below FVG lower bound (1.09914)"
+        },
+        {
+          "label": "Bullish FVG (H1)",
+          "category": "fvg",
+          "price": 1.10047,
+          "high": 1.10059,
+          "low": 1.10035,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T11:00:00.000Z",
+          "status": "PARTIALLY_MITIGATED",
+          "invalidationCondition": "Candle close below FVG lower bound (1.10035)"
+        }
+      ],
+      "bullishScenario": {
+        "trigger": "Reclaim and close H4 candle above 1.10156 to trigger bullish CHoCH",
+        "targets": [
+          1.10156,
+          1.10254
+        ],
+        "rationale": "Requires buyer defense of 1.09938 (H1) and expansion toward resting BSL at 1.10254."
+      },
+      "bearishScenario": {
+        "trigger": "Reject below 1.10156 supply / confirm 1H breakdown below 1.09938",
+        "targets": [
+          1.09938,
+          1.09589
+        ],
+        "rationale": "Requires seller defense at 1.10156 and liquidity draw into SSL at 1.09589."
+      },
+      "invalidationConditions": {
+        "primaryInvalidationPrice": 1.10387,
+        "direction": "above",
+        "rule": "H4 or D1 candle close above 1.10387 invalidates the bearish structural bias.",
+        "secondaryRules": [
+          "Candle close below 1.09589",
+          "Equilibrium threshold sits at 1.11831 (Daily 50% level)."
+        ]
+      },
+      "marketConditions": {
+        "volatilityState": "Normal / Balanced",
+        "atrDaily": 0.00708,
+        "atrDailyPct": 0.643,
+        "trendStrengthAdx": 30.38,
+        "volumeAssessment": "Spot/Index feed reports zero traded volume for this instrument",
+        "relevantNews": [
+          {
+            "title": "Sterling today: Pound flat as dollar holds firm; UK Gen Z confidence slumps",
+            "source": "Investing.com Forex",
+            "publishedAt": "2026-11-19T10:00:09.000Z",
+            "url": "https://www.investing.com/news/forex-news/sterling-today-pound-flat-as-dollar-holds-firm-uk-gen-z-confidence-slumps-5038221"
+          },
+          {
+            "title": "US Stock Futures Rise as Anthropic Prepares for Record IPO, Fed Signals Rate Hikes and Oil Prices Advance: Dow Jones, S&P, Nasdaq, Wall Street",
+            "source": "Yahoo Finance Energy",
+            "publishedAt": "2026-11-19T10:51:38.000Z",
+            "url": "https://investorshub.advfn.com/market-news/article/40334/us-stock-futures-rise-as-anthropic-prepares-for-record-ipo-fed-signals-rate-hikes-and-oil-prices-advance-dow-jones-sp-nasdaq-wall-street?.tsrc=rss"
+          },
+          {
+            "title": "Euro yields idle near 1-month peaks on hawkish Fed and ECB rhetoric trap",
+            "source": "Investing.com Forex",
+            "publishedAt": "2026-11-19T09:09:11.000Z",
+            "url": "https://www.investing.com/news/forex-news/euro-yields-idle-near-1month-peaks-on-hawkish-fed-and-ecb-rhetoric-trap-5037883"
+          },
+          {
+            "title": "Dollar hits fresh 19-mth peak on hawkish Fed; Aussie slides after weak jobs data",
+            "source": "Yahoo Finance FX",
+            "publishedAt": "2026-11-19T04:45:58.000Z",
+            "url": "https://finance.yahoo.com/markets/currencies/articles/dollar-hits-fresh-19-mth-044558996.html?.tsrc=rss"
+          }
+        ]
+      },
+      "summary": "EURUSD carries a Strong Bearish deterministic daily bias on 2026-11-19 (2026-11-19 NY session) with a 65% directional alignment score (Bullish 9 vs Bearish 74). Caution: Monthly (Bearish, score -83) diverges from 1H (Bullish, score 57). Key invalidation: H4 or D1 candle close above 1.10387 invalidates the bearish structural bias.",
+      "aiAnalyst": {
+        "used": false,
+        "model": null,
+        "error": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-4-hydrogen, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 20h40m39.547054637s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://aistudio.google.com/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"description\":\"Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\",\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"location\":\"global\",\"model\":\"gemini-4-hydrogen\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"74439s\"}]}}"
+      }
+    },
+    "GBPUSD_2026-11-19": {
+      "id": "GBPUSD_2026-11-19",
+      "symbol": "GBPUSD",
+      "displayName": "British Pound / US Dollar (GBP/USD)",
+      "marketType": "Forex Spot",
+      "tradingDate": "2026-11-19",
+      "timezone": "America/New_York",
+      "analysisTimestamp": "2026-11-19T11:19:22.026Z",
+      "modelVersion": "YOUNEEL-QUANT-v2.0",
+      "referencePrice": 1.3165,
+      "dataQuality": {
+        "status": "COMPLETE",
+        "availableWeightPct": 100,
+        "missingTimeframes": [],
+        "notes": []
+      },
+      "marketDataRef": {
+        "quoteSource": "Yahoo Finance (GBPUSD=X Spot FX)",
+        "quoteTimestamp": "2026-11-19T11:18:45.000Z",
+        "timeframeSources": {
+          "MN": {
+            "source": "Yahoo Finance (GBPUSD=X Spot FX)",
+            "bars": 121,
+            "latestBar": "2026-11-19T11:18:45.000Z"
+          },
+          "W1": {
+            "source": "Yahoo Finance (GBPUSD=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:18:45.000Z"
+          },
+          "D1": {
+            "source": "Yahoo Finance (GBPUSD=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T00:00:00.000Z"
+          },
+          "H4": {
+            "source": "Yahoo Finance (GBPUSD=X Spot FX)",
+            "bars": 240,
+            "latestBar": "2026-11-19T08:00:00.000Z"
+          },
+          "H1": {
+            "source": "Yahoo Finance (GBPUSD=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:18:45.000Z"
+          },
+          "M15": {
+            "source": "Yahoo Finance (GBPUSD=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:18:45.000Z"
+          },
+          "M5": {
+            "source": "Yahoo Finance (GBPUSD=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:18:45.000Z"
+          }
+        }
+      },
+      "dailyBias": "Bearish",
+      "bullishScore": 6,
+      "bearishScore": 54,
+      "netScore": -48,
+      "directionalAlignmentScore": 48,
+      "scoringBreakdown": [
+        {
+          "component": "Higher-Timeframe Structure (MN + W1)",
+          "weightPct": 30,
+          "available": true,
+          "rawScore": -10,
+          "weightedContribution": -3,
+          "note": "MN=Bullish (50), W1=Bearish (-71)"
+        },
+        {
+          "component": "Daily Structure (D1)",
+          "weightPct": 25,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -25,
+          "note": "D1=Bearish (Reversing)"
+        },
+        {
+          "component": "4H Structure (H4)",
+          "weightPct": 20,
+          "available": true,
+          "rawScore": -81,
+          "weightedContribution": -16.2,
+          "note": "H4=Bearish (Trending Bearish)"
+        },
+        {
+          "component": "1H Confirmation (H1)",
+          "weightPct": 15,
+          "available": true,
+          "rawScore": 38,
+          "weightedContribution": 5.7,
+          "note": "H1=Bullish (Reversing)"
+        },
+        {
+          "component": "Momentum & Volatility (RSI / MACD / ADX)",
+          "weightPct": 10,
+          "available": true,
+          "rawScore": -100,
+          "weightedContribution": -10,
+          "note": "RSI=36.23, MACD_Hist=-0.0026, ADX=23.56 (+DI:10.52/-DI:24.33)"
+        }
+      ],
+      "weightsUsed": {
+        "higherTimeframe": 0.3,
+        "daily": 0.25,
+        "h4": 0.2,
+        "h1": 0.15,
+        "momentumVolatility": 0.1
+      },
+      "timeframeConflicts": [
+        "Monthly (Bullish, score 50) diverges from Weekly (Bearish, score -71)",
+        "Monthly (Bullish, score 50) diverges from Daily (Bearish, score -100)",
+        "Monthly (Bullish, score 50) diverges from 4H (Bearish, score -81)",
+        "Weekly (Bearish, score -71) diverges from 1H (Bullish, score 38)",
+        "Daily (Bearish, score -100) diverges from 1H (Bullish, score 38)",
+        "4H (Bearish, score -81) diverges from 1H (Bullish, score 38)"
+      ],
+      "mtfTable": [
+        {
+          "timeframe": "MN",
+          "barCount": 121,
+          "sufficient": true,
+          "regime": "Ranging",
+          "directionalLean": "Bullish",
+          "structureScore": 50,
+          "latestEvent": "Bullish BOS @ 1.34329",
+          "rsi14": 48.88,
+          "adx14": 10.83,
+          "atr14": 0.03694,
+          "emaAlignment": "Mixed (20:1.32744 / 50:1.31006)",
+          "premiumDiscountZone": "PREMIUM (62.2%)",
+          "latestTimestamp": "2026-11-19T11:18:45.000Z"
+        },
+        {
+          "timeframe": "W1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bearish",
+          "structureScore": -71,
+          "latestEvent": "Bearish CHoCH @ 1.32732",
+          "rsi14": 39.59,
+          "adx14": 11.81,
+          "atr14": 0.01554,
+          "emaAlignment": "Mixed (20:1.3341 / 50:1.3362 / 200:1.29919)",
+          "premiumDiscountZone": "DISCOUNT (7.9%)",
+          "latestTimestamp": "2026-11-19T11:18:45.000Z"
+        },
+        {
+          "timeframe": "D1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bearish",
+          "structureScore": -100,
+          "latestEvent": "Bearish CHoCH @ 1.32732",
+          "rsi14": 36.23,
+          "adx14": 23.56,
+          "atr14": 0.00853,
+          "emaAlignment": "Bearish Stack (P<20<50<200)",
+          "premiumDiscountZone": "DISCOUNT (11.4%)",
+          "latestTimestamp": "2026-11-19T00:00:00.000Z"
+        },
+        {
+          "timeframe": "H4",
+          "barCount": 240,
+          "sufficient": true,
+          "regime": "Trending Bearish",
+          "directionalLean": "Bearish",
+          "structureScore": -81,
+          "latestEvent": "Bearish BOS @ 1.31693",
+          "rsi14": 39.81,
+          "adx14": 54.92,
+          "atr14": 0.00235,
+          "emaAlignment": "Bearish Stack (P<20<50<200)",
+          "premiumDiscountZone": "DISCOUNT (18.6%)",
+          "latestTimestamp": "2026-11-19T08:00:00.000Z"
+        },
+        {
+          "timeframe": "H1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bullish",
+          "structureScore": 38,
+          "latestEvent": "Bullish CHoCH @ 1.31544",
+          "rsi14": 54.27,
+          "adx14": 34.6,
+          "atr14": 0.00111,
+          "emaAlignment": "Mixed (20:1.31544 / 50:1.31677 / 200:1.32632)",
+          "premiumDiscountZone": "EQUILIBRIUM (47.8%)",
+          "latestTimestamp": "2026-11-19T11:18:45.000Z"
+        },
+        {
+          "timeframe": "M15",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Trending Bullish",
+          "directionalLean": "Bullish",
+          "structureScore": 71,
+          "latestEvent": "Bullish BOS @ 1.31608",
+          "rsi14": 63.12,
+          "adx14": 34.82,
+          "atr14": 0.00052,
+          "emaAlignment": "Mixed (20:1.31559 / 50:1.31505 / 200:1.31688)",
+          "premiumDiscountZone": "PREMIUM (84.8%)",
+          "latestTimestamp": "2026-11-19T11:18:45.000Z"
+        },
+        {
+          "timeframe": "M5",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bullish",
+          "structureScore": 90,
+          "latestEvent": "Bullish CHoCH @ 1.31608",
+          "rsi14": 57.1,
+          "adx14": 34.86,
+          "atr14": 0.00029,
+          "emaAlignment": "Bullish Stack (P>20>50>200)",
+          "premiumDiscountZone": "PREMIUM (71.8%)",
+          "latestTimestamp": "2026-11-19T11:18:45.000Z"
+        }
+      ],
+      "marketStructure": {
+        "primaryRegime": "Reversing",
+        "dailySummary": "D1 Reversing | Score -100 | Latest: CHoCH @ 1.31650",
+        "h4Summary": "H4 Trending Bearish | Score -81 | PD: DISCOUNT",
+        "h1Summary": "H1 Reversing | Score 38 | RSI 54.27",
+        "recentEvents": [
+          {
+            "type": "CHoCH",
+            "direction": "bullish",
+            "level": 1.31544,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T08:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close below 1.31215"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 1.31375,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T02:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidation": "Candle close above 1.31544"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 1.31693,
+            "timeframe": "H4",
+            "timestamp": "2026-11-18T08:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 1.32273"
+          },
+          {
+            "type": "CHoCH",
+            "direction": "bearish",
+            "level": 1.32732,
+            "timeframe": "D1",
+            "timestamp": "2026-11-13T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 1.35024"
+          },
+          {
+            "type": "BOS",
+            "direction": "bearish",
+            "level": 1.33138,
+            "timeframe": "H4",
+            "timestamp": "2026-11-11T08:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 1.34586"
+          },
+          {
+            "type": "BOS",
+            "direction": "bullish",
+            "level": 1.34174,
+            "timeframe": "D1",
+            "timestamp": "2026-11-04T00:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidation": "Candle close below 1.32732"
+          }
+        ]
+      },
+      "liquidity": {
+        "buySide": [
+          {
+            "kind": "EQH",
+            "price": 1.32038,
+            "upperBound": 1.32043,
+            "lowerBound": 1.32032,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T05:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept above 1.32043"
+          },
+          {
+            "kind": "EQH",
+            "price": 1.32039,
+            "upperBound": 1.32046,
+            "lowerBound": 1.32032,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T09:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept above 1.32046"
+          },
+          {
+            "kind": "EQH",
+            "price": 1.32045,
+            "upperBound": 1.32046,
+            "lowerBound": 1.32043,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T09:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept above 1.32046"
+          },
+          {
+            "kind": "EQH",
+            "price": 1.32254,
+            "upperBound": 1.32273,
+            "lowerBound": 1.32235,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T16:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept above 1.32273"
+          },
+          {
+            "kind": "BSL",
+            "price": 1.32273,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T16:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 1.32273"
+          },
+          {
+            "kind": "BSL",
+            "price": 1.32273,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T18:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 1.32273"
+          }
+        ],
+        "sellSide": [
+          {
+            "kind": "SSL",
+            "price": 1.31215,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T03:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 1.31215"
+          }
+        ],
+        "recentSweeps": [
+          {
+            "side": "BSL_SWEEP",
+            "sweptLevel": 1.31544,
+            "wickExtreme": 1.31581,
+            "closePrice": 1.31543,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T07:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close above sweep wick high (1.31581)"
+          },
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 1.31389,
+            "wickExtreme": 1.31375,
+            "closePrice": 1.31408,
+            "timeframe": "H4",
+            "timestamp": "2026-11-18T16:00:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (1.31375)"
+          },
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 1.31385,
+            "wickExtreme": 1.31375,
+            "closePrice": 1.3205,
+            "timeframe": "D1",
+            "timestamp": "2026-11-18T00:00:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (1.31375)"
+          },
+          {
+            "side": "BSL_SWEEP",
+            "sweptLevel": 1.32235,
+            "wickExtreme": 1.32273,
+            "closePrice": 1.32153,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T16:00:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close above sweep wick high (1.32273)"
+          },
+          {
+            "side": "SSL_SWEEP",
+            "sweptLevel": 1.32732,
+            "wickExtreme": 1.32675,
+            "closePrice": 1.33486,
+            "timeframe": "D1",
+            "timestamp": "2026-11-11T00:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close below sweep wick low (1.32675)"
+          },
+          {
+            "side": "BSL_SWEEP",
+            "sweptLevel": 1.34174,
+            "wickExtreme": 1.34336,
+            "closePrice": 1.33786,
+            "timeframe": "D1",
+            "timestamp": "2026-10-30T00:00:00.000Z",
+            "status": "CONFIRMED",
+            "invalidationCondition": "Acceptance / close above sweep wick high (1.34336)"
+          }
+        ]
+      },
+      "importantZones": {
+        "supports": [
+          {
+            "label": "S1 (D1 Swing Low)",
+            "category": "support",
+            "price": 1.31612,
+            "timeframe": "D1",
+            "timestamp": "2026-03-30T23:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 1.31612"
+          },
+          {
+            "label": "S1 (H1 Swing Low)",
+            "category": "support",
+            "price": 1.31506,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T09:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 1.31506"
+          },
+          {
+            "label": "S2 (D1 Swing Low)",
+            "category": "support",
+            "price": 1.3143,
+            "timeframe": "D1",
+            "timestamp": "2026-06-23T23:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 1.31430"
+          },
+          {
+            "label": "S1 (H4 Swing Low)",
+            "category": "support",
+            "price": 1.31389,
+            "timeframe": "H4",
+            "timestamp": "2026-10-14T12:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 1.31389"
+          }
+        ],
+        "resistances": [
+          {
+            "label": "R1 (H1 Swing High)",
+            "category": "resistance",
+            "price": 1.32032,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T05:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 1.32032"
+          },
+          {
+            "label": "R2 (H1 Swing High)",
+            "category": "resistance",
+            "price": 1.32043,
+            "timeframe": "H1",
+            "timestamp": "2026-11-16T13:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 1.32043"
+          },
+          {
+            "label": "R3 (H1 Swing High)",
+            "category": "resistance",
+            "price": 1.32046,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T09:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 1.32046"
+          },
+          {
+            "label": "R1 (H4 Swing High)",
+            "category": "resistance",
+            "price": 1.32235,
+            "timeframe": "H4",
+            "timestamp": "2026-11-16T08:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 1.32235"
+          }
+        ],
+        "orderBlocks": [
+          {
+            "direction": "bearish",
+            "low": 1.32728,
+            "high": 1.32809,
+            "midpoint": 1.32769,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T01:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (1.32809)"
+          },
+          {
+            "direction": "bearish",
+            "low": 1.327,
+            "high": 1.32797,
+            "midpoint": 1.32749,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T10:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (1.32797)"
+          },
+          {
+            "direction": "bearish",
+            "low": 1.32258,
+            "high": 1.32508,
+            "midpoint": 1.32383,
+            "timeframe": "H1",
+            "timestamp": "2026-11-13T14:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (1.32508)"
+          },
+          {
+            "direction": "bearish",
+            "low": 1.31886,
+            "high": 1.31945,
+            "midpoint": 1.31916,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T06:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close above bearish OB high (1.31945)"
+          },
+          {
+            "direction": "bearish",
+            "low": 1.3161,
+            "high": 1.31723,
+            "midpoint": 1.31667,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T13:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close above bearish OB high (1.31723)"
+          },
+          {
+            "direction": "bullish",
+            "low": 1.31215,
+            "high": 1.31297,
+            "midpoint": 1.31256,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T03:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close below bullish OB low (1.31215)"
+          }
+        ],
+        "fairValueGaps": [
+          {
+            "direction": "bearish",
+            "low": 1.32116,
+            "high": 1.32153,
+            "midpoint": 1.32135,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T21:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (1.32153)"
+          },
+          {
+            "direction": "bearish",
+            "low": 1.31764,
+            "high": 1.31886,
+            "midpoint": 1.31825,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T08:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close above FVG upper bound (1.31886)"
+          },
+          {
+            "direction": "bullish",
+            "low": 1.31297,
+            "high": 1.31327,
+            "midpoint": 1.31312,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T05:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (1.31297)"
+          },
+          {
+            "direction": "bullish",
+            "low": 1.31378,
+            "high": 1.31415,
+            "midpoint": 1.31397,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T07:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (1.31378)"
+          },
+          {
+            "direction": "bullish",
+            "low": 1.31425,
+            "high": 1.31499,
+            "midpoint": 1.31462,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T08:00:00.000Z",
+            "status": "PARTIALLY_MITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (1.31425)"
+          },
+          {
+            "direction": "bullish",
+            "low": 1.31608,
+            "high": 1.31664,
+            "midpoint": 1.31636,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T11:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (1.31608)"
+          }
+        ],
+        "premiumDiscount": {
+          "rangeHigh": 1.35024,
+          "rangeLow": 1.31215,
+          "equilibrium": 1.3312,
+          "premiumZone": [
+            1.3312,
+            1.35024
+          ],
+          "discountZone": [
+            1.31215,
+            1.3312
+          ],
+          "positionPct": 11.4,
+          "currentZone": "DISCOUNT",
+          "timeframe": "D1",
+          "timestamp": "2026-11-19T00:00:00.000Z"
+        }
+      },
+      "keyLevels": [
+        {
+          "label": "R1 (H1 Swing High)",
+          "category": "resistance",
+          "price": 1.32032,
+          "timeframe": "H1",
+          "timestamp": "2026-11-17T05:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 1.32032"
+        },
+        {
+          "label": "R2 (H1 Swing High)",
+          "category": "resistance",
+          "price": 1.32043,
+          "timeframe": "H1",
+          "timestamp": "2026-11-16T13:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 1.32043"
+        },
+        {
+          "label": "S1 (D1 Swing Low)",
+          "category": "support",
+          "price": 1.31612,
+          "timeframe": "D1",
+          "timestamp": "2026-03-30T23:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 1.31612"
+        },
+        {
+          "label": "S1 (H1 Swing Low)",
+          "category": "support",
+          "price": 1.31506,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T09:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 1.31506"
+        },
+        {
+          "label": "EQH (H1)",
+          "category": "liquidity",
+          "price": 1.32038,
+          "high": 1.32043,
+          "low": 1.32032,
+          "timeframe": "H1",
+          "timestamp": "2026-11-17T05:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept above 1.32043"
+        },
+        {
+          "label": "EQH (H1)",
+          "category": "liquidity",
+          "price": 1.32039,
+          "high": 1.32046,
+          "low": 1.32032,
+          "timeframe": "H1",
+          "timestamp": "2026-11-17T09:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept above 1.32046"
+        },
+        {
+          "label": "SSL (H1)",
+          "category": "liquidity",
+          "price": 1.31215,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T03:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades below 1.31215"
+        },
+        {
+          "label": "Bearish OB (H1)",
+          "category": "order_block",
+          "price": 1.31667,
+          "high": 1.31723,
+          "low": 1.3161,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T13:00:00.000Z",
+          "status": "MITIGATED",
+          "invalidationCondition": "Close above bearish OB high (1.31723)"
+        },
+        {
+          "label": "Bullish OB (H1)",
+          "category": "order_block",
+          "price": 1.31256,
+          "high": 1.31297,
+          "low": 1.31215,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T03:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Close below bullish OB low (1.31215)"
+        },
+        {
+          "label": "Bullish FVG (H1)",
+          "category": "fvg",
+          "price": 1.31462,
+          "high": 1.31499,
+          "low": 1.31425,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T08:00:00.000Z",
+          "status": "PARTIALLY_MITIGATED",
+          "invalidationCondition": "Candle close below FVG lower bound (1.31425)"
+        },
+        {
+          "label": "Bullish FVG (H1)",
+          "category": "fvg",
+          "price": 1.31636,
+          "high": 1.31664,
+          "low": 1.31608,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T11:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Candle close below FVG lower bound (1.31608)"
+        }
+      ],
+      "bullishScenario": {
+        "trigger": "Reclaim and close H4 candle above 1.32032 to trigger bullish CHoCH",
+        "targets": [
+          1.32032,
+          1.32039
+        ],
+        "rationale": "Requires buyer defense of 1.31612 (D1) and expansion toward resting BSL at 1.32039."
+      },
+      "bearishScenario": {
+        "trigger": "Reject below 1.32032 supply / confirm 1H breakdown below 1.31612",
+        "targets": [
+          1.31612,
+          1.31506
+        ],
+        "rationale": "Requires seller defense at 1.32032 and liquidity draw into SSL at 1.31506."
+      },
+      "invalidationConditions": {
+        "primaryInvalidationPrice": 1.31723,
+        "direction": "above",
+        "rule": "H4 or D1 candle close above 1.31723 invalidates the bearish structural bias.",
+        "secondaryRules": [
+          "Candle close below 1.31215",
+          "Equilibrium threshold sits at 1.33120 (Daily 50% level)."
+        ]
+      },
+      "marketConditions": {
+        "volatilityState": "Normal / Balanced",
+        "atrDaily": 0.00853,
+        "atrDailyPct": 0.648,
+        "trendStrengthAdx": 23.56,
+        "volumeAssessment": "Spot/Index feed reports zero traded volume for this instrument",
+        "relevantNews": [
+          {
+            "title": "Sterling today: Pound flat as dollar holds firm; UK Gen Z confidence slumps",
+            "source": "Investing.com Forex",
+            "publishedAt": "2026-11-19T10:00:09.000Z",
+            "url": "https://www.investing.com/news/forex-news/sterling-today-pound-flat-as-dollar-holds-firm-uk-gen-z-confidence-slumps-5038221"
+          },
+          {
+            "title": "US Stock Futures Rise as Anthropic Prepares for Record IPO, Fed Signals Rate Hikes and Oil Prices Advance: Dow Jones, S&P, Nasdaq, Wall Street",
+            "source": "Yahoo Finance Energy",
+            "publishedAt": "2026-11-19T10:51:38.000Z",
+            "url": "https://investorshub.advfn.com/market-news/article/40334/us-stock-futures-rise-as-anthropic-prepares-for-record-ipo-fed-signals-rate-hikes-and-oil-prices-advance-dow-jones-sp-nasdaq-wall-street?.tsrc=rss"
+          },
+          {
+            "title": "Euro yields idle near 1-month peaks on hawkish Fed and ECB rhetoric trap",
+            "source": "Investing.com Forex",
+            "publishedAt": "2026-11-19T09:09:11.000Z",
+            "url": "https://www.investing.com/news/forex-news/euro-yields-idle-near-1month-peaks-on-hawkish-fed-and-ecb-rhetoric-trap-5037883"
+          },
+          {
+            "title": "Dollar hits fresh 19-mth peak on hawkish Fed; Aussie slides after weak jobs data",
+            "source": "Yahoo Finance FX",
+            "publishedAt": "2026-11-19T04:45:58.000Z",
+            "url": "https://finance.yahoo.com/markets/currencies/articles/dollar-hits-fresh-19-mth-044558996.html?.tsrc=rss"
+          }
+        ]
+      },
+      "summary": "GBPUSD carries a Bearish deterministic daily bias on 2026-11-19 (2026-11-19 NY session) with a 48% directional alignment score (Bullish 6 vs Bearish 54). Caution: Monthly (Bullish, score 50) diverges from Weekly (Bearish, score -71). Key invalidation: H4 or D1 candle close above 1.31723 invalidates the bearish structural bias.",
+      "aiAnalyst": {
+        "used": false,
+        "model": null,
+        "error": "Gemini explanation request timed out"
+      }
+    },
+    "USDJPY_2026-11-19": {
+      "id": "USDJPY_2026-11-19",
+      "symbol": "USDJPY",
+      "displayName": "US Dollar / Japanese Yen (USD/JPY)",
+      "marketType": "Forex Spot",
+      "tradingDate": "2026-11-19",
+      "timezone": "America/New_York",
+      "analysisTimestamp": "2026-11-19T11:19:33.828Z",
+      "modelVersion": "YOUNEEL-QUANT-v2.0",
+      "referencePrice": 159.912,
+      "dataQuality": {
+        "status": "COMPLETE",
+        "availableWeightPct": 100,
+        "missingTimeframes": [],
+        "notes": []
+      },
+      "marketDataRef": {
+        "quoteSource": "Yahoo Finance (USDJPY=X Spot FX)",
+        "quoteTimestamp": "2026-11-19T11:19:32.000Z",
+        "timeframeSources": {
+          "MN": {
+            "source": "Yahoo Finance (USDJPY=X Spot FX)",
+            "bars": 121,
+            "latestBar": "2026-11-19T11:19:32.000Z"
+          },
+          "W1": {
+            "source": "Yahoo Finance (USDJPY=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:19:32.000Z"
+          },
+          "D1": {
+            "source": "Yahoo Finance (USDJPY=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T00:00:00.000Z"
+          },
+          "H4": {
+            "source": "Yahoo Finance (USDJPY=X Spot FX)",
+            "bars": 240,
+            "latestBar": "2026-11-19T08:00:00.000Z"
+          },
+          "H1": {
+            "source": "Yahoo Finance (USDJPY=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:18:59.000Z"
+          },
+          "M15": {
+            "source": "Yahoo Finance (USDJPY=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:19:32.000Z"
+          },
+          "M5": {
+            "source": "Yahoo Finance (USDJPY=X Spot FX)",
+            "bars": 260,
+            "latestBar": "2026-11-19T11:19:32.000Z"
+          }
+        }
+      },
+      "dailyBias": "Strong Bullish",
+      "bullishScore": 82,
+      "bearishScore": 0,
+      "netScore": 82,
+      "directionalAlignmentScore": 82,
+      "scoringBreakdown": [
+        {
+          "component": "Higher-Timeframe Structure (MN + W1)",
+          "weightPct": 30,
+          "available": true,
+          "rawScore": 46,
+          "weightedContribution": 13.8,
+          "note": "MN=Bullish (78), W1=Neutral (14)"
+        },
+        {
+          "component": "Daily Structure (D1)",
+          "weightPct": 25,
+          "available": true,
+          "rawScore": 100,
+          "weightedContribution": 25,
+          "note": "D1=Bullish (Ranging)"
+        },
+        {
+          "component": "4H Structure (H4)",
+          "weightPct": 20,
+          "available": true,
+          "rawScore": 100,
+          "weightedContribution": 20,
+          "note": "H4=Bullish (Reversing)"
+        },
+        {
+          "component": "1H Confirmation (H1)",
+          "weightPct": 15,
+          "available": true,
+          "rawScore": 100,
+          "weightedContribution": 15,
+          "note": "H1=Bullish (Trending Bullish)"
+        },
+        {
+          "component": "Momentum & Volatility (RSI / MACD / ADX)",
+          "weightPct": 10,
+          "available": true,
+          "rawScore": 84,
+          "weightedContribution": 8.4,
+          "note": "RSI=62.96, MACD_Hist=0.1666, ADX=10.88 (+DI:20.36/-DI:16.41)"
+        }
+      ],
+      "weightsUsed": {
+        "higherTimeframe": 0.3,
+        "daily": 0.25,
+        "h4": 0.2,
+        "h1": 0.15,
+        "momentumVolatility": 0.1
+      },
+      "timeframeConflicts": [],
+      "mtfTable": [
+        {
+          "timeframe": "MN",
+          "barCount": 121,
+          "sufficient": true,
+          "regime": "Ranging",
+          "directionalLean": "Bullish",
+          "structureScore": 78,
+          "latestEvent": "Bullish BOS @ 158.857",
+          "rsi14": 59.29,
+          "adx14": 13.47,
+          "atr14": 5.327,
+          "emaAlignment": "Bullish (P>20>50)",
+          "premiumDiscountZone": "PREMIUM (83.3%)",
+          "latestTimestamp": "2026-11-19T11:19:32.000Z"
+        },
+        {
+          "timeframe": "W1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Neutral",
+          "structureScore": 14,
+          "latestEvent": "Bearish CHoCH @ 155.256",
+          "rsi14": 55.2,
+          "adx14": 18.39,
+          "atr14": 2.09,
+          "emaAlignment": "Bullish Stack (P>20>50>200)",
+          "premiumDiscountZone": "PREMIUM (65.6%)",
+          "latestTimestamp": "2026-11-19T11:19:32.000Z"
+        },
+        {
+          "timeframe": "D1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Ranging",
+          "directionalLean": "Bullish",
+          "structureScore": 100,
+          "latestEvent": "Bullish BOS @ 158.649",
+          "rsi14": 62.96,
+          "adx14": 10.88,
+          "atr14": 0.924,
+          "emaAlignment": "Bullish Stack (P>20>50>200)",
+          "premiumDiscountZone": "PREMIUM (93.5%)",
+          "latestTimestamp": "2026-11-19T00:00:00.000Z"
+        },
+        {
+          "timeframe": "H4",
+          "barCount": 240,
+          "sufficient": true,
+          "regime": "Reversing",
+          "directionalLean": "Bullish",
+          "structureScore": 100,
+          "latestEvent": "Bullish CHoCH @ 159.652",
+          "rsi14": 66.22,
+          "adx14": 14.33,
+          "atr14": 0.304,
+          "emaAlignment": "Bullish Stack (P>20>50>200)",
+          "premiumDiscountZone": "PREMIUM (81.9%)",
+          "latestTimestamp": "2026-11-19T08:00:00.000Z"
+        },
+        {
+          "timeframe": "H1",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Trending Bullish",
+          "directionalLean": "Bullish",
+          "structureScore": 100,
+          "latestEvent": "Bullish BOS @ 159.401",
+          "rsi14": 74.7,
+          "adx14": 21.51,
+          "atr14": 0.125,
+          "emaAlignment": "Bullish Stack (P>20>50>200)",
+          "premiumDiscountZone": "PREMIUM (96.1%)",
+          "latestTimestamp": "2026-11-19T11:18:59.000Z"
+        },
+        {
+          "timeframe": "M15",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Trending Bullish",
+          "directionalLean": "Bullish",
+          "structureScore": 100,
+          "latestEvent": "Bullish BOS @ 159.615",
+          "rsi14": 69.5,
+          "adx14": 55.8,
+          "atr14": 0.061,
+          "emaAlignment": "Bullish Stack (P>20>50>200)",
+          "premiumDiscountZone": "PREMIUM (94.7%)",
+          "latestTimestamp": "2026-11-19T11:19:32.000Z"
+        },
+        {
+          "timeframe": "M5",
+          "barCount": 260,
+          "sufficient": true,
+          "regime": "Trending Bullish",
+          "directionalLean": "Bullish",
+          "structureScore": 81,
+          "latestEvent": "Bullish BOS @ 159.800",
+          "rsi14": 60.46,
+          "adx14": 30.11,
+          "atr14": 0.034,
+          "emaAlignment": "Bullish Stack (P>20>50>200)",
+          "premiumDiscountZone": "PREMIUM (86.9%)",
+          "latestTimestamp": "2026-11-19T11:19:32.000Z"
+        }
+      ],
+      "marketStructure": {
+        "primaryRegime": "Ranging",
+        "dailySummary": "D1 Ranging | Score 100 | Latest: BOS @ 159.912",
+        "h4Summary": "H4 Reversing | Score 100 | PD: PREMIUM",
+        "h1Summary": "H1 Trending Bullish | Score 100 | RSI 74.7",
+        "recentEvents": [
+          {
+            "type": "CHoCH",
+            "direction": "bullish",
+            "level": 159.652,
+            "timeframe": "H4",
+            "timestamp": "2026-11-19T04:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close below 159.117"
+          },
+          {
+            "type": "BOS",
+            "direction": "bullish",
+            "level": 159.401,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T02:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close below 159.148"
+          },
+          {
+            "type": "BOS",
+            "direction": "bullish",
+            "level": 159.47,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T23:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close below 159.118"
+          },
+          {
+            "type": "CHoCH",
+            "direction": "bearish",
+            "level": 159.342,
+            "timeframe": "H4",
+            "timestamp": "2026-11-17T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close above 160.188"
+          },
+          {
+            "type": "BOS",
+            "direction": "bullish",
+            "level": 158.649,
+            "timeframe": "D1",
+            "timestamp": "2026-11-11T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close below 157.419"
+          },
+          {
+            "type": "CHoCH",
+            "direction": "bullish",
+            "level": 158.244,
+            "timeframe": "D1",
+            "timestamp": "2026-11-04T00:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidation": "Candle close below 156.966"
+          }
+        ]
+      },
+      "liquidity": {
+        "buySide": [
+          {
+            "kind": "BSL",
+            "price": 160.176,
+            "timeframe": "D1",
+            "timestamp": "2026-11-13T00:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 160.176"
+          },
+          {
+            "kind": "BSL",
+            "price": 160.188,
+            "timeframe": "H4",
+            "timestamp": "2026-11-13T04:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 160.188"
+          },
+          {
+            "kind": "EQH",
+            "price": 160.279,
+            "upperBound": 160.383,
+            "lowerBound": 160.176,
+            "timeframe": "D1",
+            "timestamp": "2026-11-13T00:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept above 160.383"
+          },
+          {
+            "kind": "BSL",
+            "price": 160.383,
+            "timeframe": "D1",
+            "timestamp": "2026-09-01T23:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 160.383"
+          },
+          {
+            "kind": "BSL",
+            "price": 163.979,
+            "timeframe": "D1",
+            "timestamp": "2026-07-22T23:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades above 163.979"
+          }
+        ],
+        "sellSide": [
+          {
+            "kind": "EQL",
+            "price": 159.36,
+            "upperBound": 159.364,
+            "lowerBound": 159.356,
+            "timeframe": "H1",
+            "timestamp": "2026-11-16T19:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept below 159.356"
+          },
+          {
+            "kind": "EQL",
+            "price": 159.353,
+            "upperBound": 159.364,
+            "lowerBound": 159.342,
+            "timeframe": "H1",
+            "timestamp": "2026-11-16T12:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept below 159.342"
+          },
+          {
+            "kind": "EQL",
+            "price": 159.349,
+            "upperBound": 159.356,
+            "lowerBound": 159.342,
+            "timeframe": "H1",
+            "timestamp": "2026-11-16T19:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept below 159.342"
+          },
+          {
+            "kind": "EQL",
+            "price": 159.323,
+            "upperBound": 159.342,
+            "lowerBound": 159.303,
+            "timeframe": "H4",
+            "timestamp": "2026-11-16T08:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept below 159.303"
+          },
+          {
+            "kind": "SSL",
+            "price": 159.265,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T01:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 159.265"
+          },
+          {
+            "kind": "SSL",
+            "price": 159.148,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T14:00:00.000Z",
+            "status": "RESTING",
+            "invalidationCondition": "Swept when price trades below 159.148"
+          }
+        ],
+        "recentSweeps": [
+          {
+            "side": "BSL_SWEEP",
+            "sweptLevel": 159.401,
+            "wickExtreme": 159.429,
+            "closePrice": 159.399,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T23:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close above sweep wick high (159.429)"
+          },
+          {
+            "side": "BSL_SWEEP",
+            "sweptLevel": 158.996,
+            "wickExtreme": 159.887,
+            "closePrice": 158.705,
+            "timeframe": "D1",
+            "timestamp": "2026-11-11T00:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close above sweep wick high (159.887)"
+          },
+          {
+            "side": "BSL_SWEEP",
+            "sweptLevel": 158.942,
+            "wickExtreme": 159.887,
+            "closePrice": 158.705,
+            "timeframe": "D1",
+            "timestamp": "2026-11-11T00:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close above sweep wick high (159.887)"
+          },
+          {
+            "side": "BSL_SWEEP",
+            "sweptLevel": 158.649,
+            "wickExtreme": 158.842,
+            "closePrice": 157.983,
+            "timeframe": "D1",
+            "timestamp": "2026-11-10T00:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close above sweep wick high (158.842)"
+          },
+          {
+            "side": "BSL_SWEEP",
+            "sweptLevel": 158.592,
+            "wickExtreme": 158.649,
+            "closePrice": 158.469,
+            "timeframe": "D1",
+            "timestamp": "2026-11-04T00:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close above sweep wick high (158.649)"
+          },
+          {
+            "side": "BSL_SWEEP",
+            "sweptLevel": 158.244,
+            "wickExtreme": 158.576,
+            "closePrice": 157.915,
+            "timeframe": "D1",
+            "timestamp": "2026-11-03T00:00:00.000Z",
+            "status": "INVALIDATED",
+            "invalidationCondition": "Acceptance / close above sweep wick high (158.576)"
+          }
+        ]
+      },
+      "importantZones": {
+        "supports": [
+          {
+            "label": "S1 (D1 Swing Low)",
+            "category": "support",
+            "price": 159.887,
+            "timeframe": "D1",
+            "timestamp": "2026-06-14T23:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 159.887"
+          },
+          {
+            "label": "S1 (H1 Swing Low)",
+            "category": "support",
+            "price": 159.758,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T22:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 159.758"
+          },
+          {
+            "label": "S2 (H1 Swing Low)",
+            "category": "support",
+            "price": 159.643,
+            "timeframe": "H1",
+            "timestamp": "2026-11-13T06:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 159.643"
+          },
+          {
+            "label": "S3 (H1 Swing Low)",
+            "category": "support",
+            "price": 159.53,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T10:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close below 159.530"
+          }
+        ],
+        "resistances": [
+          {
+            "label": "R1 (H1 Swing High)",
+            "category": "resistance",
+            "price": 159.938,
+            "timeframe": "H1",
+            "timestamp": "2026-11-11T17:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 159.938"
+          },
+          {
+            "label": "R2 (H1 Swing High)",
+            "category": "resistance",
+            "price": 159.946,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T07:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 159.946"
+          },
+          {
+            "label": "R1 (D1 Swing High)",
+            "category": "resistance",
+            "price": 160.015,
+            "timeframe": "D1",
+            "timestamp": "2026-04-06T23:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 160.015"
+          },
+          {
+            "label": "R3 (H1 Swing High)",
+            "category": "resistance",
+            "price": 160.044,
+            "timeframe": "H1",
+            "timestamp": "2026-11-12T16:00:00.000Z",
+            "status": "VALIDATED",
+            "invalidationCondition": "Candle close above 160.044"
+          }
+        ],
+        "orderBlocks": [
+          {
+            "direction": "bullish",
+            "low": 159.148,
+            "high": 159.477,
+            "midpoint": 159.313,
+            "timeframe": "H4",
+            "timestamp": "2026-11-18T12:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close below bullish OB low (159.148)"
+          },
+          {
+            "direction": "bullish",
+            "low": 157.892,
+            "high": 158.066,
+            "midpoint": 157.979,
+            "timeframe": "H1",
+            "timestamp": "2026-11-10T08:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close below bullish OB low (157.892)"
+          },
+          {
+            "direction": "bullish",
+            "low": 158.669,
+            "high": 158.734,
+            "midpoint": 158.702,
+            "timeframe": "H1",
+            "timestamp": "2026-11-10T22:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close below bullish OB low (158.669)"
+          },
+          {
+            "direction": "bullish",
+            "low": 158.825,
+            "high": 158.936,
+            "midpoint": 158.88,
+            "timeframe": "H1",
+            "timestamp": "2026-11-11T08:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Close below bullish OB low (158.825)"
+          },
+          {
+            "direction": "bullish",
+            "low": 158.86,
+            "high": 159.096,
+            "midpoint": 158.978,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T09:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close below bullish OB low (158.860)"
+          },
+          {
+            "direction": "bullish",
+            "low": 159.267,
+            "high": 159.333,
+            "midpoint": 159.3,
+            "timeframe": "H1",
+            "timestamp": "2026-11-18T22:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Close below bullish OB low (159.267)"
+          }
+        ],
+        "fairValueGaps": [
+          {
+            "direction": "bullish",
+            "low": 158.252,
+            "high": 158.447,
+            "midpoint": 158.35,
+            "timeframe": "H1",
+            "timestamp": "2026-11-10T14:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (158.252)"
+          },
+          {
+            "direction": "bullish",
+            "low": 158.701,
+            "high": 158.727,
+            "midpoint": 158.714,
+            "timeframe": "H1",
+            "timestamp": "2026-11-10T17:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (158.701)"
+          },
+          {
+            "direction": "bullish",
+            "low": 158.967,
+            "high": 159.012,
+            "midpoint": 158.99,
+            "timeframe": "H1",
+            "timestamp": "2026-11-11T11:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (158.967)"
+          },
+          {
+            "direction": "bullish",
+            "low": 159.157,
+            "high": 159.204,
+            "midpoint": 159.181,
+            "timeframe": "H1",
+            "timestamp": "2026-11-17T12:00:00.000Z",
+            "status": "MITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (159.157)"
+          },
+          {
+            "direction": "bullish",
+            "low": 159.593,
+            "high": 159.69,
+            "midpoint": 159.642,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T08:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (159.593)"
+          },
+          {
+            "direction": "bullish",
+            "low": 159.8,
+            "high": 159.85,
+            "midpoint": 159.825,
+            "timeframe": "H1",
+            "timestamp": "2026-11-19T10:00:00.000Z",
+            "status": "UNMITIGATED",
+            "invalidationCondition": "Candle close below FVG lower bound (159.800)"
+          }
+        ],
+        "premiumDiscount": {
+          "rangeHigh": 160.176,
+          "rangeLow": 156.096,
+          "equilibrium": 158.136,
+          "premiumZone": [
+            158.136,
+            160.176
+          ],
+          "discountZone": [
+            156.096,
+            158.136
+          ],
+          "positionPct": 93.5,
+          "currentZone": "PREMIUM",
+          "timeframe": "D1",
+          "timestamp": "2026-11-19T00:00:00.000Z"
+        }
+      },
+      "keyLevels": [
+        {
+          "label": "R1 (H1 Swing High)",
+          "category": "resistance",
+          "price": 159.938,
+          "timeframe": "H1",
+          "timestamp": "2026-11-11T17:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 159.938"
+        },
+        {
+          "label": "R2 (H1 Swing High)",
+          "category": "resistance",
+          "price": 159.946,
+          "timeframe": "H1",
+          "timestamp": "2026-11-12T07:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close above 159.946"
+        },
+        {
+          "label": "S1 (D1 Swing Low)",
+          "category": "support",
+          "price": 159.887,
+          "timeframe": "D1",
+          "timestamp": "2026-06-14T23:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 159.887"
+        },
+        {
+          "label": "S1 (H1 Swing Low)",
+          "category": "support",
+          "price": 159.758,
+          "timeframe": "H1",
+          "timestamp": "2026-11-12T22:00:00.000Z",
+          "status": "VALIDATED",
+          "invalidationCondition": "Candle close below 159.758"
+        },
+        {
+          "label": "BSL (D1)",
+          "category": "liquidity",
+          "price": 160.176,
+          "timeframe": "D1",
+          "timestamp": "2026-11-13T00:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades above 160.176"
+        },
+        {
+          "label": "BSL (H4)",
+          "category": "liquidity",
+          "price": 160.188,
+          "timeframe": "H4",
+          "timestamp": "2026-11-13T04:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept when price trades above 160.188"
+        },
+        {
+          "label": "EQL (H1)",
+          "category": "liquidity",
+          "price": 159.36,
+          "high": 159.364,
+          "low": 159.356,
+          "timeframe": "H1",
+          "timestamp": "2026-11-16T19:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept below 159.356"
+        },
+        {
+          "label": "EQL (H1)",
+          "category": "liquidity",
+          "price": 159.353,
+          "high": 159.364,
+          "low": 159.342,
+          "timeframe": "H1",
+          "timestamp": "2026-11-16T12:00:00.000Z",
+          "status": "RESTING",
+          "invalidationCondition": "Swept below 159.342"
+        },
+        {
+          "label": "Bullish OB (H1)",
+          "category": "order_block",
+          "price": 158.978,
+          "high": 159.096,
+          "low": 158.86,
+          "timeframe": "H1",
+          "timestamp": "2026-11-17T09:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Close below bullish OB low (158.860)"
+        },
+        {
+          "label": "Bullish OB (H1)",
+          "category": "order_block",
+          "price": 159.3,
+          "high": 159.333,
+          "low": 159.267,
+          "timeframe": "H1",
+          "timestamp": "2026-11-18T22:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Close below bullish OB low (159.267)"
+        },
+        {
+          "label": "Bullish FVG (H1)",
+          "category": "fvg",
+          "price": 159.642,
+          "high": 159.69,
+          "low": 159.593,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T08:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Candle close below FVG lower bound (159.593)"
+        },
+        {
+          "label": "Bullish FVG (H1)",
+          "category": "fvg",
+          "price": 159.825,
+          "high": 159.85,
+          "low": 159.8,
+          "timeframe": "H1",
+          "timestamp": "2026-11-19T10:00:00.000Z",
+          "status": "UNMITIGATED",
+          "invalidationCondition": "Candle close below FVG lower bound (159.800)"
+        }
+      ],
+      "bullishScenario": {
+        "trigger": "Hold above 159.887 demand / confirm 1H BOS above 159.938",
+        "targets": [
+          159.938,
+          160.188
+        ],
+        "rationale": "Requires buyer defense of 159.887 (D1) and expansion toward resting BSL at 160.188."
+      },
+      "bearishScenario": {
+        "trigger": "Break and close H4 candle below 159.887 to shift H4 structure bearish",
+        "targets": [
+          159.887,
+          159.353
+        ],
+        "rationale": "Requires seller defense at 159.938 and liquidity draw into SSL at 159.353."
+      },
+      "invalidationConditions": {
+        "primaryInvalidationPrice": 159.267,
+        "direction": "below",
+        "rule": "H4 or D1 candle close below 159.267 invalidates the bullish structural bias.",
+        "secondaryRules": [
+          "Candle close below 158.860",
+          "Equilibrium threshold sits at 158.136 (Daily 50% level)."
+        ]
+      },
+      "marketConditions": {
+        "volatilityState": "Normal / Balanced",
+        "atrDaily": 0.924,
+        "atrDailyPct": 0.578,
+        "trendStrengthAdx": 10.88,
+        "volumeAssessment": "Spot/Index feed reports zero traded volume for this instrument",
+        "relevantNews": [
+          {
+            "title": "Sterling today: Pound flat as dollar holds firm; UK Gen Z confidence slumps",
+            "source": "Investing.com Forex",
+            "publishedAt": "2026-11-19T10:00:09.000Z",
+            "url": "https://www.investing.com/news/forex-news/sterling-today-pound-flat-as-dollar-holds-firm-uk-gen-z-confidence-slumps-5038221"
+          },
+          {
+            "title": "US Stock Futures Rise as Anthropic Prepares for Record IPO, Fed Signals Rate Hikes and Oil Prices Advance: Dow Jones, S&P, Nasdaq, Wall Street",
+            "source": "Yahoo Finance Energy",
+            "publishedAt": "2026-11-19T10:51:38.000Z",
+            "url": "https://investorshub.advfn.com/market-news/article/40334/us-stock-futures-rise-as-anthropic-prepares-for-record-ipo-fed-signals-rate-hikes-and-oil-prices-advance-dow-jones-sp-nasdaq-wall-street?.tsrc=rss"
+          },
+          {
+            "title": "Euro yields idle near 1-month peaks on hawkish Fed and ECB rhetoric trap",
+            "source": "Investing.com Forex",
+            "publishedAt": "2026-11-19T09:09:11.000Z",
+            "url": "https://www.investing.com/news/forex-news/euro-yields-idle-near-1month-peaks-on-hawkish-fed-and-ecb-rhetoric-trap-5037883"
+          },
+          {
+            "title": "Dollar hits fresh 19-mth peak on hawkish Fed; Aussie slides after weak jobs data",
+            "source": "Yahoo Finance FX",
+            "publishedAt": "2026-11-19T04:45:58.000Z",
+            "url": "https://finance.yahoo.com/markets/currencies/articles/dollar-hits-fresh-19-mth-044558996.html?.tsrc=rss"
+          }
+        ]
+      },
+      "summary": "USDJPY carries a Strong Bullish deterministic daily bias on 2026-11-19 (2026-11-19 NY session) with a 82% directional alignment score (Bullish 82 vs Bearish 0). Higher and intraday structures show constructive alignment. Key invalidation: H4 or D1 candle close below 159.267 invalidates the bullish structural bias.",
+      "aiAnalyst": {
+        "used": false,
+        "model": null,
+        "error": "{\"error\":{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-4-hydrogen, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\nPlease retry in 20h40m26.019343095s.\",\"status\":\"RESOURCE_EXHAUSTED\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.Help\",\"links\":[{\"description\":\"Learn more about Gemini API quotas\",\"url\":\"https://aistudio.google.com/docs/rate-limits\"}]},{\"@type\":\"type.googleapis.com/google.rpc.QuotaFailure\",\"violations\":[{\"description\":\"Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\",\"quotaMetric\":\"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\"quotaId\":\"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\"quotaDimensions\":{\"model\":\"gemini-4-hydrogen\",\"location\":\"global\"},\"quotaValue\":\"20\"}]},{\"@type\":\"type.googleapis.com/google.rpc.RetryInfo\",\"retryDelay\":\"74426s\"}]}}"
+      }
     }
   },
   "intradayUpdates": {
@@ -26004,9 +30909,165 @@
         "m15Score": -78,
         "reason": "Price (50198.17) respects the original Strong Bearish bias parameters."
       }
+    ],
+    "XAUUSD_2026-11-19": [
+      {
+        "id": "XAUUSD_2026-11-19_1795087155580",
+        "snapshotId": "XAUUSD_2026-11-19",
+        "symbol": "XAUUSD",
+        "tradingDate": "2026-11-19",
+        "timestamp": "2026-11-19T11:19:15.580Z",
+        "currentPrice": 3727.82,
+        "priceDeltaFromSnapshot": -0.48,
+        "priceDeltaPct": -0.01,
+        "originalBias": "Strong Bearish",
+        "validityStatus": "VALID",
+        "h1Score": -81,
+        "m15Score": -90,
+        "reason": "Price (3727.82) respects the original Strong Bearish bias parameters."
+      }
+    ],
+    "NASDAQ_2026-11-19": [
+      {
+        "id": "NASDAQ_2026-11-19_1795087157311",
+        "snapshotId": "NASDAQ_2026-11-19",
+        "symbol": "NASDAQ",
+        "tradingDate": "2026-11-19",
+        "timestamp": "2026-11-19T11:19:17.311Z",
+        "currentPrice": 27116.26,
+        "priceDeltaFromSnapshot": 0,
+        "priceDeltaPct": 0,
+        "originalBias": "Strong Bearish",
+        "validityStatus": "VALID",
+        "h1Score": -78,
+        "m15Score": 50,
+        "reason": "Price (27116.26) respects the original Strong Bearish bias parameters."
+      }
+    ],
+    "BTCUSD_2026-11-19": [
+      {
+        "id": "BTCUSD_2026-11-19_1795087158960",
+        "snapshotId": "BTCUSD_2026-11-19",
+        "symbol": "BTCUSD",
+        "tradingDate": "2026-11-19",
+        "timestamp": "2026-11-19T11:19:18.960Z",
+        "currentPrice": 63660.5,
+        "priceDeltaFromSnapshot": 0,
+        "priceDeltaPct": 0,
+        "originalBias": "Strong Bearish",
+        "validityStatus": "WEAKENING",
+        "h1Score": 29,
+        "m15Score": 52,
+        "reason": "1H intraday structure shifted opposite (29) against Strong Bearish daily bias while invalidation (64889.54) remains intact."
+      }
+    ],
+    "EURUSD_2026-11-19": [
+      {
+        "id": "EURUSD_2026-11-19_1795087160619",
+        "snapshotId": "EURUSD_2026-11-19",
+        "symbol": "EURUSD",
+        "tradingDate": "2026-11-19",
+        "timestamp": "2026-11-19T11:19:20.619Z",
+        "currentPrice": 1.1005,
+        "priceDeltaFromSnapshot": 0,
+        "priceDeltaPct": 0,
+        "originalBias": "Strong Bearish",
+        "validityStatus": "WEAKENING",
+        "h1Score": 57,
+        "m15Score": 100,
+        "reason": "1H intraday structure shifted opposite (57) against Strong Bearish daily bias while invalidation (1.10387) remains intact."
+      }
+    ],
+    "GBPUSD_2026-11-19": [
+      {
+        "id": "GBPUSD_2026-11-19_1795087172308",
+        "snapshotId": "GBPUSD_2026-11-19",
+        "symbol": "GBPUSD",
+        "tradingDate": "2026-11-19",
+        "timestamp": "2026-11-19T11:19:32.308Z",
+        "currentPrice": 1.3165,
+        "priceDeltaFromSnapshot": 0,
+        "priceDeltaPct": 0,
+        "originalBias": "Bearish",
+        "validityStatus": "WEAKENING",
+        "h1Score": 38,
+        "m15Score": 71,
+        "reason": "1H intraday structure shifted opposite (38) against Bearish daily bias while invalidation (1.31723) remains intact."
+      }
+    ],
+    "USDJPY_2026-11-19": [
+      {
+        "id": "USDJPY_2026-11-19_1795087174182",
+        "snapshotId": "USDJPY_2026-11-19",
+        "symbol": "USDJPY",
+        "tradingDate": "2026-11-19",
+        "timestamp": "2026-11-19T11:19:34.182Z",
+        "currentPrice": 159.912,
+        "priceDeltaFromSnapshot": 0,
+        "priceDeltaPct": 0,
+        "originalBias": "Strong Bullish",
+        "validityStatus": "VALID",
+        "h1Score": 100,
+        "m15Score": 100,
+        "reason": "Price (159.912) respects the original Strong Bullish bias parameters."
+      }
     ]
   },
   "jobLogs": [
+    {
+      "jobType": "daily_snapshot",
+      "symbol": "USDJPY",
+      "tradingDate": "2026-11-19",
+      "status": "success",
+      "attempts": 1,
+      "id": "job_1795087174273_dv114e",
+      "executedAt": "2026-11-19T11:19:34.273Z"
+    },
+    {
+      "jobType": "daily_snapshot",
+      "symbol": "GBPUSD",
+      "tradingDate": "2026-11-19",
+      "status": "success",
+      "attempts": 1,
+      "id": "job_1795087172475_90dbq9",
+      "executedAt": "2026-11-19T11:19:32.475Z"
+    },
+    {
+      "jobType": "daily_snapshot",
+      "symbol": "EURUSD",
+      "tradingDate": "2026-11-19",
+      "status": "success",
+      "attempts": 1,
+      "id": "job_1795087160672_99z3pz",
+      "executedAt": "2026-11-19T11:19:20.672Z"
+    },
+    {
+      "jobType": "daily_snapshot",
+      "symbol": "BTCUSD",
+      "tradingDate": "2026-11-19",
+      "status": "success",
+      "attempts": 1,
+      "id": "job_1795087159017_xujj0s",
+      "executedAt": "2026-11-19T11:19:19.017Z"
+    },
+    {
+      "jobType": "daily_snapshot",
+      "symbol": "NASDAQ",
+      "tradingDate": "2026-11-19",
+      "status": "success",
+      "attempts": 1,
+      "id": "job_1795087157394_0qgeow",
+      "executedAt": "2026-11-19T11:19:17.394Z"
+    },
+    {
+      "jobType": "daily_snapshot",
+      "symbol": "XAUUSD",
+      "tradingDate": "2026-11-19",
+      "status": "success",
+      "attempts": 1,
+      "id": "job_1795087155638_rc2ley",
+      "executedAt": "2026-11-19T11:19:15.638Z"
+    },
     {
       "jobType": "daily_snapshot",
       "symbol": "US30",

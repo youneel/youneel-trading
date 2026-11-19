@@ -1221,6 +1221,40 @@ function classifyGiveawayDbError(
   };
 }
 
+async function ensureMediaBucketExists(
+  db: any,
+  bucket: string,
+  usingServiceRole: boolean
+): Promise<{ ready: boolean; category: GiveawayDiagnosticCategory; detail: string }> {
+  try {
+    const bucketRes = await db.storage.getBucket(bucket);
+    if (!bucketRes.error) {
+      return { ready: true, category: 'ok', detail: `Bucket "${bucket}" accessible` };
+    }
+    const listRes = await db.storage.from(bucket).list('', { limit: 1 });
+    if (!listRes.error) {
+      return { ready: true, category: 'ok', detail: `Bucket "${bucket}" accessible` };
+    }
+    const firstErr = classifyGiveawayDbError(listRes.error, 'storage');
+    if (firstErr.category === 'missing_storage' && usingServiceRole) {
+      const createRes = await db.storage.createBucket(bucket, {
+        public: true,
+        fileSizeLimit: 5 * 1024 * 1024,
+        allowedMimeTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/avif'],
+      });
+      if (!createRes.error || String(createRes.error?.message || '').toLowerCase().includes('already exists')) {
+        return { ready: true, category: 'ok', detail: `Bucket "${bucket}" auto-initialized` };
+      }
+      const createErr = classifyGiveawayDbError(createRes.error, 'storage');
+      return { ready: false, category: createErr.category, detail: createErr.message };
+    }
+    return { ready: false, category: firstErr.category, detail: firstErr.message };
+  } catch (err: any) {
+    const c = classifyGiveawayDbError(err, 'storage');
+    return { ready: false, category: c.category, detail: c.message };
+  }
+}
+
 async function runGiveawayDiagnostics(
   db: any,
   opts: { usingServiceRole: boolean; authOk: boolean; authDetail?: string }
@@ -1255,28 +1289,10 @@ async function runGiveawayDiagnostics(
     extendedColumnsReady = !extRes.error;
   }
 
-  let storageReady = false;
-  let storageCategory: GiveawayDiagnosticCategory = 'ok';
-  let storageDetail = 'Bucket "giveaway-media" accessible';
-  try {
-    const bucketRes = await db.storage.getBucket('giveaway-media');
-    if (bucketRes.error) {
-      const listRes = await db.storage.from('giveaway-media').list('', { limit: 1 });
-      if (listRes.error) {
-        const c = classifyGiveawayDbError(listRes.error, 'storage');
-        storageCategory = c.category;
-        storageDetail = c.message;
-      } else {
-        storageReady = true;
-      }
-    } else {
-      storageReady = true;
-    }
-  } catch (err: any) {
-    const c = classifyGiveawayDbError(err, 'storage');
-    storageCategory = c.category;
-    storageDetail = c.message;
-  }
+  const bucketCheck = await ensureMediaBucketExists(db, 'giveaway-media', opts.usingServiceRole);
+  const storageReady = bucketCheck.ready;
+  const storageCategory = bucketCheck.category;
+  const storageDetail = bucketCheck.detail;
 
   const allTables = [tGiveaways, tParticipants, tMedia, tWinners];
   const anyMissingTables = allTables.some((t) => t.category === 'missing_tables');
@@ -2508,9 +2524,21 @@ app.post('/api/owner/storage/upload', async (req: Request, res: Response) => {
   const safeBase = rawName.replace(/[^a-z0-9_-]+/gi, '-').toLowerCase().slice(0, 40) || 'asset';
   const storagePath = `${new Date().toISOString().slice(0, 10)}/${Date.now()}-${safeBase}.${ext}`;
 
-  const { error: uploadErr } = await owner.db.storage
+  await ensureMediaBucketExists(owner.db, bucket, owner.usingServiceRole);
+
+  let { error: uploadErr } = await owner.db.storage
     .from(bucket)
     .upload(storagePath, buffer, { contentType: mimeType, upsert: false });
+
+  if (uploadErr && owner.usingServiceRole && classifyGiveawayDbError(uploadErr, 'storage').category === 'missing_storage') {
+    const ensureAgain = await ensureMediaBucketExists(owner.db, bucket, true);
+    if (ensureAgain.ready) {
+      const retry = await owner.db.storage
+        .from(bucket)
+        .upload(storagePath, buffer, { contentType: mimeType, upsert: false });
+      uploadErr = retry.error;
+    }
+  }
 
   if (uploadErr) {
     const classified = classifyGiveawayDbError(uploadErr, 'storage');
